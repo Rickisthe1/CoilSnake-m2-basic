@@ -10,10 +10,10 @@ log = logging.getLogger(__name__)
 class ExpandedTablesModule(EbModule):
     NAME = "Expanded Tables"
     TABLE_OFFSETS = {
-        0xD58D7A: [  # PSI NAMES
-            AsmPointerReference(0x1c423)
+        0xD59D30: [  # PSI NAMES $D58D7A
+            AsmPointerReference(0x1C28D) #$1C423
         ],
-        0xCF8985: [  # NPC Configuration Table
+        0xCF89C1: [  # NPC Configuration Table $CF8985
             AsmPointerReference(0x023E5), # in func C0222B/ Load NPCs
             XlPointerReference(0x0C32E), # in func C0C30C
             AsmPointerReference(0x131CA), # in func C13187/Talk to
@@ -29,9 +29,9 @@ class ExpandedTablesModule(EbModule):
 
     FREE_RANGES = [
         # psi names
-        (from_snes_address(0xD58D7A), from_snes_address(0xD58F23 - 1)),
+        (from_snes_address(0xD59D30), from_snes_address(0xD59DDA - 1)), #$D58F23
         # npc config table
-        (from_snes_address(0xCF8985), from_snes_address(0xCFF2B5 - 1))
+        (from_snes_address(0xCF89C1), from_snes_address(0xCFF2F1 - 1)) #<- Needs overview $CFF2B5 
     ]
 
 
