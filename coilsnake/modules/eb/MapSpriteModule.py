@@ -10,7 +10,7 @@ from coilsnake.util.eb.pointer import from_snes_address, to_snes_address
 class MapSpriteModule(EbModule):
     NAME = "NPC Placements"
 
-    POINTER_TABLE_DEFAULT_OFFSET = 0xCF61E7
+    POINTER_TABLE_DEFAULT_OFFSET = 0xCF6223 #$CF61E7
     POINTER_TABLE_POINTER_OFFSET = 0x2261
 
     def __init__(self):

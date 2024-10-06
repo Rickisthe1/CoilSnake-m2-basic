@@ -9,7 +9,7 @@ from coilsnake.util.eb.pointer import from_snes_address, to_snes_address
 
 
 MAP_MUSIC_ASM_POINTER_OFFSET = 0x6939
-MAP_MUSIC_DEFAULT_OFFSET = 0xCF58EF
+MAP_MUSIC_DEFAULT_OFFSET = 0xCF592B #$CF58EF
 
 
 class MapMusicModule(EbModule):

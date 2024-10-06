@@ -11,26 +11,26 @@ log = logging.getLogger(__name__)
 class MiscTablesModule(EbModule):
     NAME = "Miscellaneous Tables"
     TABLE_OFFSETS = [
-        0xC3FD8D,  # Attract mode text
-        0xD5F645,  # Timed Item Delivery
-        0xE12F8A,  # Photographer
-        0xD5EA77,  # Condiment Table
-        0xD5EBAB,  # Scripted Teleport Destination Table
-        0xD5F2FB,  # Hotspots Table
-        0xC3F2B5,  # Playable Character Graphics Control Table
-        0xD58A50,  # PSI Abilities
-        0xD57B68,  # Battle Actions Table
-        0xD5EA5B,  # Statistic Growth Variables
-        0xD58F49,  # Level-up EXP Table
-        0xD5F5F5,  # Initial Stats Table
-        0xD57880,  # PSI Teleport Destination Table
-        0xD57AAE,  # Phone Contacts Table
-        0xD576B2,  # Store Inventory Table
-        0xD5F4BB,  # Timed Item Transformations
-        0xD5F4CF,  # Don't Care
-        0xD55000,  # Item Data
-        0xC23109,  # Consolation Item
-        0xC3E250,  # Windows
+        0xC3F8C3,  # Attract mode text                          $C3FD8D
+        0xD5F5A5,  # Timed Item Delivery                        $D5F645
+        0xE123E1,  # Photographer                               $E12F8A
+        0xD5E9D7,  # Condiment Table                            $D5EA77
+        0xD5EB0B,  # Scripted Teleport Destination Table        $D5EBAB
+        0xD5F25B,  # Hotspots Table                             $D5F2FB
+        0xC3F02E,  # Playable Character Graphics Control Table  $C3F2B5
+        0xD59A06,  # PSI Abilities                              $D58A50
+        0xD58B1E,  # Battle Actions Table                       $D57B68
+        0xD5E9BB,  # Statistic Growth Variables                 $D5EA5B
+        0xD59E00,  # Level-up EXP Table                         $D58F49
+        0xD5F555,  # Initial Stats Table                        $D5F5F5
+        0xD5899E,  # PSI Teleport Destination Table             $D57880
+        0xD58AC8,  # Phone Contacts Table                       $D57AAE
+        0xD587D0,  # Store Inventory Table                      $D576B2
+        0xD5F41B,  # Timed Item Transformations                 $D5F4BB
+        0xD5F42F,  # Don't Care                                 $D5F4CF
+        0xD57000,  # Item Data                                  $D55000
+        0xC2302E,  # Consolation Item                           $C23109
+        0xC3E23A,  # Windows                                    $C3E250
     ]
 
     def __init__(self):

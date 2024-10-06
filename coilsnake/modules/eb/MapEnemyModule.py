@@ -5,8 +5,8 @@ from coilsnake.modules.eb.EbModule import EbModule
 from coilsnake.util.eb.pointer import from_snes_address
 
 
-GROUP_POINTER_TABLE_OFFSET = 0xD0B880
-GROUP_PLACEMENT_TABLE_OFFSET = 0xD01880
+GROUP_POINTER_TABLE_OFFSET = 0xD0B880 #M2 and EB in-common pointer
+GROUP_PLACEMENT_TABLE_OFFSET = 0xD01880 #M2 and EB in-common pointer
 
 
 class MapEnemyModule(EbModule):

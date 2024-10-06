@@ -6,21 +6,21 @@ eb.CccInterfaceModule
 # eb.SkipNamingModule
 # eb.MiscTextModule
 # eb.StaffModule
-# eb.MapSpriteModule
+eb.MapSpriteModule
 eb.DoorModule
 # eb.SpriteGroupModule
-# eb.MiscTablesModule
-# eb.ExpandedTablesModule
+eb.MiscTablesModule
+eb.ExpandedTablesModule
 # eb.SwirlModule
 # eb.TownMapIconModule
 eb.DeathScreenModule
 # eb.SoundStoneModule
 eb.CastModule
 # eb.AnimationModule
-# eb.MapModule
-# eb.MapEnemyModule
-# eb.MapMusicModule
-# eb.MapEventModule
+eb.MapModule
+eb.MapEnemyModule
+eb.MapMusicModule
+eb.MapEventModule
 # eb.FontModule
 # eb.WindowGraphicsModule
 eb.BattleBgModule
