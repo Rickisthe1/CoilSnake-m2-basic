@@ -3,32 +3,32 @@
 ---
 ...
 ---
-12621144: &id077
+0xC09558: &id077
   entries:
   - name: Pointer
     size: 2
     type: pointer
   name: MOVEMENT_CTRL_CODES_PTR_TABLE
-  offset: 12621144
+  offset: 0xC09558
   size: 154
   type: data
 0xC0B2FF:
   entries:
   - name: Value
     size: 1
-  offset: 12628735
+  offset: 0xC0B2FF
   size: 256
   type: data
-12629029: &id098
+0xC0B425: &id098
   entries:
   - name: Value
     signed: true
     size: 1
   name: SINE_LOOKUP_TABLE
-  offset: 12629029
+  offset: 0xC0B425
   size: 256
   type: data
-12726537: &id023
+0xC2302E: &id023
   entries:
   - name: Enemy ID
     size: 1
@@ -38,19 +38,19 @@
   - name: 'Null'
     size: 1
   name: CONSOLATION_ITEM_TABLE
-  offset: 12726537
+  offset: 0xC2302E
   size: 18
   type: data
-12779520: &id101
+0xC30000: &id101
   entries:
   - name: Palette
     size: 32
     type: palette
   name: SPRITE_GROUP_PALETTES
-  offset: 12779520
+  offset: 0xC30000
   size: 256
   type: data
-12837456: &id137
+0xC3E23A: &id137
   entries:
   - name: X Offset
     size: 2
@@ -61,10 +61,10 @@
   - name: Height
     size: 2
   name: WINDOW_CONFIGURATION_TABLE
-  offset: 12837456
+  offset: 0xC3E23A
   size: 424
   type: data
-12841044: &id055
+0xC3F054: &id055
   entries:
   - name: VWF Pointer
     size: 4
@@ -79,10 +79,10 @@
     size: 2
     type: int
   name: FONT_PTR_TABLE
-  offset: 12841044
+  offset: 0xC3F054
   size: 60
   type: data
-12841653: &id085
+0xC3F02E: &id085
   entries:
   - name: Default Sprite Group
     size: 2
@@ -101,24 +101,24 @@
   - name: Unknown
     size: 2
   name: PLAYABLE_CHAR_GFX_TABLE
-  offset: 12841653
+  offset: 0xC3F02E
   size: 272
   type: data
-12844429: &id002
+0xC3F8C3: &id002
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: ATTRACT_MODE_TXT
-  offset: 12844429
+  offset: 0xC3F8C3
   size: 40
   type: data
-12844477: &id135
+0xC3FDBD: &id135
   entries:
   - name: Sprite
     size: 2
   name: UNUSED_FORSALE_SIGN_SPRITE_TABLE
-  offset: 12844477
+  offset: 0xC3FDBD
   size: 8
   type: data
 0xC400D4:
@@ -127,7 +127,7 @@
     size: 3
     type: pointer
   name: MOVEMENT_VALUE_POINTER_TABLE
-  offset: 12845268
+  offset: 0xC400D4
   size: 2685
   type: data
 0xC42B0D:
@@ -135,60 +135,60 @@
   - name: Pointer
     size: 4
     type: pointer
-  offset: 12856077
+  offset: 0xC42B0D
   size: 68
   type: data
-12868746: &id057
+0xC45C8A: &id057
   entries:
   - name: Probability
     size: 1
   name: HOMESICKNESS_PROBABILITY
-  offset: 12868746
+  offset: 0xC45C8A
   size: 6
   type: data
-12886157: &id024
+0xC4A08D: &id024
   entries:
   - name: Action ID
     size: 2
   name: DEAD_TARGETTABLE_ACTIONS
-  offset: 12886157
+  offset: 0xC4A08D
   size: 66
   type: data
-12886649: &id086
+0xC4A279: &id086
   entries:
   - name: Entry
     size: 4
   name: POWERS_OF_TWO
-  offset: 12886649
+  offset: 0xC4A279
   size: 128
   type: data
-12886777: &id087
+0xC4A2F9: &id087
   entries:
   - name: Prayer
     size: 1
   name: PRAYER_LIST
-  offset: 12886777
+  offset: 0xC4A2F9
   size: 16
   type: data
-12886793: &id088
+0xC4A309: &id088
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: PRAYER_TEXT_PTRS
-  offset: 12886793
+  offset: 0xC4A309
   size: 40
   type: data
-12894302: &id054
+0xC4C05E: &id054
   entries:
   - name: Text
     size: 67
     type: standardtext
   name: FILE_SELECT_TEXT
-  offset: 12894302
+  offset: 0xC4C05E
   size: 640
   type: data
-12908298: &id079
+0xC4F70A: &id079
   entries:
   - name: Sample Set 1
     size: 1
@@ -206,82 +206,82 @@
     values:
       255: None
   name: MUSIC_DATASET_TABLE
-  offset: 12908298
+  offset: 0xC4F70A
   size: 573
   type: data
-12908871: &id080
+0xC4F947: &id080
   entries:
   - name: Unknown
     size: 3
     type: hilomid pointer
   name: MUSIC_PACK_POINTER_TABLE
-  offset: 12908871
+  offset: 0xC4F947
   size: 507
   type: data
-12917522: &id110
+0xC51B12: &id110
   entries:
   - name: Text
     terminator: 2
     type: standardtext
   name: TEXT_DATA
-  offset: 12917522
+  offset: 0xC51B12
   size: 237851
   type: data
-13155373: &id020
+0xC8BC2D: &id020
   entries:
   - name: Text
     terminator: 0
     type: standardtext
   name: COMPRESSED_TEXT_DATA
-  offset: 13155373
+  offset: 0xC8BC2D
   size: 4544
   type: data
-13159917: &id021
+0xC8CDED: &id021
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: COMPRESSED_TEXT_PTRS
-  offset: 13159917
+  offset: 0xC8CDED
   size: 3072
   type: data
-13162989: &id111
+0xC8D9ED: &id111
   entries:
   - name: Text
     terminator: 2
     type: standardtext
   name: TEXT_DATA_2
-  offset: 13162989
+  offset: 0xC8D9ED
   size: 75074
   type: data
-13293473: &id009
+0xCAD7A1: &id009
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: BATTLEBG_GFX_POINTERS
-  offset: 13293473
+  offset: 0xCAD7A1
   size: 412
   type: data
-13293885: &id008
+0xCAD93D: &id008
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: BATTLEBG_ARR_POINTERS
-  offset: 13293885
+  offset: 0xCAD93D
   size: 412
   type: data
-13294297: &id010
+0xCADAD9: &id010
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: BATTLEBG_PALETTE_POINTERS
-  offset: 13294297
+  offset: 0xCADAD9
   size: 456
   type: data
-13294753: &id014
+0xCADCA1: &id014
   entries:
   - name: Graphics and Arrangement
     size: 1
@@ -323,10 +323,10 @@
   - name: Distortion 4
     size: 1
   name: BG_DATA_TABLE
-  offset: 13294753
+  offset: 0xCADCA1
   size: 5559
   type: data
-13300312: &id016
+0xCAF258: &id016
   entries:
   - name: Duration
     size: 2
@@ -343,10 +343,10 @@
     signed: true
     size: 2
   name: BG_SCROLLING_TABLE
-  offset: 13300312
+  offset: 0xCAF258
   size: 1200
   type: data
-13301512: &id015
+0xCAF708: &id015
   entries:
   - name: Unknown A
     size: 2
@@ -377,20 +377,20 @@
   - name: Unknown D
     size: 2
   name: BG_DISTORTION_TABLE
-  offset: 13301512
+  offset: 0xCAF708
   size: 2295
   type: data
-13359258: &id017
+0xCBD89A: &id017
   entries:
   - name: Background 1
     size: 2
   - name: Background 2
     size: 2
   name: BTL_ENTRY_BG_TABLE
-  offset: 13359258
+  offset: 0xCBD89A
   size: 1936
   type: data
-13381089: &id001
+0xCC2DE1: &id001
   entries:
   - name: Pointer
     size: 4
@@ -403,12 +403,12 @@
   - name: Unknown
     size: 1
   name: ANIMATION_SEQUENCE_POINTERS
-  offset: 13381089
+  offset: 0xCC2DE1
   size: 56
   type: data
-13430861: &id090
+0xCCF04D: &id090
   entries:
-  - base: 13369344
+  - base: 0xCC0000
     name: Short pointer to tileset
     size: 2
     type: pointer
@@ -430,28 +430,28 @@
     size: 2
     type: palette
   name: PSI_ANIM_CFG
-  offset: 13430861
+  offset: 0xCCF04D
   size: 408
   type: data
-13431935: &id091
+0xCCF47F: &id091
   entries:
   - name: Palette
     size: 16
     type: palette
   name: PSI_ANIM_PALETTES
-  offset: 13431935
+  offset: 0xCCF47F
   size: 272
   type: data
-13432207: &id092
+0xCCF58F: &id092
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: PSI_ANIM_POINTERS
-  offset: 13432207
+  offset: 0xCCF58F
   size: 136
   type: data
-13432343: &id007
+0xCCF617: &id007
   entries:
   - name: Size
     size: 2
@@ -463,20 +463,20 @@
     size: Size-4
     type: bytearray
   name: AUDIO_PACK_71
-  offset: 13432343
+  offset: 0xCCF617
   size: 2494
   terminator: 0
   type: data
-13434837: &id134
+0xCCFFD5: &id134
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: UNKNOWN_PTR_CCFFD5
-  offset: 13434837
+  offset: 0xCCFFD5
   size: 4
   type: data
-13525742: &id012
+0xCE62EE: &id012
   entries:
   - name: Pointer
     size: 4
@@ -492,26 +492,26 @@
     - 128x64
     - 128x128
   name: BATTLE_SPRITES_POINTERS
-  offset: 13525742
+  offset: 0xCE62EE
   size: 550
   type: data
-13526292: &id013
+0xCE6514: &id013
   entries:
   - name: Palette
     size: 32
     type: palette
   name: BATTLE_SPRITE_PALETTES
-  offset: 13526292
+  offset: 0xCE6514
   size: 1024
   type: data
-13556805: &id107
+0xCEDC45: &id107
   entries:
-  - base: 13500416
+  - base: 0xCE0000
     name: Pointer
     size: 2
     type: pointer
   name: SWIRL_POINTER_TABLE
-  offset: 13556805
+  offset: 0xCEDC45
   size: 252
   type: data
 0xCEDD41:
@@ -523,19 +523,19 @@
   - name: Number of Animations
     size: 2
   name: SWIRL_ANIMATION_PRIMARY_TABLE
-  offset: 0xCEDD41
+  offset: 0x000000
   size: 28
   type: data
-13563910: &id099
+0xCEF806: &id099
   entries:
   - name: Palette
     size: 32
     type: palette
   name: SOUND_STONE_PALETTE
-  offset: 13563910
+  offset: 0xCEF806
   size: 192
   type: data
-13565952: &id027
+0xCF0000: &id027
   entries:
   - name: Pointer
     size: 4
@@ -550,19 +550,19 @@
   - name: Style
     size: 1
   name: DOOR_DEST_TABLE_1
-  offset: 13565952
+  offset: 0xCF0000
   size: 1408
   type: data
-13567360: &id096
+0xCF0580: &id096
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: SIGN_POINTERS_1
-  offset: 13567360
+  offset: 0xCF0580
   size: 44
   type: data
-13567404: &id038
+0xCF05AC: &id038
   entries:
   - name: Pointer
     size: 4
@@ -577,19 +577,19 @@
   - name: Style
     size: 1
   name: DOOR_DEST_TABLE_2
-  offset: 13567404
+  offset: 0xCF05AC
   size: 44
   type: data
-13567448: &id097
+0xCF05D8: &id097
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: SIGN_POINTERS_2
-  offset: 13567448
+  offset: 0xCF05D8
   size: 32
   type: data
-13567480: &id040
+0xCF05F8: &id040
   entries:
   - name: Pointer
     size: 4
@@ -604,19 +604,19 @@
   - name: Style
     size: 1
   name: DOOR_DEST_TABLE_3
-  offset: 13567480
+  offset: 0xCF05F8
   size: 44
   type: data
-13567524: &id120
+0xCF0624: &id120
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: UNKNOWN_DPOINTERS_1
-  offset: 13567524
+  offset: 0xCF0624
   size: 36
   type: data
-13567560: &id041
+0xCF0648: &id041
   entries:
   - name: Pointer
     size: 4
@@ -631,19 +631,19 @@
   - name: Style
     size: 1
   name: DOOR_DEST_TABLE_4
-  offset: 13567560
+  offset: 0xCF0648
   size: 847
   type: data
-13568407: &id126
+0xCF0997: &id126
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: UNKNOWN_DPOINTERS_2
-  offset: 13568407
+  offset: 0xCF0997
   size: 32
   type: data
-13568439: &id042
+0xCF09B7: &id042
   entries:
   - name: Pointer
     size: 4
@@ -658,19 +658,19 @@
   - name: Style
     size: 1
   name: DOOR_DEST_TABLE_5
-  offset: 13568439
+  offset: 0xCF09B7
   size: 275
   type: data
-13568714: &id127
+0xCF0ACA: &id127
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: UNKNOWN_DPOINTERS_3
-  offset: 13568714
+  offset: 0xCF0ACA
   size: 8
   type: data
-13568722: &id043
+0xCF0AD2: &id043
   entries:
   - name: Pointer
     size: 4
@@ -685,19 +685,19 @@
   - name: Style
     size: 1
   name: DOOR_DEST_TABLE_6
-  offset: 13568722
+  offset: 0xCF0AD2
   size: 781
   type: data
-13569503: &id128
+0xCF0DDF: &id128
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: UNKNOWN_DPOINTERS_4
-  offset: 13569503
+  offset: 0xCF0DDF
   size: 8
   type: data
-13569511: &id044
+0xCF0DE7: &id044
   entries:
   - name: Pointer
     size: 4
@@ -712,19 +712,19 @@
   - name: Style
     size: 1
   name: DOOR_DEST_TABLE_7
-  offset: 13569511
+  offset: 0xCF0DE7
   size: 77
   type: data
-13569588: &id129
+0xCF0E34: &id129
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: UNKNOWN_DPOINTERS_5
-  offset: 13569588
+  offset: 0xCF0E34
   size: 36
   type: data
-13569624: &id045
+0xCF0E58: &id045
   entries:
   - name: Pointer
     size: 4
@@ -739,19 +739,19 @@
   - name: Style
     size: 1
   name: DOOR_DEST_TABLE_8
-  offset: 13569624
+  offset: 0xCF0E58
   size: 154
   type: data
-13569778: &id130
+0xCF0EF2: &id130
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: UNKNOWN_DPOINTERS_6
-  offset: 13569778
+  offset: 0xCF0EF2
   size: 4
   type: data
-13569782: &id046
+0xCF0EF6: &id046
   entries:
   - name: Pointer
     size: 4
@@ -766,19 +766,19 @@
   - name: Style
     size: 1
   name: DOOR_DEST_TABLE_9
-  offset: 13569782
+  offset: 0xCF0EF6
   size: 902
   type: data
-13570684: &id131
+0xCF127C: &id131
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: UNKNOWN_DPOINTERS_7
-  offset: 13570684
+  offset: 0xCF127C
   size: 4
   type: data
-13570688: &id028
+0xCF1280: &id028
   entries:
   - name: Pointer
     size: 4
@@ -793,19 +793,19 @@
   - name: Style
     size: 1
   name: DOOR_DEST_TABLE_10
-  offset: 13570688
+  offset: 0xCF1280
   size: 297
   type: data
-13570985: &id132
+0xCF13A9: &id132
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: UNKNOWN_DPOINTERS_8
-  offset: 13570985
+  offset: 0xCF13A9
   size: 4
   type: data
-13570989: &id029
+0xCF13AD: &id029
   entries:
   - name: Pointer
     size: 4
@@ -820,19 +820,19 @@
   - name: Style
     size: 1
   name: DOOR_DEST_TABLE_11
-  offset: 13570989
+  offset: 0xCF13AD
   size: 1991
   type: data
-13572980: &id133
+0xCF1B74: &id133
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: UNKNOWN_DPOINTERS_9
-  offset: 13572980
+  offset: 0xCF1B74
   size: 12
   type: data
-13572992: &id030
+0xCF1B80: &id030
   entries:
   - name: Pointer
     size: 4
@@ -847,19 +847,19 @@
   - name: Style
     size: 1
   name: DOOR_DEST_TABLE_12
-  offset: 13572992
+  offset: 0xCF1B80
   size: 11
   type: data
-13573003: &id121
+0xCF1B8B: &id121
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: UNKNOWN_DPOINTERS_10
-  offset: 13573003
+  offset: 0xCF1B8B
   size: 24
   type: data
-13573027: &id031
+0xCF1BA3: &id031
   entries:
   - name: Pointer
     size: 4
@@ -874,19 +874,19 @@
   - name: Style
     size: 1
   name: DOOR_DEST_TABLE_13
-  offset: 13573027
+  offset: 0xCF1BA3
   size: 528
   type: data
-13573555: &id122
+0xCF1DB3: &id122
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: UNKNOWN_DPOINTERS_11
-  offset: 13573555
+  offset: 0xCF1DB3
   size: 32
   type: data
-13573587: &id032
+0xCF1DD3: &id032
   entries:
   - name: Pointer
     size: 4
@@ -901,19 +901,19 @@
   - name: Style
     size: 1
   name: DOOR_DEST_TABLE_14
-  offset: 13573587
+  offset: 0xCF1DD3
   size: 22
   type: data
-13573609: &id123
+0xCF1DE9: &id123
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: UNKNOWN_DPOINTERS_12
-  offset: 13573609
+  offset: 0xCF1DE9
   size: 12
   type: data
-13573621: &id033
+0xCF1DF5: &id033
   entries:
   - name: Pointer
     size: 4
@@ -928,10 +928,10 @@
   - name: Style
     size: 1
   name: DOOR_DEST_TABLE_15
-  offset: 13573621
+  offset: 0xCF1DF5
   size: 341
   type: data
-13573996: &id034
+0xCF1F6C: &id034
   entries:
   - name: Pointer
     size: 4
@@ -946,10 +946,10 @@
   - name: Style
     size: 1
   name: DOOR_DEST_TABLE_16
-  offset: 13573996
+  offset: 0xCF1F6C
   size: 374
   type: data
-13574391: &id035
+0xCF20F7: &id035
   entries:
   - name: Pointer
     size: 4
@@ -964,19 +964,19 @@
   - name: Style
     size: 1
   name: DOOR_DEST_TABLE_17
-  offset: 13574391
+  offset: 0xCF20F7
   size: 242
   type: data
-13574633: &id048
+0xCF21E9: &id048
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: DUNGEON_MAN_SIGN_POINTERS
-  offset: 13574633
+  offset: 0xCF21E9
   size: 176
   type: data
-13574809: &id036
+0xCF2299: &id036
   entries:
   - name: Pointer
     size: 4
@@ -991,19 +991,19 @@
   - name: Style
     size: 1
   name: DOOR_DEST_TABLE_18
-  offset: 13574809
+  offset: 0xCF2299
   size: 286
   type: data
-13575095: &id124
+0xCF23B7: &id124
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: UNKNOWN_DPOINTERS_15
-  offset: 13575095
+  offset: 0xCF23B7
   size: 12
   type: data
-13575107: &id037
+0xCF23C3: &id037
   entries:
   - name: Pointer
     size: 4
@@ -1018,19 +1018,19 @@
   - name: Style
     size: 1
   name: DOOR_DEST_TABLE_19
-  offset: 13575107
+  offset: 0xCF23C3
   size: 484
   type: data
-13575591: &id125
+0xCF25A7: &id125
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: UNKNOWN_DPOINTERS_16
-  offset: 13575591
+  offset: 0xCF25A7
   size: 24
   type: data
-13575615: &id039
+0xCF25BF: &id039
   entries:
   - name: Pointer
     size: 4
@@ -1045,30 +1045,30 @@
   - name: Style
     size: 1
   name: DOOR_DEST_TABLE_20
-  offset: 13575615
+  offset: 0xCF25BF
   size: 143
   type: data
-13588719: &id082
+0xCF592B: &id082
   entries:
-  - base: 13565952
+  - base: 0xCF0000
     name: Pointer
     size: 2
     type: pointer
   name: OVERWORLD_EVENT_MUSIC_PTR_TABLE
-  offset: 13588719
+  offset: 0xCF592B
   size: 330
   type: data
-13591015: &id102
+0xCF6223: &id102
   entries:
-  - base: 13565952
+  - base: 0xCF0000
     name: Pointer
     size: 2
     type: pointer
   name: SPRITE_PLACEMENT_PTR_TABLE
-  offset: 13591015
+  offset: 0xCF6223
   size: 2560
   type: data
-13601157: &id081
+0xCF89C1: &id081
   entries:
   - name: Type
     size: 1
@@ -1108,19 +1108,19 @@
     size: 4
     type: pointer
   name: NPC_CONFIG_TABLE
-  offset: 13601157
+  offset: 0xCF89C1
   size: 26928
   type: data
-13631488: &id047
+0xD00000: &id047
   entries:
   - name: Door Pointer
     size: 4
     type: pointer
   name: DOOR_POINTER_TABLE
-  offset: 13631488
+  offset: 0xD00000
   size: 5120
   type: data
-13636608: &id095
+0xD01400: &id095
   entries:
   - name: Duration
     size: 1
@@ -1147,37 +1147,37 @@
   - name: Final Sound effect
     size: 1
   name: SCREEN_TRANSITION_CONFIG_TABLE
-  offset: 13636608
+  offset: 0xD01400
   size: 408
   type: data
-13637016: &id051
+0xD01598: &id051
   entries:
-  - base: 13631488
+  - base: 0xD00000
     name: Pointer
     size: 2
     type: pointer
   name: EVENT_CONTROL_PTR_TABLE
-  offset: 13637016
+  offset: 0xD01598
   size: 40
   type: data
-13637760: &id074
+0xD01880: &id074
   entries:
   - name: Enemy Map Group
     size: 2
   name: MAP_ENEMY_PLACEMENT
-  offset: 13637760
+  offset: 0xD01880
   size: 40960
   type: data
-13678720: &id050
+0xD0B880: &id050
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: ENEMY_PLACEMENT_GROUPS_PTR_TABLE
-  offset: 13678720
+  offset: 0xD0B880
   size: 812
   type: data
-13682189: &id018
+0xD0C60D: &id018
   entries:
   - name: Pointer
     size: 4
@@ -1193,20 +1193,20 @@
   - name: Letterbox Size
     size: 1
   name: BTL_ENTRY_PTR_TABLE
-  offset: 13682189
+  offset: 0xD0C60D
   size: 3872
   type: data
-13697024: &id083
+0xD10000: &id083
   entries:
   - bpp: 4
     name: Tile
     size: 16
     type: tile
   name: OVERWORLD_SPRITES
-  offset: 13697024
+  offset: 0xD10000
   size: 280000
   type: data
-13979648: &id059
+0xD57000: &id059
   entries:
   - name: Name
     size: 25
@@ -1236,10 +1236,10 @@
     size: 4
     type: pointer
   name: ITEM_CONFIGURATION_TABLE
-  offset: 13979648
+  offset: 0xD57000
   size: 9906
   type: data
-13989554: &id106
+0xD587D0: &id106
   entries:
   - name: Item 1
     size: 1
@@ -1256,10 +1256,10 @@
   - name: Item 7
     size: 1
   name: STORE_TABLE
-  offset: 13989554
+  offset: 0xD587D0
   size: 462
   type: data
-13990016: &id094
+0xD5899E: &id094
   entries:
   - name: Name
     size: 25
@@ -1272,10 +1272,10 @@
   - name: Y
     size: 2
   name: PSI_TELEPORT_DEST_TABLE
-  offset: 13990016
+  offset: 0xD5899E
   size: 496
   type: data
-13990574: &id108
+0xD58AC8: &id108
   entries:
   - name: Name
     size: 25
@@ -1287,10 +1287,10 @@
     size: 4
     type: pointer
   name: TELEPHONE_CONTACTS_TABLE
-  offset: 13990574
+  offset: 0xD58AC8
   size: 186
   type: data
-13990760: &id011
+0xD58B1E: &id011
   entries:
   - name: Direction
     size: 1
@@ -1323,10 +1323,10 @@
     size: 4
     type: pointer
   name: BATTLE_ACTION_TABLE
-  offset: 13990760
+  offset: 0xD58B1E
   size: 3816
   type: data
-13994576: &id089
+0xD59A06: &id089
   entries:
   - name: PSI Name
     size: 1
@@ -1372,19 +1372,19 @@
     size: 4
     type: pointer
   name: PSI_ABILITY_TABLE
-  offset: 13994576
+  offset: 0xD59A06
   size: 810
   type: data
-13995386: &id093
+0xD59D30: &id093
   entries:
   - name: Name
     size: 25
     type: standardtext
   name: PSI_NAME_TABLE
-  offset: 13995386
+  offset: 0xD59D30
   size: 425
   type: data
-13995849: &id052
+0xD59E00: &id052
   entries:
   - name: Level 00 EXP
     size: 4
@@ -1587,10 +1587,10 @@
   - name: Level 99 EXP
     size: 4
   name: EXP_TABLE
-  offset: 13995849
+  offset: 0xD59E00
   size: 1600
   type: data
-13997449: &id049
+0xD5A440: &id049
   entries:
   - name: '"The" Flag'
     size: 1
@@ -1763,10 +1763,10 @@
   - name: Mirror Success Rate
     size: 1
   name: ENEMY_CONFIGURATION_TABLE
-  offset: 13997449
+  offset: 0xD5A440
   size: 21714
   type: data
-14019163: &id105
+0xD5E9BB: &id105
   entries:
   - name: Offense
     size: 1
@@ -1783,10 +1783,10 @@
   - name: Luck
     size: 1
   name: STATS_GROWTH_VARS
-  offset: 14019163
+  offset: 0xD5E9BB
   size: 28
   type: data
-14019191: &id022
+0xD5E9D7: &id022
   entries:
   - name: food
     size: 1
@@ -1814,10 +1814,10 @@
   - name: run time
     size: 1
   name: CONDIMENT_TABLE
-  offset: 14019191
+  offset: 0xD5E9D7
   size: 308
   type: data
-14019499: &id109
+0xD5EB0B: &id109
   entries:
   - name: X
     size: 2
@@ -1830,10 +1830,10 @@
   - name: Unknown
     size: 2
   name: TELEPORT_DESTINATION_TABLE
-  offset: 14019499
+  offset: 0xD5EB0B
   size: 1872
   type: data
-14021371: &id075
+0xD5F25B: &id075
   entries:
   - name: X1
     size: 2
@@ -1844,10 +1844,10 @@
   - name: Y2
     size: 2
   name: MAP_HOTSPOTS
-  offset: 14021371
+  offset: 0xD5F25B
   size: 448
   type: data
-14021819: &id116
+0xD5F41B: &id116
   entries:
   - name: Item ID
     size: 1
@@ -1860,10 +1860,10 @@
   - name: Delay
     size: 1
   name: TIMED_ITEM_TRANSFORMATION_TABLE
-  offset: 14021819
+  offset: 0xD5F41B
   size: 20
   type: data
-14021839: &id026
+0xD5F42F: &id026
   entries:
   - name: Name 1
     size: 6
@@ -1887,10 +1887,10 @@
     size: 6
     type: standardtext
   name: DONT_CARE_NAMES
-  offset: 14021839
+  offset: 0xD5F42F
   size: 294
   type: data
-14022133: &id058
+0xD5F555: &id058
   entries:
   - name: Unknown
     size: 4
@@ -1905,10 +1905,10 @@
     size: 10
     type: bytearray
   name: INITIAL_STATS
-  offset: 14022133
+  offset: 0xD5F555
   size: 80
   type: data
-14022213: &id115
+0xD5F5A5: &id115
   entries:
   - name: Sprite Group
     size: 2
@@ -1930,101 +1930,101 @@
     size: 4
     type: bytearray
   name: TIMED_DELIVERY_TABLE
-  offset: 14022213
+  offset: 0xD5F5A5
   size: 200
   type: data
-14024704: &id071
+0xD60000: &id071
   entries:
   - name: Line
     size: 256
     type: bytearray
   name: MAP_DATA_TILE_TABLE
-  offset: 14024704
+  offset: 0xD60000
   size: 86016
   type: data
-14133248: &id056
+0xD7A800: &id056
   entries:
   - name: Value
     size: 1
   name: GLOBAL_MAP_TILESETPALETTE_DATA
-  offset: 14133248
+  offset: 0xD7A800
   size: 2560
   type: data
-14135808: &id063
+0xD7B200: &id063
   entries:
   - name: Bitfield
     size: 1
   - name: Item ID
     size: 1
   name: MAP_DATA_PER-SECTOR_ATTRIBUTES_TABLE
-  offset: 14135808
+  offset: 0xD7B200
   size: 5120
   type: data
-14192464: &id069
+0xD88F50: &id069
   entries:
-  - base: 14155776
+  - base: 0xD80000
     name: Pointer
     size: 2
     type: pointer
   name: MAP_DATA_TILE_COLLISION_ARRANGEMENT_POINTER_TABLE
-  offset: 14192464
+  offset: 0xD88F50
   size: 24846
   type: data
-14218174: &id136
+0xD8F3BE: &id136
   entries:
   - name: Palette
     size: 8
     type: palette
   name: WARNING_PALETTE
-  offset: 14218174
+  offset: 0xD8F3BE
   size: 8
   type: data
-14218182: &id053
+0xD8F3C6: &id053
   entries:
   - name: Tile
     size: 1
   - name: Misc
     size: 1
   name: FAULTY_GAME_PAK_ARRANGEMENT
-  offset: 14218182
+  offset: 0xD8F3C6
   size: 510
   type: data
-14318759: &id061
+0xDA7CA7: &id061
   entries:
   - name: Palette
     size: 32
     type: palette
   name: MAP_DATA_PALETTES
-  offset: 14318759
+  offset: 0xDA7CA7
   size: 32256
   type: data
-14351015: &id072
+0xDAFAA7: &id072
   entries:
   - name: Pointer
     size: 3
     type: pointer
   name: MAP_DATA_UNKNOWN_PALETTE_PTR_TABLE
-  offset: 14351015
+  offset: 0xDAFAA7
   size: 96
   type: data
-14472759: &id064
+0xDCD637: &id064
   entries:
   - name: Music
     size: 1
   name: MAP_DATA_PER-SECTOR_MUSIC
-  offset: 14472759
+  offset: 0xDCD637
   size: 2560
   type: data
-14673121: &id062
+0xDFE4E1: &id062
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: MAP_DATA_PALETTE_ANIM_POINTER_TABLE
-  offset: 14673121
+  offset: 0xDFE4E1
   size: 124
   type: data
-14675014: &id006
+0xDFEC46: &id006
   entries:
   - name: Size
     size: 2
@@ -2036,11 +2036,11 @@
     size: Size-4
     type: bytearray
   name: AUDIO_PACK_4
-  offset: 14675014
+  offset: 0xDFEC46
   size: 5050
   terminator: 0
   type: data
-14688200: &id113
+0xE01FC8: &id113
   entries:
   - name: Text Palette
     size: 8
@@ -2067,28 +2067,28 @@
     size: 8
     type: palette
   name: TEXT_WINDOW_FLAVOUR_PALETTES
-  offset: 14688200
+  offset: 0xE01FC8
   size: 448
   type: data
-14688648: &id078
+0xE02188: &id078
   entries:
   - name: Palette
     size: 8
     type: palette
   name: MOVEMENT_TEXT_STRING_PALETTE
-  offset: 14688648
+  offset: 0xE02188
   size: 8
   type: data
-14688656: &id117
+0xE02190: &id117
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: TOWN_MAP_GFX_POINTER_TABLE
-  offset: 14688656
+  offset: 0xE02190
   size: 24
   type: data
-14757770: &id084
+0xE123E1: &id084
   entries:
   - name: Event Flag
     size: 2
@@ -2105,46 +2105,46 @@
     size: 54
     type: bytearray
   name: PHOTOGRAPHER_CFG_TABLE
-  offset: 14757770
+  offset: 0xE123E1
   size: 1984
   type: data
-14762303: &id104
+0xE1413F: &id104
   entries:
   - name: Text
     terminator: 0
     type: stafftext
   name: STAFF_TEXT
-  offset: 14762303
+  offset: 0xE1413F
   size: 3241
   type: data
-14805268: &id103
+0xE1E914: &id103
   entries:
   - name: Palette
     size: 8
     type: palette
   name: STAFF_CREDITS_FONT_PALETTE
-  offset: 14805268
+  offset: 0xE1E914
   size: 16
   type: data
-14807491: &id118
+0xE1F1C3: &id118
   entries:
   - name: Palette
     size: 32
     type: palette
   name: TOWN_MAP_ICON_PALETTE
-  offset: 14807491
+  offset: 0xE1F1C3
   size: 64
   type: data
-14808209: &id119
+0xE1F491: &id119
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: TOWN_MAP_ICON_PLACEMENT_PTR_TABLE
-  offset: 14808209
+  offset: 0xE1F491
   size: 24
   type: data
-15073280: &id003
+0xE60000: &id003
   entries:
   - name: Size
     size: 2
@@ -2156,11 +2156,11 @@
     size: Size-4
     type: bytearray
   name: AUDIO_PACK_1
-  offset: 15073280
+  offset: 0xE60000
   size: 17880
   terminator: 0
   type: data
-15400587: &id005
+0xEAFE8B: &id005
   entries:
   - name: Size
     size: 2
@@ -2172,10 +2172,10 @@
     size: Size-4
     type: bytearray
   name: AUDIO_PACK_145
-  offset: 15400587
+  offset: 0xEAFE8B
   size: 340
   type: data
-15618790: &id004
+0xEE52E6: &id004
   entries:
   - name: Size
     size: 2
@@ -2187,101 +2187,101 @@
     size: Size-4
     type: bytearray
   name: AUDIO_PACK_103
-  offset: 15618790
+  offset: 0xEE52E6
   size: 1017
   terminator: 0
   type: data
-15667227: &id114
+0xEF101B: &id114
   entries:
   - name: Tileset
     size: 2
     type: hexint
   name: TILESET_TABLE
-  offset: 15667227
+  offset: 0xEF101B
   size: 64
   type: data
-15667291: &id066
+0xEF105B: &id066
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: MAP_DATA_TILESET_PTR_TABLE
-  offset: 15667291
+  offset: 0xEF105B
   size: 80
   type: data
-15667371: &id068
+0xEF10AB: &id068
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: MAP_DATA_TILE_ARRANGEMENT_PTR_TABLE
-  offset: 15667371
+  offset: 0xEF10AB
   size: 80
   type: data
-15667451: &id076
+0xEF10FB: &id076
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: MAP_PALETTE_PTR_TABLE
-  offset: 15667451
+  offset: 0xEF10FB
   size: 128
   type: data
-15667579: &id070
+0xEF117B: &id070
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: MAP_DATA_TILE_COLLISION_PTR_TABLE
-  offset: 15667579
+  offset: 0xEF117B
   size: 80
   type: data
-15667659: &id067
+0xEF11CB: &id067
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: MAP_DATA_TILE_ANIMATION_PTR_TABLE
-  offset: 15667659
+  offset: 0xEF11CB
   size: 80
   type: data
-15667739: &id073
+0xEF121B: &id073
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: MAP_DATA_WEIRD_TILE_ANIMATION_PTR_TABLE
-  offset: 15667739
+  offset: 0xEF121B
   size: 80
   type: data
-15668031: &id100
+0xEF133F: &id100
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: SPRITE_GROUPING_PTR_TABLE
-  offset: 15668031
+  offset: 0xEF133F
   size: 1856
   type: data
-15682112: &id112
+0xEF4A40: &id112
   entries:
   - name: Text
     terminator: 2
     type: standardtext
   name: TEXT_DATA_EF4A40
-  offset: 15682112
+  offset: 0xEF4A40
   size: 22842
   type: data
-15704954: &id019
+0xEFA37A: &id019
   entries:
   - name: Text
     size: 10
     type: standardtext
   name: CMD_WINDOW_TEXT
-  offset: 15704954
+  offset: 0xEFA37A
   size: 60
   type: data
-15705871: &id065
+0xEFA70F: &id065
   entries:
   - name: Town Map
     size: 1
@@ -2290,28 +2290,28 @@
   - name: Town Map Y
     size: 1
   name: MAP_DATA_PER-SECTOR_TOWN_MAP_DATA
-  offset: 15705871
+  offset: 0xEFA70F
   size: 7680
   type: data
-15723376: &id025
+0xEFEB70: &id025
   entries:
   - bpp: 2
     name: Tile
     size: 16
     type: tile
   name: DEBUG_MENU_FONT
-  offset: 15723376
+  offset: 0xEFEB70
   size: 1024
   type: data
-15724471: &id060
+0xEFEFB7: &id060
   entries:
   - bpp: 4
     name: Tile
-    palette: 15725243
+    palette: 0xEFF2BB
     size: 32
     type: tile
   name: KIRBY
-  offset: 15724471
+  offset: 0xEFEFB7
   size: 288
   type: data
 0xEFF1BB:
@@ -2319,7 +2319,7 @@
   - name: Palette
     size: 32
     type: palette
-  offset: 15724987
+  offset: 0xEFF1BB
   size: 512
   type: data
 ANIMATION_SEQUENCE_POINTERS: *id001

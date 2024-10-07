@@ -14,16 +14,16 @@ class ExpandedTablesModule(EbModule):
             AsmPointerReference(0x1C28D) #$1C423
         ],
         0xCF89C1: [  # NPC Configuration Table $CF8985
-            AsmPointerReference(0x023E5), # in func C0222B/ Load NPCs
-            XlPointerReference(0x0C32E), # in func C0C30C
-            AsmPointerReference(0x131CA), # in func C13187/Talk to
-            AsmPointerReference(0x1327F), # in func C1323B/Check NPC
-            AsmPointerReference(0x1332F), # in func C1323B/Check NPC
-            XlPointerReference(0x1AD77), # in func C1AD42
-            AsmPointerReference(0x1B20B), # in func C1AF74/Use overworld item
-            AsmPointerReference(0x464C1), # in func C464B5/Create prepared NPC
-            AsmPointerReference(0x46831), # in func C4681A
-            AsmPointerReference(0x46930), # in func C46914
+            AsmPointerReference(0x023F3), # (US: 023E5) in func C0222B/ Load NPCs
+            XlPointerReference(0x0C310), # (US: 0C32E) in func C0C30C
+            AsmPointerReference(0x138A7), # (US: 131CA) in func C13187/Talk to
+            AsmPointerReference(0x1395C), # (US: 1327F) in func C1323B/Check NPC
+            AsmPointerReference(0x13A04), # (US: 1332F) in func C1323B/Check NPC
+            XlPointerReference(0x1AC33), # (US: 1AD77) in func C1AD42
+            AsmPointerReference(0x1B0D1), # (US: 1B20B) in func C1AF74/Use overworld item
+            AsmPointerReference(0x4422F), # (US: 464C1) in func C464B5/Create prepared NPC
+            AsmPointerReference(0x445B3), # (US: 46831) in func C4681A
+            AsmPointerReference(0x446AC), # (US: 46930) in func C46914
         ],
     }
 
