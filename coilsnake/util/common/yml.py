@@ -81,13 +81,15 @@ def yml_dump(yml_rep, f=None, default_flow_style=None):
             yaml.dump(yml_rep,
                       f,
                       default_flow_style=default_flow_style,
-                      Dumper=yaml.CSafeDumper)
+                      Dumper=yaml.CSafeDumper,
+                      allow_unicode=True)
         except:
             raise CoilSnakeUnexpectedError(traceback.format_exc())
     else:
         try:
             return yaml.dump(yml_rep,
                              default_flow_style=default_flow_style,
-                             Dumper=yaml.CSafeDumper)
+                             Dumper=yaml.CSafeDumper,
+                             allow_unicode=True)
         except:
             raise CoilSnakeUnexpectedError(traceback.format_exc())

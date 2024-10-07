@@ -17,14 +17,15 @@ log = logging.getLogger(__name__)
 CAST_DYNAMIC_NAMES_FILE_NAME = 'Cast/dynamic_names'
 CAST_FORMATTING_FILE_NAME = 'Cast/graphics_entries'
 
+# NOT IN JP
 CAST_FORMATTING_ENTRY_SIZE = 3
 CAST_FORMATTING_OFFSET = 0x212efa + CAST_FORMATTING_ENTRY_SIZE # skip the first entry
 CAST_FORMATTING_TABLE_SIZE = 0x90 - CAST_FORMATTING_ENTRY_SIZE # first entry was skipped
 CAST_FORMATTING_OFFSET_END = CAST_FORMATTING_OFFSET + CAST_FORMATTING_TABLE_SIZE
 
-CAST_GRAPHICS_PALETTE_OFFSET = 0x21d815
-CAST_MISC_GRAPHICS_ASM_POINTER_OFFSET = 0x4e42e
-CAST_NAME_GRAPHICS_ASM_POINTER_OFFSET = 0x4e446
+CAST_GRAPHICS_PALETTE_OFFSET = 0x21D26A # 0x21d815
+CAST_MISC_GRAPHICS_ASM_POINTER_OFFSET = 0x4e42e # NOT IN JP
+CAST_NAME_GRAPHICS_ASM_POINTER_OFFSET = 0x4b674 # 0x4e446
 
 FREE_CAST_GRAPHICS_BLOCK_BEGIN = 0x21d835
 FREE_CAST_GRAPHICS_BLOCK_END   = 0x21e4e5
@@ -34,9 +35,10 @@ DYNAMIC_CAST_NAME_MODES = ['none', 'prefix', 'suffix']
 # These entries are formatted to be used by EbDynamicCastName
 # Their order must be key, asm_pointer_offset, custom_asm_offset, patch_name_prefix
 DYNAMIC_CAST_ENTRIES = [
-    ('Paula\'s dad',  0x4e915, 0x4e8c7, 'paulas_dad'),
-    ('Paula\'s mom',  0x4e9b7, 0x4e980, 'paulas_mom'),
-    ('Poo\'s master', 0x4ea60, 0x4ea22, 'poos_master')
+    # NOT IN JP
+    # ('Paula\'s dad',  0x4e915, 0x4e8c7, 'paulas_dad'),
+    # ('Paula\'s mom',  0x4e9b7, 0x4e980, 'paulas_mom'),
+    # ('Poo\'s master', 0x4ea60, 0x4ea22, 'poos_master')
 ]
 
 class EbDynamicCastName(object):
@@ -181,14 +183,14 @@ class CastModule(EbModule):
         for n in self.dynamic_names:
             n.read_from_rom(rom)
 
-        log.debug('Reading cast formatting data')
-        self.formatting.read_from_rom(rom)
+        # log.debug('Reading cast formatting data')
+        # self.formatting.read_from_rom(rom)
 
         log.debug('Reading cast name graphics')
         self.read_gfx_from_rom(rom, CAST_NAME_GRAPHICS_ASM_POINTER_OFFSET, self.name_gfx)
 
-        log.debug('Reading miscellaneous cast graphics')
-        self.read_gfx_from_rom(rom, CAST_MISC_GRAPHICS_ASM_POINTER_OFFSET, self.misc_gfx)
+        # log.debug('Reading miscellaneous cast graphics')
+        # self.read_gfx_from_rom(rom, CAST_MISC_GRAPHICS_ASM_POINTER_OFFSET, self.misc_gfx)
 
     def write_to_rom(self, rom):
         log.debug('Writing dynamic cast names')
@@ -196,14 +198,14 @@ class CastModule(EbModule):
         for n in self.dynamic_names:
             n.write_to_rom(rom)
 
-        log.debug('Writing cast formatting data')
-        self.formatting.write_to_rom(rom)
+        # log.debug('Writing cast formatting data')
+        # self.formatting.write_to_rom(rom)
 
         log.debug('Writing cast name graphics')
         self.write_gfx_to_rom(rom, CAST_NAME_GRAPHICS_ASM_POINTER_OFFSET, self.name_gfx)
 
-        log.debug('Writing miscellaneous cast graphics')
-        self.write_gfx_to_rom(rom, CAST_MISC_GRAPHICS_ASM_POINTER_OFFSET, self.misc_gfx)
+        # log.debug('Writing miscellaneous cast graphics')
+        # self.write_gfx_to_rom(rom, CAST_MISC_GRAPHICS_ASM_POINTER_OFFSET, self.misc_gfx)
 
     def read_from_project(self, resource_open):
         log.debug('Reading dynamic cast names')
@@ -215,14 +217,14 @@ class CastModule(EbModule):
         for n in self.dynamic_names:
             n.read_from_yml_data(yml_data)
 
-        log.debug('Reading cast formatting data')
-        self.formatting.read_from_project(resource_open)
+        # log.debug('Reading cast formatting data')
+        # self.formatting.read_from_project(resource_open)
 
         log.debug('Reading cast name graphics')
         self.read_gfx_from_project(self.name_gfx, resource_open)
 
-        log.debug('Reading miscellaneous cast graphics')
-        self.read_gfx_from_project(self.misc_gfx, resource_open)
+        # log.debug('Reading miscellaneous cast graphics')
+        # self.read_gfx_from_project(self.misc_gfx, resource_open)
 
     def write_to_project(self, resource_open):
         log.debug('Writing dynamic cast names')
@@ -234,14 +236,14 @@ class CastModule(EbModule):
         with resource_open(CAST_DYNAMIC_NAMES_FILE_NAME, 'yml', True) as f:
             yml_dump(yml_data, f, default_flow_style=False)
 
-        log.debug('Writing cast formatting data')
-        self.formatting.write_to_project(resource_open)
+        # log.debug('Writing cast formatting data')
+        # self.formatting.write_to_project(resource_open)
 
         log.debug('Writing cast name graphics')
         self.write_gfx_to_project(self.name_gfx, resource_open)
 
-        log.debug('Writing miscellaneous cast graphics')
-        self.write_gfx_to_project(self.misc_gfx, resource_open)
+        # log.debug('Writing miscellaneous cast graphics')
+        # self.write_gfx_to_project(self.misc_gfx, resource_open)
 
     def read_gfx_from_rom(self, rom, offset, gfx):
         gfx.from_block(

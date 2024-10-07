@@ -1209,7 +1209,7 @@
 0xD57000: &id059
   entries:
   - name: Name
-    size: 25
+    size: 10
     type: standardtext
   - name: Type
     size: 1
@@ -1237,7 +1237,7 @@
     type: pointer
   name: ITEM_CONFIGURATION_TABLE
   offset: 0xD57000
-  size: 9906
+  size: 6096
   type: data
 0xD587D0: &id106
   entries:
@@ -1262,7 +1262,7 @@
 0xD5899E: &id094
   entries:
   - name: Name
-    size: 25
+    size: 10
     type: standardtext
   - name: Event Flag
     size: 2
@@ -1273,12 +1273,12 @@
     size: 2
   name: PSI_TELEPORT_DEST_TABLE
   offset: 0xD5899E
-  size: 496
+  size: 272
   type: data
 0xD58AC8: &id108
   entries:
   - name: Name
-    size: 25
+    size: 10
     type: standardtext
   - name: Event Flag
     size: 2
@@ -1288,7 +1288,7 @@
     type: pointer
   name: TELEPHONE_CONTACTS_TABLE
   offset: 0xD58AC8
-  size: 186
+  size: 96
   type: data
 0xD58B1E: &id011
   entries:
@@ -1378,11 +1378,11 @@
 0xD59D30: &id093
   entries:
   - name: Name
-    size: 25
+    size: 10
     type: standardtext
   name: PSI_NAME_TABLE
   offset: 0xD59D30
-  size: 425
+  size: 170
   type: data
 0xD59E00: &id052
   entries:
@@ -1592,21 +1592,9 @@
   type: data
 0xD5A440: &id049
   entries:
-  - name: '"The" Flag'
-    size: 1
-    values:
-    - False
-    - True
   - name: Name
-    size: 25
+    size: 10
     type: standardtext
-  - name: Gender
-    size: 1
-    values:
-    - Invalid
-    - Male
-    - Female
-    - Neutral
   - name: Type
     size: 1
     values:
@@ -1764,7 +1752,7 @@
     size: 1
   name: ENEMY_CONFIGURATION_TABLE
   offset: 0xD5A440
-  size: 21714
+  size: 17787
   type: data
 0xD5E9BB: &id105
   entries:
