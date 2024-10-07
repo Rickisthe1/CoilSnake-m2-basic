@@ -9,13 +9,13 @@ eb.CccInterfaceModule
 eb.MapSpriteModule
 eb.DoorModule
 # eb.SpriteGroupModule
-#  DISABLED DUE TO TEXT ISSUE:  eb.MiscTablesModule
-#  DISABLED DUE TO TEXT ISSUE:  eb.ExpandedTablesModule
+eb.MiscTablesModule
+eb.ExpandedTablesModule
 # eb.SwirlModule
 # eb.TownMapIconModule
 #  DISABLED DUE TO SOME ISSUE IDK:  eb.DeathScreenModule
 # eb.SoundStoneModule
-#  DISABLED DUE TO TEXT ISSUE:  eb.CastModule
+#  NEEDS MORE WORK?  eb.CastModule
 # eb.AnimationModule
 #  NEEDS ADDITIONAL POINTER CONVERSION:  eb.MapModule
 eb.MapEnemyModule
@@ -25,7 +25,7 @@ eb.MapMusicModule
 # eb.WindowGraphicsModule
 eb.BattleBgModule
 #  NEEDS DEBUGGING:  eb.CompressedGraphicsModule
-#  DISABLED DUE TO TEXT ISSUE:  eb.EnemyModule
+eb.EnemyModule
 # eb.TitleScreenModule
 # eb.TilesetModule
 smb.TextModule
