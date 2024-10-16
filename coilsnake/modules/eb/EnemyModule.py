@@ -139,9 +139,9 @@ class EnemyModule(EbModule):
         # Write the battle sprite images
         log.debug("Writing battle sprites")
         for i in range(self.enemy_config_table.num_rows):
-            battle_sprite_id = self.enemy_config_table[i][4]
+            battle_sprite_id = self.enemy_config_table[i][2] # index #4 in US
             if battle_sprite_id > 0:
-                palette_id = self.enemy_config_table[i][14]
+                palette_id = self.enemy_config_table[i][12] # index #14 in US
                 palette = self.palettes[palette_id]
 
                 image = self.battle_sprites[battle_sprite_id - 1].image(palette=palette)
