@@ -8,7 +8,7 @@ eb.CccInterfaceModule
 # eb.StaffModule
 eb.MapSpriteModule
 eb.DoorModule
-# eb.SpriteGroupModule
+eb.SpriteGroupModule
 eb.MiscTablesModule
 eb.ExpandedTablesModule
 # eb.SwirlModule

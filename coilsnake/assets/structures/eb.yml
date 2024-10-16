@@ -2242,13 +2242,13 @@
   offset: 0xEF121B
   size: 80
   type: data
-0xEF133F: &id100
+0xEF6541: &id100
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: SPRITE_GROUPING_PTR_TABLE
-  offset: 0xEF133F
+  offset: 0xEF6541
   size: 1856
   type: data
 0xEF4A40: &id112

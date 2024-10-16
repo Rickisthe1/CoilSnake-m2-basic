@@ -9,8 +9,8 @@ from coilsnake.util.common.yml import replace_field_in_yml, yml_load, yml_dump
 from coilsnake.util.eb.pointer import from_snes_address, to_snes_address, AsmPointerReference
 
 
-GROUP_POINTER_TABLE_OFFSET = 0xef133f
-PALETTE_TABLE_OFFSET = 0xc30000
+GROUP_POINTER_TABLE_OFFSET = 0xEF6541 #$ef133f
+PALETTE_TABLE_OFFSET = 0xc30000 #Identical Addresses
 
 
 class SpriteGroupModule(EbModule):
@@ -22,11 +22,11 @@ class SpriteGroupModule(EbModule):
                    (0x140000, 0x14ffff),
                    (0x150000, 0x154fff)]
     SPRITE_GROUP_TABLE_REFERENCES = [
-        AsmPointerReference(0x001DF9),
-        AsmPointerReference(0x001E79),
-        AsmPointerReference(0x001FE0),
-        AsmPointerReference(0x007A8B),
-        AsmPointerReference(0x04B1D0),
+        AsmPointerReference(0x001E0F), #001DF9
+        AsmPointerReference(0x001E8F), #001E79
+        AsmPointerReference(0x001FEE), #001FE0
+        AsmPointerReference(0x007CDB), #007A8B
+        AsmPointerReference(0x04863D), #04B1D0
     ]
 
     def __init__(self):
