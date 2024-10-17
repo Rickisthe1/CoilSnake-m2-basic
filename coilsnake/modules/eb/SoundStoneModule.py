@@ -5,8 +5,8 @@ from coilsnake.modules.eb.EbModule import EbModule
 from coilsnake.util.common.image import open_indexed_image
 from coilsnake.util.eb.pointer import from_snes_address, read_asm_pointer, to_snes_address, write_asm_pointer
 
-GRAPHICS_ASM_POINTER_OFFSET = 0x4ACF0
-PALETTE_OFFSET = 0xEF806
+GRAPHICS_ASM_POINTER_OFFSET = 0x48159 #$4ACF0
+PALETTE_OFFSET = 0xEF80A #$EF806
 
 SOUND_STONE_SUBPALETTES = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],

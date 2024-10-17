@@ -390,7 +390,7 @@
   offset: 0xCBD89A
   size: 1936
   type: data
-0xCC2DE1: &id001
+0xCC2EF8: &id001
   entries:
   - name: Pointer
     size: 4
@@ -403,7 +403,7 @@
   - name: Unknown
     size: 1
   name: ANIMATION_SEQUENCE_POINTERS
-  offset: 0xCC2DE1
+  offset: 0xCC2EF8
   size: 56
   type: data
 0xCCF04D: &id090
@@ -2123,13 +2123,13 @@
   offset: 0xE1F1C3
   size: 64
   type: data
-0xE1F491: &id119
+0xE1E19E: &id119
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: TOWN_MAP_ICON_PLACEMENT_PTR_TABLE
-  offset: 0xE1F491
+  offset: 0xE1E19E
   size: 24
   type: data
 0xE60000: &id003

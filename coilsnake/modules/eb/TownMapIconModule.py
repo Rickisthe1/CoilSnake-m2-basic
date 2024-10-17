@@ -9,9 +9,9 @@ class TownMapIconModule(EbModule):
     NAME = "Town Map Icon Positions"
     FREE_RANGES = [(0x21f491, 0x21f580)]  # Pointer Table and Data
 
-    POINTER_TABLE_DEFAULT_OFFSET = 0xE1F491
-    POINTER_TABLE_ASM_POINTER_OFFSET = 0x4D464
-    TILE_COUNT_ADDRESS = 0x4d626
+    POINTER_TABLE_DEFAULT_OFFSET = 0xE1E19E #$E1F491
+    POINTER_TABLE_ASM_POINTER_OFFSET = 0x4A734 #$4D464
+    TILE_COUNT_ADDRESS = 0x4d626 #Can't find this...?
 
     def __init__(self):
         super(TownMapIconModule, self).__init__()

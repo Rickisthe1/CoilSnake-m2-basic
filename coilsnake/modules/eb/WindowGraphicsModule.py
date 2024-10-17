@@ -6,11 +6,11 @@ from coilsnake.modules.eb.EbModule import EbModule
 from coilsnake.util.common.image import open_indexed_image
 from coilsnake.util.eb.pointer import from_snes_address, read_asm_pointer, write_asm_pointer, to_snes_address
 
-GRAPHICS_1_ASM_POINTER_OFFSET = 0x47c47
-GRAPHICS_2_ASM_POINTER_OFFSET = 0x47caa
-FLAVOR_NAME_ASM_POINTER_OFFSETS = [0x1F70F, 0x1F72A, 0x1F745, 0x1F760, 0x1F77B]
+GRAPHICS_1_ASM_POINTER_OFFSET = 0x459B3 #$47c47 <- Might need some debugging
+GRAPHICS_2_ASM_POINTER_OFFSET = 0x459F8 #$47caa
+FLAVOR_NAME_ASM_POINTER_OFFSETS = [0x1F589, 0x1F5A4, 0x1F5BF, 0x1F5DA, 0x1F5F5] #0x1F70F, 0x1F72A, 0x1F745, 0x1F760, 0x1F77B
 FLAVOR_NAME_ENTRY = EbStandardTextTableEntry.create(size=25)
-FLAVOR_PALETTES_OFFSET = 0x201fc8
+FLAVOR_PALETTES_OFFSET = 0x201F1D #$201fc8 <- Might need some debugging
 
 ARRANGEMENT_PREVIEW_SUBPALETTES = [
     0, 0, 0, 0, 1, 1, 1, 4, 4, 4, 4, 6, 6, 6, 6, 6,

@@ -11,18 +11,18 @@ eb.DoorModule
 eb.SpriteGroupModule
 eb.MiscTablesModule
 eb.ExpandedTablesModule
-# eb.SwirlModule
-# eb.TownMapIconModule
+eb.SwirlModule
+eb.TownMapIconModule
 #  DISABLED DUE TO SOME ISSUE IDK:  eb.DeathScreenModule
-# eb.SoundStoneModule
+eb.SoundStoneModule
 #  NEEDS MORE WORK?  eb.CastModule
-# eb.AnimationModule
+eb.AnimationModule
 #  NEEDS ADDITIONAL POINTER CONVERSION:  eb.MapModule
 eb.MapEnemyModule
 eb.MapMusicModule
 #  NEEDS DEBUGGING:  eb.MapEventModule
 # eb.FontModule
-# eb.WindowGraphicsModule
+eb.WindowGraphicsModule
 eb.BattleBgModule
 #  NEEDS DEBUGGING:  eb.CompressedGraphicsModule
 eb.EnemyModule

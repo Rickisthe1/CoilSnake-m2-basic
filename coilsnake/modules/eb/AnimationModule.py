@@ -17,14 +17,14 @@ log = logging.getLogger(__name__)
 # of its operand into the 'a' register. The registers are only 16-bits wide,
 # so each time the 24-bit animation table address is loaded,
 # it takes two of these instructions.
-LDA_TABLE_ADDRESS_LOW    = from_snes_address(0xc47ab0)
-LDA_TABLE_ADDRESS_HIGH   = from_snes_address(0xc47ab5)
-LDA_TABLE_ADDRESS_2_LOW  = from_snes_address(0xc47b94)
-LDA_TABLE_ADDRESS_2_HIGH = from_snes_address(0xc47b99)
+LDA_TABLE_ADDRESS_LOW    = from_snes_address(0xC45834) #$c47ab0
+LDA_TABLE_ADDRESS_HIGH   = from_snes_address(0xC45839) #c47ab5
+LDA_TABLE_ADDRESS_2_LOW  = from_snes_address(0xC458FA) #$c47b94
+LDA_TABLE_ADDRESS_2_HIGH = from_snes_address(0xC458FF) #c47b99
 
 # This is the default address of the animation table in the rom, pointed to by the
 # 'lda' instructions above. We need this to get the format of the table from eb.yml.
-ANIMATION_TABLE_DEFAULT_ADDRESS = 0xcc2de1
+ANIMATION_TABLE_DEFAULT_ADDRESS = 0xCC2EF8 #$cc2de1
 
 # All animations take up the entirety of the screen
 SCREEN_WIDTH_TILES  = 32

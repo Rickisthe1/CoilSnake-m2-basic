@@ -11,9 +11,9 @@ from coilsnake.util.common.yml import yml_dump, yml_load
 from coilsnake.util.eb.pointer import from_snes_address, to_snes_address
 
 
-SWIRL_TABLE_DEFAULT_OFFSET = 0xCEDD41
-SWIRL_ANIMATION_POINTER_TABLE_DEFAULT_OFFSET = 0xCEDC45
-SWIRL_ANIMATION_POINTER_TABLE_BASE = 0xCE0000
+SWIRL_TABLE_DEFAULT_OFFSET = 0xCEDD41 #Identical Addresses
+SWIRL_ANIMATION_POINTER_TABLE_DEFAULT_OFFSET = 0xCEDC45 #Identical Addresses
+SWIRL_ANIMATION_POINTER_TABLE_BASE = 0xCE0000 #Identical Addresses
 
 RELOCATED_SWIRL_ANIMATION_POINTER_TABLE_POINTERS = ((0x4aa8f, 0), (0x4aa95, 2), (0x4aadc, 0), (0x4aae4, 2))
 
