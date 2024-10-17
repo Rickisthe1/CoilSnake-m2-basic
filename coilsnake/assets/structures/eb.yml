@@ -188,7 +188,7 @@
   offset: 0xC4C05E
   size: 640
   type: data
-0xC4F70A: &id079
+0xC4CAA5: &id079
   entries:
   - name: Sample Set 1
     size: 1
@@ -206,16 +206,16 @@
     values:
       255: None
   name: MUSIC_DATASET_TABLE
-  offset: 0xC4F70A
+  offset: 0xC4CAA5
   size: 573
   type: data
-0xC4F947: &id080
+0xC4CCE2: &id080
   entries:
   - name: Unknown
     size: 3
     type: hilomid pointer
   name: MUSIC_PACK_POINTER_TABLE
-  offset: 0xC4F947
+  offset: 0xC4CCE2
   size: 507
   type: data
 0xC51B12: &id110
