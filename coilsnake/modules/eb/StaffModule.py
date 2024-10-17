@@ -46,7 +46,7 @@ KEYWORD_BYTE_HEIGHT = {
 
 class StaffModule(EbModule):
     NAME = 'Staff'
-    FREE_RANGES = [(0x21413f, 0x214de7)]
+    FREE_RANGES = [(0x213596, 0x21423D)] #0x21413f, 0x214de7
 
     def __init__(self):
         self.big    = {}

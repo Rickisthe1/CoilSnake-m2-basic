@@ -3,7 +3,7 @@ common.PatchModule
 # eb.MusicModule
 eb.CharacterSubstitutionsModule
 eb.CccInterfaceModule
-# eb.SkipNamingModule
+eb.SkipNamingModule
 # eb.MiscTextModule
 # eb.StaffModule
 eb.MapSpriteModule
@@ -24,9 +24,9 @@ eb.MapMusicModule
 # eb.FontModule
 eb.WindowGraphicsModule
 eb.BattleBgModule
-#  NEEDS DEBUGGING:  eb.CompressedGraphicsModule
+eb.CompressedGraphicsModule
 eb.EnemyModule
 # eb.TitleScreenModule
-# eb.TilesetModule
+eb.TilesetModule
 smb.TextModule
 common.LunarIpsCompatibilityModule

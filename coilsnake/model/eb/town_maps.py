@@ -5,12 +5,12 @@ from coilsnake.util.common.type import enum_class_from_name_list
 from coilsnake.util.eb.pointer import from_snes_address, to_snes_address
 
 
-TOWN_MAP_NAMES = ["Onett", "Twoson", "Threed", "Fourside", "Scaraba", "Summers"]
+TOWN_MAP_NAMES = ["Onett", "Twoson", "Threek", "Fourside", "Scarabi", "Summers"]
 
 TownMapEnum = enum_class_from_name_list(TOWN_MAP_NAMES)
 
 TOWN_MAP_ICON_NAMES = ["Nothing", "Hamburger Shop", "Bakery", "Hotel", "Restaurant", "Hospital", "Shop",
-                       "Dept Store", "Bus Stop", "South to Twoson", "North to Onett", "South to Threed",
+                       "Dept Store", "Bus Stop", "South to Twoson", "North to Onett", "South to Threek",
                        "West to Twoson", "East to Desert", "West to Desert", "East to Toto", "Hint", "Ness",
                        "Small Ness", "North", "South", "West", "East"]
 

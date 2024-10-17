@@ -13,13 +13,13 @@ class SkipNamingModule(EbModule):
     def write_to_project(self, resource_open):
         out = {"Enable Skip": False,
                "Enable Summary": False,
-               "Name1": "Ness",
-               "Name2": "Paula",
-               "Name3": "Jeff",
-               "Name4": "Poo",
-               "Pet": "King",
-               "Food": "Steak",
-               "Thing": "Rockin"}
+               "Name1": "ネス", #Nesu (Ness)
+               "Name2": "ポーラ", #Paula
+               "Name3": "ジェフ", #Jeff
+               "Name4": "プー", #Pū (Poo)
+               "Pet": "チビ", #Chibi (King)
+               "Food": "ハンバーグ", #Salisbury steak (Steak)
+               "Thing": "キアイ"} #Kiai (Rockin)
         with resource_open("naming_skip", "yml", True) as f:
             yml_dump(out, f, default_flow_style=False)
 
@@ -42,17 +42,17 @@ class SkipNamingModule(EbModule):
             # it works by changing the jump from @CHANGE_TO_NAMING_SCREEN_MUSIC to @UNKNOWN18 (which normally runs directly after the music change)
             # https://github.com/Herringway/ebsrc/blob/87f514cb4b77fa3193bcb122ea51f5de5cfdd9cf/src/intro/file_select_menu_loop.asm#L101
             # Verify the code structure first:
-            if rom[0x1f8f0] == 0xD0 and rom[0x1f8f1] == 0x09:
-                rom[0x1f8f1] = 0x10
+            if rom[0x1F754] == 0xD0 and rom[0x1F755] == 0x09: #$c/1f8f0 - $c/1f8f1
+                rom[0x1F755] = 0x10 #$c/1f8f1
             else:
                 log.warn("Unable to apply naming screen music bypass due to existing ASM changes")
 
             offset = rom.allocate(size=(10 + 4 * 5 * 5 + 3 * 6 * 5))
             # Patch ASM to "JML newCode"
-            if bytes(rom.to_array()[0x1faae:0x1fab2]) != b'\xa9\x07\x00\x18':
+            if bytes(rom.to_array()[0x1F8FA:0x1F8FE]) != b'\xa9\x07\x00\x18': #$c/1faae - $c/1fab2
                 raise CoilSnakeUserError("Naming ASM has already been patched - unable to apply naming skip")
-            rom[0x1faae] = 0x5c
-            rom.write_multi(0x1faaf, to_snes_address(offset), 3)
+            rom[0x1F8FA] = 0x5c
+            rom.write_multi(0x1F8FB, to_snes_address(offset), 3) #$c/1faaf
             rom[offset:offset+4] = [0x48, 0x08, 0xe2, 0x20]
             offset += 4
 

@@ -2096,13 +2096,13 @@
   offset: 0xE123E1
   size: 1984
   type: data
-0xE1413F: &id104
+0xE13596: &id104
   entries:
   - name: Text
     terminator: 0
     type: stafftext
   name: STAFF_TEXT
-  offset: 0xE1413F
+  offset: 0xE13596
   size: 3241
   type: data
 0xE1E914: &id103
@@ -2179,49 +2179,49 @@
   size: 1017
   terminator: 0
   type: data
-0xEF101B: &id114
+0xEF621D: &id114
   entries:
   - name: Tileset
     size: 2
     type: hexint
   name: TILESET_TABLE
-  offset: 0xEF101B
+  offset: 0xEF621D
   size: 64
   type: data
-0xEF105B: &id066
+0xEF625D: &id066
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: MAP_DATA_TILESET_PTR_TABLE
-  offset: 0xEF105B
+  offset: 0xEF625D
   size: 80
   type: data
-0xEF10AB: &id068
+0xEF62AD: &id068
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: MAP_DATA_TILE_ARRANGEMENT_PTR_TABLE
-  offset: 0xEF10AB
+  offset: 0xEF62AD
   size: 80
   type: data
-0xEF10FB: &id076
+0xEF62FD: &id076
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: MAP_PALETTE_PTR_TABLE
-  offset: 0xEF10FB
+  offset: 0xEF62FD
   size: 128
   type: data
-0xEF117B: &id070
+0xEF637D: &id070
   entries:
   - name: Pointer
     size: 4
     type: pointer
   name: MAP_DATA_TILE_COLLISION_PTR_TABLE
-  offset: 0xEF117B
+  offset: 0xEF637D
   size: 80
   type: data
 0xEF11CB: &id067
