@@ -40,12 +40,13 @@ ARRANGEMENT_PREVIEW_SUBPALETTES = [
     3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 1, 0, 0,
     3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 1, 0, 0
 ]
-ARRANGEMENT_1 = EbTileArrangement(width=16, height=26)
+ARRANGEMENT_1 = EbTileArrangement(width=16, height=42)
 for y in range(ARRANGEMENT_1.height):
     for x in range(ARRANGEMENT_1.width):
         i = y * ARRANGEMENT_1.width + x
         ARRANGEMENT_1[x, y].tile = i
-        ARRANGEMENT_1[x, y].subpalette = ARRANGEMENT_PREVIEW_SUBPALETTES[i]
+        # TODO: fix to use the proper palettes for everything
+        ARRANGEMENT_1[x, y].subpalette = ARRANGEMENT_PREVIEW_SUBPALETTES[0] * 672
 ARRANGEMENT_2 = EbTileArrangement(width=7, height=1)
 for y in range(ARRANGEMENT_2.height):
     for x in range(ARRANGEMENT_2.width):
@@ -59,17 +60,15 @@ class WindowGraphicsModule(EbModule):
 
     def __init__(self):
         super(WindowGraphicsModule, self).__init__()
-        self.graphics_1 = EbGraphicTileset(num_tiles=416, tile_width=8, tile_height=8)
+        self.graphics_1 = EbGraphicTileset(num_tiles=672, tile_width=8, tile_height=8)
         self.graphics_2 = EbGraphicTileset(num_tiles=7, tile_width=8, tile_height=8)
 
-        self.flavor_palettes = [EbPalette(8, 4) for i in range(7)]
+        self.flavor_palettes = [EbPalette(8, 4) for i in range(6)]
         self.flavor_names = dict()
 
     def read_from_rom(self, rom):
         with EbCompressibleBlock() as compressed_block:
-            compressed_block.from_compressed_block(
-                block=rom,
-                offset=from_snes_address(read_asm_pointer(rom, GRAPHICS_1_ASM_POINTER_OFFSET)))
+            compressed_block.from_compressed_block(block=rom, offset=from_snes_address(read_asm_pointer(rom, GRAPHICS_1_ASM_POINTER_OFFSET)))
             self.graphics_1.from_block(block=compressed_block, bpp=2)
 
         with EbCompressibleBlock() as compressed_block:
