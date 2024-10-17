@@ -1995,12 +1995,12 @@
   offset: 0xDAFAA7
   size: 96
   type: data
-0xDCD637: &id064
+0xDCD634 : &id064
   entries:
   - name: Music
     size: 1
   name: MAP_DATA_PER-SECTOR_MUSIC
-  offset: 0xDCD637
+  offset: 0xDCD634 
   size: 2560
   type: data
 0xDFE4E1: &id062
@@ -2269,7 +2269,7 @@
   offset: 0xEFA37A
   size: 60
   type: data
-0xEFA70F: &id065
+0xEFA022: &id065
   entries:
   - name: Town Map
     size: 1
@@ -2278,7 +2278,7 @@
   - name: Town Map Y
     size: 1
   name: MAP_DATA_PER-SECTOR_TOWN_MAP_DATA
-  offset: 0xEFA70F
+  offset: 0xEFA022
   size: 7680
   type: data
 0xEFEB70: &id025

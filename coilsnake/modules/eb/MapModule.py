@@ -7,22 +7,22 @@ from coilsnake.modules.eb.EbModule import EbModule
 from coilsnake.util.common.yml import replace_field_in_yml, yml_load
 from coilsnake.util.eb.pointer import from_snes_address
 
-MAP_POINTERS_OFFSET = 0xa1db
-LOCAL_TILESETS_OFFSET = 0x175000
+MAP_POINTERS_OFFSET = 0xa1db #wtf even is this?
+LOCAL_TILESETS_OFFSET = 0x175000 #Identical Addresses
 MAP_HEIGHT = 320
 MAP_WIDTH = 256
 
-SECTOR_TILESETS_PALETTES_TABLE_OFFSET = 0xD7A800
-SECTOR_MUSIC_TABLE_OFFSET = 0xDCD637
-SECTOR_MISC_TABLE_OFFSET = 0xD7B200
-SECTOR_TOWN_MAP_TABLE_OFFSET = 0xEFA70F
+SECTOR_TILESETS_PALETTES_TABLE_OFFSET = 0xD7A800 #Identical Addresses
+SECTOR_MUSIC_TABLE_OFFSET = 0xDCD634 #$DCD637
+SECTOR_MISC_TABLE_OFFSET = 0xD7B200 #Identical Addresses
+SECTOR_TOWN_MAP_TABLE_OFFSET = 0xEFA022 #$EFA70F
 
 TELEPORT_ENTRY = EnumeratedLittleEndianIntegerTableEntry.create(
     "Teleport", 1, ["Enabled", "Disabled"]
 )
 TOWNMAP_ENTRY = EnumeratedLittleEndianIntegerTableEntry.create(
     "Town Map", 1,
-    ["None", "Onett", "Twoson", "Threed", "Fourside", "Scaraba", "Summers", "None 2"]
+    ["None", "Onett", "Twoson", "Threek", "Fourside", "Scarabi", "Summers", "None 2"]
 )
 SETTING_ENTRY = EnumeratedLittleEndianIntegerTableEntry.create(
     "Setting", 1,
@@ -31,7 +31,7 @@ SETTING_ENTRY = EnumeratedLittleEndianIntegerTableEntry.create(
 )
 TOWNMAP_IMAGE_ENTRY = EnumeratedLittleEndianIntegerTableEntry.create(
     "Town Map Image", 1,
-    ["None", "Onett", "Twoson", "Threed", "Fourside", "Scaraba", "Summers"]
+    ["None", "Onett", "Twoson", "Threek", "Fourside", "Scarabi", "Summers"]
 )
 TOWNMAP_ARROW_ENTRY = EnumeratedLittleEndianIntegerTableEntry.create(
     "Town Map Arrow", 1,
