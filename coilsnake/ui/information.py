@@ -18,9 +18,9 @@ ADDITIONAL_CREDITS = """- Some portions based on JHack, created by AnyoneEB
   cooprocks123e, and many others"""
 DEPENDENCIES = [
     {"name": "CoilSnake logo and icon",
-     "author": "Rydel"},
+     "author": "Rydel & Gabbi"},
     {"name": "CoilSnake 4 logo",
-     "author": "vince94"},
+     "author": "livvy94"},
     {"name": "CCScript",
      "author": "Mr. Accident",
      "url": "http://starmen.net/pkhack/ccscript"},
