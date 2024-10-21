@@ -9,9 +9,9 @@ from coilsnake.util.eb.pointer import from_snes_address, to_snes_address
 
 log = logging.getLogger(__name__)
 
-POINTER_TABLE_POINTER_OFFSET = 0x70d
-POINTER_TABLE_DEFAULT_OFFSET = 0xD01598
-POINTER_TABLE_BANK_OFFSET = 0x704
+POINTER_TABLE_POINTER_OFFSET = 0x71d
+POINTER_TABLE_DEFAULT_OFFSET = 0xD01598 #Identical addresses
+POINTER_TABLE_BANK_OFFSET = 0x714
 
 
 class MapEventModule(EbModule):

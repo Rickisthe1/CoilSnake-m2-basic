@@ -17,10 +17,10 @@ eb.TownMapIconModule
 eb.SoundStoneModule
 #  NEEDS MORE WORK?  eb.CastModule
 eb.AnimationModule
-#  NEEDS ADDITIONAL POINTER CONVERSION:  eb.MapModule
+eb.MapModule
 eb.MapEnemyModule
 eb.MapMusicModule
-#  NEEDS DEBUGGING:  eb.MapEventModule
+eb.MapEventModule
 # eb.FontModule
 eb.WindowGraphicsModule
 eb.BattleBgModule

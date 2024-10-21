@@ -7,7 +7,7 @@ from coilsnake.modules.eb.EbModule import EbModule
 from coilsnake.util.common.yml import replace_field_in_yml, yml_load
 from coilsnake.util.eb.pointer import from_snes_address
 
-MAP_POINTERS_OFFSET = 0xa1db #wtf even is this?
+MAP_POINTERS_OFFSET = 0xa1ba #since there are no differences in this routine between M2 and EB, that means the address we want is probably A1AD + (DB - CE) = A1BA 
 LOCAL_TILESETS_OFFSET = 0x175000 #Identical Addresses
 MAP_HEIGHT = 320
 MAP_WIDTH = 256
