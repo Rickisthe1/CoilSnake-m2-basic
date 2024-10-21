@@ -38,7 +38,7 @@ class DeathScreenModule(EbModule):
     FREE_RANGES = [
         (0x21CA5A, 0x21CF9E),  # Tileset - 0x21cfaf, 0x21d4f3
         (0x21CF9F, 0x21D092),  # Palette - 0x21d4f4, 0x21d5e7
-        (0x21D093, 0x21D18B)   # Arrangement 0x21d5e8, 0x21d6e1
+        (0x21D093, 0x21D18B)   # Arrangement - 0x21d5e8, 0x21d6e1
     ]
 
     def __init__(self):
