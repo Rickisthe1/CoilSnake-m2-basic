@@ -25,7 +25,7 @@ class MapSpriteModule(EbModule):
         self.table.from_block(rom, pointer_table_offset)
 
     def write_to_rom(self, rom):
-        rom.deallocate((0xf61e7, 0xf8984))
+        rom.deallocate((0xF6223, 0xF89C0)) #0xf61e7, 0xf8984
 
         pointer_table_offset = rom.allocate(size=self.table.size,
                                             can_write_to=partial(not_in_bank, 0x0f))
