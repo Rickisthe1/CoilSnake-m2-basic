@@ -13,7 +13,7 @@ eb.MiscTablesModule
 eb.ExpandedTablesModule
 eb.SwirlModule
 eb.TownMapIconModule
-#  DISABLED DUE TO SOME ISSUE IDK:  eb.DeathScreenModule
+eb.DeathScreenModule
 eb.SoundStoneModule
 #  NEEDS MORE WORK?  eb.CastModule
 eb.AnimationModule

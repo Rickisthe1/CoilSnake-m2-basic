@@ -11,9 +11,9 @@ from coilsnake.util.eb.pointer import from_snes_address, read_asm_pointer, \
 
 log = logging.getLogger(__name__)
 
-TILESET_POINTER = 0x04C32F
-ARRANGEMENT_POINTER = 0x04C388
-PALETTE_POINTER = 0x04C3C3
+TILESET_POINTER = 0x049606 #$C/4C32F
+ARRANGEMENT_POINTER = 0x04965F #$C/4C388
+PALETTE_POINTER = 0x04969A #$C/4C3C3
 
 ARRANGEMENT_WIDTH = 32
 ARRANGEMENT_HEIGHT = 32
@@ -36,9 +36,9 @@ class DeathScreenModule(EbModule):
 
     NAME = "Death Screen"
     FREE_RANGES = [
-        (0x21cfaf, 0x21d4f3),  # Tileset
-        (0x21d4f4, 0x21d5e7),  # Palette
-        (0x21d5e8, 0x21d6e1)   # Arrangement
+        (0x21CA5A, 0x21CF9E),  # Tileset - 0x21cfaf, 0x21d4f3
+        (0x21CF9F, 0x21D092),  # Palette - 0x21d4f4, 0x21d5e7
+        (0x21D093, 0x21D18B)   # Arrangement 0x21d5e8, 0x21d6e1
     ]
 
     def __init__(self):
