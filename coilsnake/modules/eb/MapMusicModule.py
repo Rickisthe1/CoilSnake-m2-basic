@@ -28,7 +28,7 @@ class MapMusicModule(EbModule):
         self.pointer_table.from_block(rom, from_snes_address(rom.read_multi(MAP_MUSIC_ASM_POINTER_OFFSET, 3)))
 
     def write_to_rom(self, rom):
-        rom.deallocate((0xf58ef, 0xf61e5))
+        rom.deallocate((0xF592B, 0xF6221)) #0xf58ef, 0xf61e5
 
         pointer_table_offset = rom.allocate(size=self.pointer_table.size, can_write_to=partial(not_in_bank, 0x0f))
         self.pointer_table.to_block(rom, pointer_table_offset)

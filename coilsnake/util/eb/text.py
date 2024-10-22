@@ -219,6 +219,7 @@ BYTE_TO_CHARACTER_JP = {
     0xFE: 'ョ',
     0xFF: 'ロ',
 }
+CHARACTER_TO_BYTE_JP = {v: k for (k, v) in BYTE_TO_CHARACTER_JP.items()}
 
 def standard_text_from_block(block, offset, max_length):
     str = ''
@@ -269,7 +270,7 @@ def standard_text_to_byte_list(text, max_length, always_zero_terminated=False):
 
             text_pos = end_bracket_pos + 1
         else:
-            byte_list.append(ord(c) + 0x30)
+            byte_list.append(CHARACTER_TO_BYTE_JP[c])
             text_pos += 1
 
     num_bytes = len(byte_list)
