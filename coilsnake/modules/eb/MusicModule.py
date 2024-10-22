@@ -61,7 +61,7 @@ class MusicModule(EbModule):
         self.songs: Dict[int, mp.Song] = {}
 
     def read_single_pack(self, rom: Block, pack_num: int) -> mp.GenericMusicPack:
-        pack_ptr = from_snes_address(self.pack_pointer_table[pack_num][0])
+        pack_ptr = from_snes_address(self.pack_pointer_table[pack_num][0] + 0xE20000)
         pack_parts = mp.extract_pack_parts(rom, pack_ptr)
         pack = mp.create_pack_object_from_parts(pack_num, pack_parts)
         return pack
