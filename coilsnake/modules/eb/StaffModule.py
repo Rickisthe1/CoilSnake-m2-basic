@@ -8,8 +8,8 @@ from coilsnake.util.eb.pointer import from_snes_address, to_snes_address
 
 log = logging.getLogger(__name__)
 
-STAFF_TEXT_POINTER_OFFSET = 0x4f253
-LENGTH_OFFSETS = [0x4f583, 0x4f58c, 0x4f66f]
+STAFF_TEXT_POINTER_OFFSET = 0x4C28F #$C/4f253
+LENGTH_OFFSETS = [0x4C5C3, 0x4C5CC, 0x4C6B1] #0x4f583, 0x4f58c, 0x4f66f
 
 MODE_CONTROL = 0
 MODE_SMALL   = 1

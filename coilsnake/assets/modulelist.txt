@@ -1,11 +1,11 @@
 common.UsedRangeModule
 common.PatchModule
-# eb.MusicModule
+eb.MusicModule
 eb.CharacterSubstitutionsModule
 eb.CccInterfaceModule
 eb.SkipNamingModule
 # eb.MiscTextModule
-# eb.StaffModule
+# NEEDS DEBUGGING eb.StaffModule
 eb.MapSpriteModule
 eb.DoorModule
 eb.SpriteGroupModule
@@ -15,7 +15,7 @@ eb.SwirlModule
 eb.TownMapIconModule
 eb.DeathScreenModule
 eb.SoundStoneModule
-#  NEEDS MORE WORK?  eb.CastModule
+eb.CastModule
 eb.AnimationModule
 eb.MapModule
 eb.MapEnemyModule
