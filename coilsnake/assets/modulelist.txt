@@ -5,7 +5,7 @@ eb.CharacterSubstitutionsModule
 eb.CccInterfaceModule
 eb.SkipNamingModule
 # eb.MiscTextModule
-# NEEDS DEBUGGING eb.StaffModule
+eb.StaffModule
 eb.MapSpriteModule
 eb.DoorModule
 eb.SpriteGroupModule

@@ -19,7 +19,7 @@
 117: {Type: small, Column: 11, Row: 0, Character: K}
 118: {Type: small, Column: 11, Row: 1, Character: L}
 119: {Type: small, Column: 12, Row: 0, Character: M}
-120: {Type: small, Column: 12, Row: 1, Character: N}
+120: {Type: small, Column: 12, Row: 1, Character: "N"}
 121: {Type: small, Column: 13, Row: 0, Character: O}
 122: {Type: small, Column: 13, Row: 1, Character: P}
 123: {Type: small, Column: 14, Row: 0, Character: Q}
@@ -40,7 +40,7 @@
 138: {Type: small, Column: 10, Row: 3, Character: V}
 139: {Type: small, Column: 11, Row: 2, Character: W}
 140: {Type: small, Column: 11, Row: 3, Character: X}
-141: {Type: small, Column: 12, Row: 2, Character: Y}
+141: {Type: small, Column: 12, Row: 2, Character: "Y"}
 142: {Type: small, Column: 12, Row: 3, Character: Z}
 143: {Type: big, Column: 13, Row: 2, Character: ";"}
 144: {Type: small, Column: 13, Row: 2, Character: "."}
@@ -62,7 +62,7 @@
 160: {Type: big, Column: 11, Row: 4, Character: K}
 161: {Type: big, Column: 12, Row: 4, Character: L}
 162: {Type: big, Column: 13, Row: 4, Character: M}
-163: {Type: big, Column: 14, Row: 4, Character: N}
+163: {Type: big, Column: 14, Row: 4, Character: "N"}
 164: {Type: big, Column: 15, Row: 4, Character: O}
 165: {Type: big, Column: 0, Row: 6, Character: P}
 166: {Type: big, Column: 1, Row: 6, Character: Q}
@@ -73,10 +73,9 @@
 171: {Type: big, Column: 6, Row: 6, Character: V}
 172: {Type: big, Column: 7, Row: 6, Character: W}
 173: {Type: big, Column: 8, Row: 6, Character: X}
-174: {Type: big, Column: 9, Row: 6, Character: Y}
+174: {Type: big, Column: 9, Row: 6, Character: "Y"}
 175: {Type: big, Column: 10, Row: 6, Character: Z}
-176: {Type: big, Column: 11, Row: 6, Character: " "}
-177: {Type: big, Column: 12, Row: 6, Character: "*"} # A small, centered, filled square
-178: {Type: big, Column: 13, Row: 6, Character: ":"}
-179: {Type: big, Column: 14, Row: 6, Character: "."}
-180: {Type: big, Column: 15, Row: 6, Character: "~"}
+176: {Type: big, Column: 12, Row: 6, Character: "*"} # A small, centered, filled square
+177: {Type: big, Column: 13, Row: 6, Character: ":"}
+178: {Type: big, Column: 14, Row: 6, Character: "."}
+179: {Type: big, Column: 15, Row: 6, Character: "~"}

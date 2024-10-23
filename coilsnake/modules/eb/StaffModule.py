@@ -8,8 +8,8 @@ from coilsnake.util.eb.pointer import from_snes_address, to_snes_address
 
 log = logging.getLogger(__name__)
 
-STAFF_TEXT_POINTER_OFFSET = 0x4C28F #$C/4f253
-LENGTH_OFFSETS = [0x4C5C3, 0x4C5CC, 0x4C6B1] #0x4f583, 0x4f58c, 0x4f66f
+STAFF_TEXT_POINTER_OFFSET = 0x4C28F #$4f253
+LENGTH_OFFSETS = [0x4C5C3, 0x4C5CC, 0x4C6B1] #$0x4f583, 0x4f58c, 0x4f66f
 
 MODE_CONTROL = 0
 MODE_SMALL   = 1
@@ -66,7 +66,7 @@ class StaffModule(EbModule):
     def read_staff_chars(self, yml_data):
         log.debug('Reading staff character-to-code mapping')
 
-for k, v in yml_data.items():
+        for k, v in yml_data.items():
             vrow  = v[ENTRY_ROW]
             vcol  = v[ENTRY_COL]
             self.check_row_col_error(ENTRY_ROW, vrow, MAX_ROW)
