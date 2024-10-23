@@ -12,19 +12,19 @@ from coilsnake.util.eb.pointer import from_snes_address, to_snes_address
 
 log = logging.getLogger(__name__)
 
-FONT_POINTER_TABLE_OFFSET = 0xC3F054
+FONT_POINTER_TABLE_OFFSET = 0xE0110E
 FONT_FILENAMES = ["0", "1", "3", "4", "2"]
 
-CREDITS_GRAPHICS_ASM_POINTER = 0x4f1a7
-CREDITS_PALETTES_ADDRESS = 0x21e914
+CREDITS_GRAPHICS_ASM_POINTER = 0x4C1E1 #$C4f1a7
+CREDITS_PALETTES_ADDRESS = 0x21D6A6 #0x21e914
 
 
 class FontModule(EbModule):
     NAME = "Fonts"
     FREE_RANGES = [
-        (0x21e528, 0x21e913),  # Credits font graphics
-        (0x210c7a, 0x212ef9),  # Fonts 0, 2, 3, and 4
-        (0x201359, 0x201fb8),  # Font 1
+        (0x21D2CC, 0x21D6A5),  # Credits font graphics - 0x21e528, 0x21e913
+        (0x20110E, 0x201F0D),  # Fonts 0, 2, 3, and 4 - 0x210c7a, 0x212ef9
+        (0x20209D, 0x20309C),  # Font 1 - 0x201359, 0x201fb8
     ]
 
     def __init__(self):

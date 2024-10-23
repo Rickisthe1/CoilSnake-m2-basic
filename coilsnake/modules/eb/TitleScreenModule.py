@@ -17,12 +17,12 @@ log = logging.getLogger(__name__)
 # Background data pointers
 BG_TILESET_POINTER = 0xEC32 #EBF2
 BG_ARRANGEMENT_POINTER = 0xEC5E #EC1D
-BG_ANIM_PALETTE_POINTER = 0xEC9D
+#BG_ANIM_PALETTE_POINTER = 0xEC9D
 BG_PALETTE_POINTER = 0xC80D #ECC6
-BG_PALETTE_POINTER_SECONDARY = 0xED6B
+#BG_PALETTE_POINTER_SECONDARY = 0xED6B
 
 # Kirby debug menu sprite assembly
-KIRBY_INDEX_AND_ASM_POINTER = 0x2FFB8
+KIRBY_INDEX_AND_ASM_POINTER = 0x4D0EB #$2FFB8
 KIRBY_INDEX_AND_ASM_POINTER_SIZE = 3
 KIRBY_INDEX_SIZE = 2
 KIRBY_INDEX_AND_ASM_SIZE = KIRBY_INDEX_SIZE + 45
@@ -36,9 +36,9 @@ BG_NUM_TILES = 704
 BG_TILESET_BPP = 8
 
 # Characters data pointers
-CHARS_TILESET_POINTER = 0xEC49
-CHARS_ANIM_PALETTE_POINTER = 0xEC83
-CHARS_PALETTE_POINTER = 0x3F492
+CHARS_TILESET_POINTER = 0xECDF #EC49
+#CHARS_ANIM_PALETTE_POINTER = 0xEC83
+CHARS_PALETTE_POINTER = 0x3F348 #3F492
 
 # Characters data parameters
 CHARS_SUBPALETTE_LENGTH = 16
@@ -83,16 +83,16 @@ class TitleScreenModule(EbModule):
 
     NAME = "Title Screen"
     FREE_RANGES = [
-        (0x21B211, 0x21C6E4),  # Background Tileset
-        (0x21AF7D, 0x21B210),  # Background Arrangement
-        (0x21CDE1, 0x21CE07),  # Background Palette
-        (0x21AEFD, 0x21AF7C),  # Background Animated Palette
+        (0x21A0A0, 0x21B18B),  # Background Tileset - 0x21B211, 0x21C6E4
+        (0x21B2C7, 0x21BB00),  # Background Arrangement - 0x21AF7D, 0x21B210
+        (0x21CDE1, 0x21CE07),  # Background Palette - 0x21CDE1, 0x21CE07
+        #(),  # Background Animated Palette - 0x21AEFD, 0x21AF7C
 
-        (0x21C6E5, 0x21CDE0),  # Characters Tileset
-        (0x21AE7C, 0x21AE82),  # Characters Palette
-        (0x21AE83, 0x21AEFC),  # Characters Animated Palette
+        (0xE1BB01, 0xE1C290),  # Characters Tileset - 0x21C6E5, 0x21CDE0
+        #(),  # Characters Palette - 0x21AE7C, 0x21AE82
+        #(),  # Characters Animated Palette - 0x21AE83, 0x21AEFC
 
-        (0x21CE08, 0x21CF9C)  # Animation Data
+        #()  # Animation Data - 0x21CE08, 0x21CF9C
     ]
 
     def __init__(self):
