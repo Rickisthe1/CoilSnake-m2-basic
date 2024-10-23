@@ -15,12 +15,12 @@ PALETTE_TABLE_OFFSET = 0xc30000 #Identical Addresses
 
 class SpriteGroupModule(EbModule):
     NAME = "Sprite Groups"
-    FREE_RANGES = [(0x2f1a7f, 0x2f4a3f),
-                   (0x110000, 0x11ffff),
-                   (0x120000, 0x12ffff),
-                   (0x130000, 0x13ffff),
-                   (0x140000, 0x14ffff),
-                   (0x150000, 0x154fff)]
+    FREE_RANGES = [(0x2F6C81, 0x2F9C41), #0x2f1a7f, 0x2f4a3f
+                   (0x110000, 0x11ffff), #Identical
+                   (0x120000, 0x12ffff), #Identical
+                   (0x130000, 0x13ffff), #Identical
+                   (0x140000, 0x14ffff), #Identical
+                   (0x150000, 0x154fff)] #Identical
     SPRITE_GROUP_TABLE_REFERENCES = [
         AsmPointerReference(0x001E0F), #001DF9
         AsmPointerReference(0x001E8F), #001E79

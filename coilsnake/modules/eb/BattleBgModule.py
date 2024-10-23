@@ -26,7 +26,7 @@ DISTORTION_TABLE_OFFSET = 0xcaf708
 
 class BattleBgModule(EbModule):
     NAME = "Battle Backgrounds"
-    FREE_RANGES = [(0xa0000, 0xadca0), (0xb0000, 0xbd899)]
+    FREE_RANGES = [(0xa0000, 0xadca0), (0xb0000, 0xbd899)] #Identical
 
     def __init__(self):
         super(BattleBgModule, self).__init__()

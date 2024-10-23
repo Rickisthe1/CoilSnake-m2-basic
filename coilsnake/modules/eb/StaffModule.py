@@ -66,7 +66,7 @@ class StaffModule(EbModule):
     def read_staff_chars(self, yml_data):
         log.debug('Reading staff character-to-code mapping')
 
-        for k, v in yml_data.items():
+for k, v in yml_data.items():
             vrow  = v[ENTRY_ROW]
             vcol  = v[ENTRY_COL]
             self.check_row_col_error(ENTRY_ROW, vrow, MAX_ROW)

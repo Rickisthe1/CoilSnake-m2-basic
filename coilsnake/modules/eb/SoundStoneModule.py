@@ -45,7 +45,7 @@ for y in range(SOUND_STONE_ARRANGEMENT.height):
 
 class SoundStoneModule(EbModule):
     NAME = "Sound Stone"
-    FREE_RANGES = [(0x0EDD5D, 0x0EF805)]  # Sound stone graphics
+    FREE_RANGES = [(0x0EDD5D, 0x0EF809)]  # Sound stone graphics - 0x0EDD5D, 0x0EF805
 
     def __init__(self):
         super(SoundStoneModule, self).__init__()

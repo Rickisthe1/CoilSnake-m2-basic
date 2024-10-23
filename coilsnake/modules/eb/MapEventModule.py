@@ -16,7 +16,7 @@ POINTER_TABLE_BANK_OFFSET = 0x714
 
 class MapEventModule(EbModule):
     NAME = "Map Event Tile Changes"
-    FREE_RANGES = [(0x101598, 0x10187f)]
+    FREE_RANGES = [(0x101598, 0x10187f)] #Identical
 
     def __init__(self):
         super(MapEventModule, self).__init__()

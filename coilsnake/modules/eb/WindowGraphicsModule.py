@@ -71,7 +71,7 @@ for y in range(ARRANGEMENT_2.height):
 
 class WindowGraphicsModule(EbModule):
     NAME = "Window Graphics"
-    FREE_RANGES = [(0x200000, 0x20079f)]  # Graphics
+    FREE_RANGES = [(0x200000, 0x20110D)]  # Graphics - 0x200000, 0x20079f
 
     def __init__(self):
         super(WindowGraphicsModule, self).__init__()

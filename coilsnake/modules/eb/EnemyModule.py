@@ -26,9 +26,9 @@ ENEMY_GROUP_BACKGROUND_TABLE_DEFAULT_OFFSET = 0xCBD89A #M2 and EB in-common poin
 
 class EnemyModule(EbModule):
     NAME = "Enemies"
-    FREE_RANGES = [(0x0d0000, 0x0dffff),  # Battle Sprites
-                   (0x0e0000, 0x0e6913),  # Battle Sprites continued & Battle Sprite palettes
-                   (0x10d52d, 0x10dfb3)]  # Enemy Group Data
+    FREE_RANGES = [(0x0d0000, 0x0dffff),  # Battle Sprites - Identical
+                   (0x0e0000, 0x0e6913),  # Battle Sprites continued & Battle Sprite palettes 
+                   (0x10d52d, 0x10dfb3)]  # Enemy Group Data - Identical
 
     def __init__(self):
         super(EnemyModule, self).__init__()

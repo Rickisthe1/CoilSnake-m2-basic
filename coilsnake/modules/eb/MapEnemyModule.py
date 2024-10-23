@@ -11,7 +11,7 @@ GROUP_PLACEMENT_TABLE_OFFSET = 0xD01880 #M2 and EB in-common pointer
 
 class MapEnemyModule(EbModule):
     NAME = "Enemy Groups"
-    FREE_RANGES = [(0x10BBAC, 0x10C60C)]  # Groups data
+    FREE_RANGES = [(0x10BBAC, 0x10C60C)]  # Groups data - Identical
 
     def __init__(self):
         super(MapEnemyModule, self).__init__()

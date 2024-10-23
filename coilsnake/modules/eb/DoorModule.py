@@ -87,7 +87,7 @@ class DoorModule(EbModule):
         # We deallocate it here instead of specifying it in FREE_RANGES because we want to be sure that this module
         # get first dibs at writing to this range. This is because door destinations needs to be written to the 0x0F
         # bank of the EB ROM, and this is one of the few ranges available in that bank.
-        rom.deallocate((0x0F0000, 0x0F58EE))
+        rom.deallocate((0x0F0000, 0x0F592A)) #0x0F0000, 0x0F58EE
         destination_offsets = dict()
         empty_area_offset = from_snes_address(rom.allocate(data=[0, 0], can_write_to=not_in_destination_bank))
         i = 0
