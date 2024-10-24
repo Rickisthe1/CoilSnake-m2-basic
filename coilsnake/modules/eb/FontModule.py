@@ -12,7 +12,7 @@ from coilsnake.util.eb.pointer import from_snes_address, to_snes_address
 
 log = logging.getLogger(__name__)
 
-FONT_POINTER_TABLE_OFFSET = 0xE0110E
+FONT_POINTER_TABLE_OFFSET = 0xC3EAED
 FONT_FILENAMES = ["0", "1", "3", "4", "2"]
 
 CREDITS_GRAPHICS_ASM_POINTER = 0x4C1E1 #$C4f1a7

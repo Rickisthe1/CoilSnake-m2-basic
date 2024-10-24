@@ -1,10 +1,10 @@
 common.UsedRangeModule
 common.PatchModule
 eb.MusicModule
-eb.CharacterSubstitutionsModule
+# COMPILE ISSUE eb.CharacterSubstitutionsModule
 eb.CccInterfaceModule
 eb.SkipNamingModule
-# eb.MiscTextModule
+# DECOMPILE ISSUE eb.MiscTextModule
 eb.StaffModule
 eb.MapSpriteModule
 eb.DoorModule
@@ -19,14 +19,14 @@ eb.CastModule
 eb.AnimationModule
 eb.MapModule
 eb.MapEnemyModule
-eb.MapMusicModule
+# COMPILE ISSUE eb.MapMusicModule
 eb.MapEventModule
 # eb.FontModule
 eb.WindowGraphicsModule
 eb.BattleBgModule
 eb.CompressedGraphicsModule
-eb.EnemyModule
-# eb.TitleScreenModule
+# COMPILE ISSUE eb.EnemyModule
+# DECOMPILE ISSUE eb.TitleScreenModule
 eb.TilesetModule
 smb.TextModule
 common.LunarIpsCompatibilityModule
