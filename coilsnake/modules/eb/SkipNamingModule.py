@@ -48,7 +48,7 @@ class SkipNamingModule(EbModule):
             else:
                 log.warn("Unable to apply naming screen music bypass due to existing ASM changes")
 
-            offset = rom.allocate(size=(10 + 4 * 5 * 5 + 3 * 6 * 5))
+            offset = rom.allocate(size=(10 + 4 * 4 * 5 + 3 * 6 * 5))
             # Patch ASM to "JML newCode"
             if bytes(rom.to_array()[0x1F8FA:0x1F8FE]) != b'\xa9\x07\x00\x18': #$c/1faae - $c/1fab2
                 raise CoilSnakeUserError("Naming ASM has already been patched - unable to apply naming skip")
