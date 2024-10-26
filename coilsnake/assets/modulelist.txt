@@ -1,10 +1,10 @@
 common.UsedRangeModule
 common.PatchModule
 # BREAKS ROM eb.MusicModule
-# COMPILE ISSUE eb.CharacterSubstitutionsModule
+eb.CharacterSubstitutionsModule
 eb.CccInterfaceModule
 eb.SkipNamingModule
-# DECOMPILE ISSUE eb.MiscTextModule
+eb.MiscTextModule
 eb.StaffModule
 eb.MapSpriteModule
 eb.DoorModule
@@ -25,7 +25,7 @@ eb.MapEventModule
 eb.WindowGraphicsModule
 eb.BattleBgModule
 eb.CompressedGraphicsModule
-# COMPILE ISSUE eb.EnemyModule
+# eb.EnemyModule
 # DECOMPILE ISSUE eb.TitleScreenModule
 eb.TilesetModule
 smb.TextModule
