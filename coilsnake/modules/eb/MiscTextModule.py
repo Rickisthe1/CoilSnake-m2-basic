@@ -169,7 +169,7 @@ MISC_TEXT = {
         "No Equip": EbMiscTextString(default_offset=0x0439CE, maximum_size=4),                                       #C45c78
         "Unequip": EbMiscTextString(pointers=[EbMiscTextAsmPointer(0x1A7FA)], maximum_size=7, null_terminated=True), #C1A912
         # v This one could possibly have a larger max size, I haven't tested
-        "To": EbMiscTextString(pointers=[EbMiscTextAsmPointer(0x1A9F0)], maximum_size=3, null_terminated=True)       #C1AB1A
+        "To": EbMiscTextString(pointers=[EbMiscTextAsmPointer(0x1A9F0)], maximum_size=3, null_terminated=False)       #C1AB1A
     },
     "Item Menu": {
         "Use": EbMiscTextString(default_offset=0x0432D6, maximum_size=5),    #C43550
