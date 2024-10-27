@@ -66,7 +66,7 @@ class EnemyModule(EbModule):
         # Determine how many palettes there are
         num_palettes = 0
         for i in range(self.enemy_config_table.num_rows):
-            num_palettes = max(num_palettes, self.enemy_config_table[i][14])
+            num_palettes = max(num_palettes, self.enemy_config_table[i][12])
         num_palettes += 1
 
         # Read the palettes
@@ -192,24 +192,24 @@ class EnemyModule(EbModule):
                     del image
             except IOError:
                 # No battle sprite
-                self.enemy_config_table[i][4] = 0
-                self.enemy_config_table[i][14] = 0
+                self.enemy_config_table[i][2] = 0
+                self.enemy_config_table[i][12] = 0
                 continue
 
             sprite_hash = battle_sprite.hash()
             try:
-                self.enemy_config_table[i][4] = sprite_hashes[sprite_hash] + 1
+                self.enemy_config_table[i][2] = sprite_hashes[sprite_hash] + 1
             except KeyError:
-                self.enemy_config_table[i][4] = num_sprites + 1
+                self.enemy_config_table[i][2] = num_sprites + 1
                 sprite_hashes[sprite_hash] = num_sprites
                 self.battle_sprites.append(battle_sprite)
                 num_sprites += 1
 
             palette_hash = palette.hash()
             try:
-                self.enemy_config_table[i][14] = palette_hashes[palette_hash]
+                self.enemy_config_table[i][12] = palette_hashes[palette_hash]
             except KeyError:
-                self.enemy_config_table[i][14] = num_palettes
+                self.enemy_config_table[i][12] = num_palettes
                 palette_hashes[palette_hash] = num_palettes
                 self.palettes.append(palette)
                 num_palettes += 1

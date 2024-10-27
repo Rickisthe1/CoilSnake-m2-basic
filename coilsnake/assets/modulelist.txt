@@ -19,13 +19,13 @@ eb.CastModule
 eb.AnimationModule
 eb.MapModule
 eb.MapEnemyModule
-# COMPILE ISSUE eb.MapMusicModule
+eb.MapMusicModule
 eb.MapEventModule
 # NEEDS WORK eb.FontModule
 eb.WindowGraphicsModule
 eb.BattleBgModule
 eb.CompressedGraphicsModule
-# eb.EnemyModule
+eb.EnemyModule
 # DECOMPILE ISSUE eb.TitleScreenModule
 eb.TilesetModule
 smb.TextModule

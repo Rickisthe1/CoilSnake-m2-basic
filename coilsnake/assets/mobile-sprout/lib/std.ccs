@@ -19,44 +19,44 @@ command _asmptr(loc,target) {
 
 // Links a TPT entry's text pointer to a label
 command sprite_link(tptnum, target) {
-	ROMTBL[0xCF898E, 0x11, tptnum] = target
+	ROMTBL[0xCF89CA, 0x11, tptnum] = target //$CF898E
 }
 
 // Sets the starting coordinates, in pixels
 command newgame_location(x, y) {
-	ROM[0xC1FE9E] = short x
-	ROM[0xC1FE9B] = short y
+	ROM[0xC1FC1B] = short x //$C1FE9E
+	ROM[0xC1FC18] = short y //$C1FE9B
 }
 
 // Sets the new game startup code pointer
 command newgame_startup(target) {
-	_asmptr(0xC1FEA4, target)
+	_asmptr(0xC1FC21, target) //$C1FEA4
 }
 
 // Sets a pointer to be used whenever the screen refreshes
 command on_refresh(target) {
-	_asmptr(0xC06B29, target)
+	_asmptr(0xC06D57, target) //$C06B29
 }
 
 // Sets default "check" pointer (No problem here.)
 command on_check(target) {
-	_asmptr(0xC13BE9, target)
+	_asmptr(0xC14062, target) //$C13BE9
 }
 
 
 // Sets the file select music
 command setup_music(music) {
-	ROM[0xC1f04a] = byte music
+	ROM[0xC1EF4F] = byte music //$C1f04a
 }
 
 // Sets the naming screen music
 command setup_music2(music) {
-	ROM[0xC1f8fc] = byte music
+	ROM[0xC1F755] = byte music //$C1f8fc
 }
 
 // Sets the setup background
 command setup_background(bg) {
-	ROM[0xC0B5F1] = short bg
+	ROM[0xC0B5C4] = short bg //$C0B5F1
 }
 
 
