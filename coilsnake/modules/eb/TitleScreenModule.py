@@ -15,10 +15,14 @@ from coilsnake.util.eb.pointer import from_snes_address, read_asm_pointer, \
 log = logging.getLogger(__name__)
 
 # Background data pointers
-BG_TILESET_POINTER = 0xEC32 #EBF2
-BG_ARRANGEMENT_POINTER = 0xEC5E #EC1D
+# ebsrc has this labeled wrong for Mother 2
+BG1_TILESET_POINTER = 0xEC5E #EBF2
+BG2_TILESET_POINTER = 0xEC32
+BG1_ARRANGEMENT_POINTER = 0xECDF #EC1D
+BG2_ARRANGEMENT_POINTER = 0xECB3
 #BG_ANIM_PALETTE_POINTER = 0xEC9D
-BG_PALETTE_POINTER = 0xC80D #ECC6
+# This is the animated palette in M2
+BG_PALETTE_POINTER = 0xED0B #ECC6
 #BG_PALETTE_POINTER_SECONDARY = 0xED6B
 
 # Kirby debug menu sprite assembly
@@ -33,7 +37,7 @@ BG_ARRANGEMENT_HEIGHT = 32
 BG_SUBPALETTE_LENGTH = 16 #256 for EB
 BG_NUM_ANIM_SUBPALETTES = 20
 BG_NUM_TILES = 704
-BG_TILESET_BPP = 8
+BG_TILESET_BPP = 4
 
 # Characters data pointers
 CHARS_TILESET_POINTER = 0xECDF #EC49
@@ -49,7 +53,7 @@ CHARS_TILESET_BPP = 4
 ANIM_SUBPALETTE_LENGTH = 16
 NUM_ANIM_FRAMES = BG_NUM_ANIM_SUBPALETTES + CHARS_NUM_ANIM_SUBPALETTES
 NUM_CHARS = 9
-NUM_SUBPALETTES = 1
+NUM_SUBPALETTES = 16
 TILE_WIDTH = 8
 TILE_HEIGHT = 8
 
@@ -100,11 +104,18 @@ class TitleScreenModule(EbModule):
 
         # Background data (includes the central "B", the copyright
         # notice and the glow around the letters)
-        self.bg_tileset = EbGraphicTileset(
-            num_tiles=BG_NUM_TILES, tile_width=TILE_WIDTH,
+        self.bg1_tileset = EbGraphicTileset(
+            num_tiles=1024, tile_width=TILE_WIDTH,
             tile_height=TILE_HEIGHT
         )
-        self.bg_arrangement = EbTileArrangement(
+        self.bg1_arrangement = EbTileArrangement(
+            width=BG_ARRANGEMENT_WIDTH, height=BG_ARRANGEMENT_HEIGHT
+        )
+        self.bg2_tileset = EbGraphicTileset(
+            num_tiles=1024, tile_width=TILE_WIDTH,
+            tile_height=TILE_HEIGHT
+        )
+        self.bg2_arrangement = EbTileArrangement(
             width=BG_ARRANGEMENT_WIDTH, height=BG_ARRANGEMENT_HEIGHT
         )
         self.bg_anim_palette = EbPalette(
@@ -133,26 +144,38 @@ class TitleScreenModule(EbModule):
 
     def read_from_rom(self, rom):
         self.read_background_data_from_rom(rom)
-        self.read_chars_data_from_rom(rom)
-        self.read_chars_layouts_from_rom(rom)
+        # self.read_chars_data_from_rom(rom)
+        # self.read_chars_layouts_from_rom(rom)
 
-        # Add the characters palette to the background data.
-        self.bg_palette[0, CHARS_ANIM_SLICE] =\
-            self.chars_anim_palette.get_subpalette(
-                CHARS_NUM_ANIM_SUBPALETTES - 1
-            )[0, :]
+        # # Add the characters palette to the background data.
+        # self.bg_palette[0, CHARS_ANIM_SLICE] =\
+        #     self.chars_anim_palette.get_subpalette(
+        #         CHARS_NUM_ANIM_SUBPALETTES - 1
+        #     )[0, :]
 
     def read_background_data_from_rom(self, rom):
         with EbCompressibleBlock() as block:
+            # BG1
             # Read the background tileset data
-            self._decompress_block(rom, block, BG_TILESET_POINTER)
-            self.bg_tileset.from_block(
+            self._decompress_block(rom, block, BG1_TILESET_POINTER)
+            self.bg1_tileset.from_block(
                 block=block, offset=0, bpp=BG_TILESET_BPP
             )
 
             # Read the background tile arrangement data
-            self._decompress_block(rom, block, BG_ARRANGEMENT_POINTER)
-            self.bg_arrangement.from_block(block=block, offset=0)
+            self._decompress_block(rom, block, BG1_ARRANGEMENT_POINTER)
+            self.bg1_arrangement.from_block(block=block, offset=0)
+
+            # BG2
+            # Read the background tileset data
+            self._decompress_block(rom, block, BG2_TILESET_POINTER)
+            self.bg2_tileset.from_block(
+                block=block, offset=0, bpp=BG_TILESET_BPP
+            )
+
+            # Read the background tile arrangement data
+            self._decompress_block(rom, block, BG2_ARRANGEMENT_POINTER)
+            self.bg2_arrangement.from_block(block=block, offset=0)
 
             # Read the background palette data
             # The decompressed data is smaller than the expected value,
@@ -163,10 +186,10 @@ class TitleScreenModule(EbModule):
             )
             self.bg_palette.from_block(block=block, offset=0)
 
-            # Read the background animated palette data
-            # Each subpalette corresponds to an animation frame.
-            self._decompress_block(rom, block, BG_ANIM_PALETTE_POINTER)
-            self.bg_anim_palette.from_block(block=block, offset=0)
+            # # Read the background animated palette data
+            # # Each subpalette corresponds to an animation frame.
+            # self._decompress_block(rom, block, BG_ANIM_PALETTE_POINTER)
+            # self.bg_anim_palette.from_block(block=block, offset=0)
 
     def read_chars_data_from_rom(self, rom):
         with EbCompressibleBlock() as block:
@@ -219,9 +242,9 @@ class TitleScreenModule(EbModule):
 
     def write_background_data_to_rom(self, rom):
         # Write the background tileset data
-        block_size = self.bg_tileset.block_size(bpp=BG_TILESET_BPP)
+        block_size = self.bg1_tileset.block_size(bpp=BG_TILESET_BPP)
         with EbCompressibleBlock(block_size) as block:
-            self.bg_tileset.to_block(block=block, offset=0, bpp=BG_TILESET_BPP)
+            self.bg1_tileset.to_block(block=block, offset=0, bpp=BG_TILESET_BPP)
             self._write_compressed_block(rom, block, BG_TILESET_POINTER)
 
         # Write the background tile arrangement data
@@ -350,8 +373,8 @@ class TitleScreenModule(EbModule):
         # animation frames
         with resource_open(BG_REFERENCE_PATH, "png") as f:
             image = open_indexed_image(f)
-            self.bg_arrangement.from_image(
-                image, self.bg_tileset, self.bg_palette
+            self.bg1_arrangement.from_image(
+                image, self.bg1_tileset, self.bg_palette
             )
 
         # Read the background animated frames
@@ -387,12 +410,12 @@ class TitleScreenModule(EbModule):
                         "Palette from background frame {} does not match "
                         "reference.".format(frame)
                     )
-            if self.bg_tileset != tileset:
+            if self.bg1_tileset != tileset:
                 log.warn(
                     "Tileset from background frame {} does not match "
                     "reference.".format(frame)
                 )
-            if self.bg_arrangement != arrangement:
+            if self.bg1_arrangement != arrangement:
                 log.warn(
                     "Arrangement from background frame {} does not match "
                     "reference.".format(frame)
@@ -523,7 +546,7 @@ class TitleScreenModule(EbModule):
 
     def write_to_project(self, resource_open):
         self.write_background_data_to_project(resource_open)
-        self.write_chars_data_to_project(resource_open)
+        # self.write_chars_data_to_project(resource_open)
 
     def write_background_data_to_project(self, resource_open):
         # Write out the reference background image
@@ -532,24 +555,29 @@ class TitleScreenModule(EbModule):
         with resource_open(
             BG_REFERENCE_PATH, "png"
         ) as f:
-            image = self.bg_arrangement.image(self.bg_tileset, self.bg_palette)
+            image = self.bg1_arrangement.image(self.bg1_tileset, self.bg_palette)
+            image.save(f)
+        with resource_open(
+            BG_REFERENCE_PATH + "_2", "png"
+        ) as f:
+            image = self.bg2_arrangement.image(self.bg2_tileset, self.bg_palette)
             image.save(f)
 
-        # Write out the background's animated frames
-        for frame in range(NUM_ANIM_FRAMES):
-            palette = EbPalette(NUM_SUBPALETTES, BG_SUBPALETTE_LENGTH)
-            if frame < CHARS_NUM_ANIM_SUBPALETTES:
-                palette[0, CHARS_ANIM_SLICE] = \
-                    self.chars_anim_palette.get_subpalette(frame)[0, :]
-            else:
-                palette[0, :] = self.bg_palette.get_subpalette(0)[0, :]
-                palette[0, BG_ANIM_SLICE] = \
-                    self.bg_anim_palette.get_subpalette(
-                        frame - CHARS_NUM_ANIM_SUBPALETTES
-                    )[0, :]
-            with resource_open(BG_FRAMES_PATH.format(frame), "png") as f:
-                image = self.bg_arrangement.image(self.bg_tileset, palette)
-                image.save(f)
+        # # Write out the background's animated frames
+        # for frame in range(NUM_ANIM_FRAMES):
+        #     palette = EbPalette(NUM_SUBPALETTES, BG_SUBPALETTE_LENGTH)
+        #     if frame < CHARS_NUM_ANIM_SUBPALETTES:
+        #         palette[0, CHARS_ANIM_SLICE] = \
+        #             self.chars_anim_palette.get_subpalette(frame)[0, :]
+        #     else:
+        #         palette[0, :] = self.bg_palette.get_subpalette(0)[0, :]
+        #         palette[0, BG_ANIM_SLICE] = \
+        #             self.bg_anim_palette.get_subpalette(
+        #                 frame - CHARS_NUM_ANIM_SUBPALETTES
+        #             )[0, :]
+        #     with resource_open(BG_FRAMES_PATH.format(frame), "png") as f:
+        #         image = self.bg_arrangement.image(self.bg_tileset, palette)
+        #         image.save(f)
 
     def write_chars_data_to_project(self, resource_open):
         # Build an arrangement combining every character for convenience
