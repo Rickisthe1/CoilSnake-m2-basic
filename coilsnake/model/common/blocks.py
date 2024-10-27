@@ -262,7 +262,11 @@ class AllocatableBlock(Block):
     def deallocate(self, range):
         check_range_validity(range, self.size)
 
-        # TODO do some check so that unallocated ranges don't overlap
+        cur_begin, cur_end = range
+        for prev_begin, prev_end in self.unallocated_ranges:
+            if prev_begin <= cur_end and cur_begin <= prev_end:
+                raise InvalidArgumentError(f"Couldn't mark range ({cur_begin:#x}, {cur_end:#x}) as free "
+                                           f"because it overlaps with ({prev_begin:#x}, {prev_end:#x})")
         # TODO attach contiguous unallocated ranges if possible
 
         self.unallocated_ranges.append(range)
