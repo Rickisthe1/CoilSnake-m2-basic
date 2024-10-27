@@ -269,7 +269,7 @@ class MusicModule(EbModule):
         for i, pack in enumerate(self.packs):
             data = pack.get_pack_binary_data()
             pack_offset = rom.allocate(data=data)
-            self.pack_pointer_table[i] = [to_snes_address(pack_offset) - 0xE20000]
+            self.pack_pointer_table[i] = [to_snes_address(pack_offset)]
         # Write out pack pointer table
         self.pack_pointer_table.to_block(block=rom, offset=from_snes_address(self.PACK_POINTER_TABLE_ROM_ADDR))
         # Build song pack table
