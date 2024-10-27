@@ -1,6 +1,6 @@
 common.UsedRangeModule
 common.PatchModule
-# BREAKS ROM eb.MusicModule
+eb.MusicModule
 eb.CharacterSubstitutionsModule
 eb.CccInterfaceModule
 eb.SkipNamingModule

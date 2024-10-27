@@ -248,14 +248,8 @@ class MusicModule(EbModule):
         return
 
     def write_to_rom(self, rom):
-        # Apply Gas Station instrument pack patch
-        # In the vanilla game, there is a bug in the INITIALIZE_SPC700 function where it loads the
-        # engine pack by looking at the sequence pack of song 00, but then stores the loaded pack
-        # value into the secondary instrument pack variable. This means when we play the
-        # Gas Station song, it will load the whole engine again, which includes some instrument
-        # data. This instrument data will be loaded after the instrument packs, so this can result
-        # in some corrupted instruments when changing the instrument packs used by Gas Station.
-        self.get_patch(rom).apply(rom)
+        for patch in self.get_patches(rom):
+            patch.apply(rom)
         # Prepare packs for writing out by converting them to parts
         for pack in self.packs:
             pack.save_to_parts()
@@ -282,10 +276,23 @@ class MusicModule(EbModule):
         self.song_pack_table.to_block(block=rom, offset=from_snes_address(self.SONG_PACK_TABLE_ROM_ADDR))
         return
 
-    def get_patch(self, rom):
-        ips = IpsPatch()
-        ips.load(get_ips_filename(rom.type, 'gas_station_pack_fix'), 0)
-        return ips
+    def get_patches(self, rom):
+        # Apply Gas Station instrument pack patch
+        # In the vanilla game, there is a bug in the INITIALIZE_SPC700 function where it loads the
+        # engine pack by looking at the sequence pack of song 00, but then stores the loaded pack
+        # value into the secondary instrument pack variable. This means when we play the
+        # Gas Station song, it will load the whole engine again, which includes some instrument
+        # data. This instrument data will be loaded after the instrument packs, which would result
+        # in some corrupted instruments when changing the instrument packs used by Gas Station.
+        # This patch eliminates this corruption by storing the pack number to the correct location.
+        gas_station_ips = IpsPatch()
+        gas_station_ips.load(get_ips_filename(rom.type, 'gas_station_pack_fix'), 0)
+        # Apply patch to eliminate patch offset
+        # In Mother 2, the music pack table stores bank as an offset from bank $E2... This patch
+        # undoes that.
+        no_pack_offset_ips = IpsPatch()
+        no_pack_offset_ips.load(get_ips_filename(rom.type, 'm2_no_pack_offset'), 0)
+        return (gas_station_ips, no_pack_offset_ips,)
 
     def upgrade_project(self, old_version, new_version, rom, resource_open_r, resource_open_w, resource_delete):
         if old_version == new_version:
