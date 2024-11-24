@@ -88,7 +88,7 @@ for i in range(16 * 18):
 class CompressedGraphicsModule(EbModule):
     NAME = "Compressed Graphics"
     FREE_RANGES = [(0x2030FD, 0x20FC87),  # Town Map data - 0x2021a8, 0x20ed02
-                   (0x214317, 0x21C80C),  # Company Logos, "Produced by" and "Presented by", and Gas Station - 0x214ec1, 0x21ae7b
+                   (0x214317, 0x219DE0),  # Company Logos, "Produced by" and "Presented by", and Gas Station - 0x214ec1, 0x21ae7b
                    (0x21D7E2, 0x21DF3D)]  # Town map icon graphics and palette - 0x21ea50, 0x21f203
 
     def __init__(self):
