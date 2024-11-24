@@ -9,17 +9,19 @@ from coilsnake.model.eb.title_screen import TitleScreenLayoutEntry, \
 from coilsnake.modules.eb.EbModule import EbModule
 from coilsnake.util.common.image import open_indexed_image
 from coilsnake.util.common.yml import yml_dump, yml_load
-from coilsnake.util.eb.pointer import from_snes_address, read_asm_pointer, \
-    write_asm_pointer, to_snes_address
+from coilsnake.util.eb.pointer import (
+    from_snes_address, to_snes_address,
+    AsmPointerReference, XlPointerReference,
+)
 
 log = logging.getLogger(__name__)
 
 # Background data pointers
 # ebsrc has this labeled wrong for Mother 2
-BG1_TILESET_POINTER = 0xEC5E #EBF2
-BG2_TILESET_POINTER = 0xEC32
-BG1_ARRANGEMENT_POINTER = 0xECDF #EC1D
-BG2_ARRANGEMENT_POINTER = 0xECB3
+BG1_TILESET_POINTER = AsmPointerReference(0xEC5E) #EBF2
+BG2_TILESET_POINTER = AsmPointerReference(0xEC32)
+BG1_ARRANGEMENT_POINTER = AsmPointerReference(0xECDF) #EC1D
+BG2_ARRANGEMENT_POINTER = AsmPointerReference(0xECB3)
 #BG_ANIM_PALETTE_POINTER = 0xEC9D
 # This is the animated palette in M2
 # It is the entire palette (all 256 entries)
