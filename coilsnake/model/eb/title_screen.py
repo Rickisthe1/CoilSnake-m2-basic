@@ -1,3 +1,5 @@
+# This is wrong, this should be 512 as only 512 tiles are accessible for
+# objects.
 CHARS_NUM_TILES = 1024
 
 
@@ -10,6 +12,9 @@ class TitleScreenLayoutEntry(object):
         self.x = x
         self.y = y
         self.tile = tile
+        # Flags:
+        #   Bit 8: last part of the spritemap
+        #   Bit 1: Sprite size flag (See here: https://wiki.superfamicom.org/sprites)
         self.flags = flags
         self.unknown = unknown
 
@@ -18,6 +23,9 @@ class TitleScreenLayoutEntry(object):
         self.y = y if y < 128 else -(256-y)  # Read signed value
         tile_bytes = block.read_multi(offset+1, 2)
         self.tile = tile_bytes & (CHARS_NUM_TILES - 1)
+        # This is not actually unknown but is the remainder of the 4th byte of
+        # the OAM entry, which is: flip flags, priority, palette
+        # See here: https://wiki.superfamicom.org/sprites
         self.unknown = tile_bytes >> (CHARS_NUM_TILES - 1).bit_length()
         x = block[offset+3]
         self.x = x if x < 128 else -(256-x)  # Read signed value
