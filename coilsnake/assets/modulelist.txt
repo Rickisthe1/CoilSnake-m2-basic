@@ -26,7 +26,7 @@ eb.WindowGraphicsModule
 eb.BattleBgModule
 eb.CompressedGraphicsModule
 eb.EnemyModule
-# DECOMPILE ISSUE eb.TitleScreenModule
+eb.TitleScreenModule
 eb.TilesetModule
 smb.TextModule
 common.LunarIpsCompatibilityModule
