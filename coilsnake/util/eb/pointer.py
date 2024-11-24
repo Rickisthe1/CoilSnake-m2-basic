@@ -26,6 +26,8 @@ def read_asm_pointer(block, offset):
     part2 = block[offset + 6] | (block[offset + 7] << 8)
     return part1 | (part2 << 16)
 
+def read_xl_pointer(block, offset):
+    return block[offset + 1] | (block[offset + 2] << 8) | (block[offset + 3] << 16)
 
 def write_asm_pointer(block, offset, pointer):
     block[offset + 1] = pointer & 0xff
@@ -38,16 +40,38 @@ def write_xl_pointer(block, offset, pointer):
     block[offset + 2] = (pointer >> 8) & 0xff
     block[offset + 3] = (pointer >> 16) & 0xff
 
-class AsmPointerReference(object):
+class PointerReference:
+    POINTER_STR = "pointer"
+    READ_IMPL = None
+    WRITE_IMPL = None
+
+    def __init__(self, offset):
+        self.offset = offset
+
+    def validate_structure(self, rom):
+        raise NotImplementedError("Please use a child class of PointerReference")
+
+    def read(self, rom):
+        address = self.READ_IMPL(rom, self.offset)
+        log.info("Read %s at %#x, value is %#06x", self.POINTER_STR, self.offset, address)
+        return address
+
+    def write(self, rom, address):
+        log.info("Writing %s at %#x, value is %#06x", self.POINTER_STR, self.offset, address)
+        self.WRITE_IMPL(rom, self.offset, address)
+
+
+class AsmPointerReference(PointerReference):
+    POINTER_STR = "ASM pointer"
+    READ_IMPL = staticmethod(read_asm_pointer)
+    WRITE_IMPL = staticmethod(write_asm_pointer)
+
     POINTER_FORMAT = re.compile(
         rb'''[\xa9\xa2\xa0]..  # Match LDA_i / LDX_i / LDY_i
              [\x85\x86\x84](.) # Match STA_d / STX_d / STY_d
              [\xa9\xa2\xa0]..  # Match LDA_i / LDX_i / LDY_i
              [\x85\x86\x84](.) # Match STA_d / STX_d / STY_d
         ''', re.VERBOSE | re.DOTALL)
-
-    def __init__(self, offset):
-        self.offset = offset
 
     def validate_structure(self, rom):
         region = bytes(rom.to_array()[self.offset:self.offset+10])
@@ -64,19 +88,19 @@ class AsmPointerReference(object):
         # The code must have been changed somewhere else - don't patch.
         return False
 
-    def write(self, rom, address):
-        log.info("Writing pointer at " + hex(self.offset))
-        write_asm_pointer(rom, self.offset, address)
+class XlPointerReference(PointerReference):
+    POINTER_STR = "XL pointer"
+    READ_IMPL = staticmethod(read_xl_pointer)
+    WRITE_IMPL = staticmethod(write_xl_pointer)
 
-class XlPointerReference(object):
-    def __init__(self, offset):
-        self.offset = offset
+    def __init__(self, offset, expected_opcode=None):
+        super().__init__(offset)
+        self.expected_opcode = expected_opcode
 
     def validate_structure(self, rom):
         opcode = rom[self.offset]
-        # The 65816 opcodes are pretty regular - check out this neat trick
-        return opcode & 0x0F == 0x0F
-
-    def write(self, rom, address):
-        log.info("Writing xl pointer at " + hex(self.offset))
-        write_xl_pointer(rom, self.offset, address)
+        if self.expected_opcode:
+            return opcode == self.expected_opcode
+        else:
+            # The 65816 opcodes are pretty regular - check out this neat trick
+            return opcode & 0x0F == 0x0F
