@@ -11,7 +11,7 @@ from coilsnake.util.common.image import open_indexed_image
 from coilsnake.util.common.yml import yml_dump, yml_load
 from coilsnake.util.eb.pointer import (
     from_snes_address, to_snes_address,
-    AsmPointerReference, XlPointerReference,
+    PointerReference, AsmPointerReference, XlPointerReference,
 )
 
 log = logging.getLogger(__name__)
@@ -22,18 +22,10 @@ BG1_TILESET_POINTER = AsmPointerReference(0xEC5E) #EBF2
 BG2_TILESET_POINTER = AsmPointerReference(0xEC32)
 BG1_ARRANGEMENT_POINTER = AsmPointerReference(0xECDF) #EC1D
 BG2_ARRANGEMENT_POINTER = AsmPointerReference(0xECB3)
-#BG_ANIM_PALETTE_POINTER = 0xEC9D
 # This is the animated palette in M2
 # It is the entire palette (all 256 entries)
 # times 9 palette animations
-BG_PALETTE_POINTER = 0xED0B #ECC6
-#BG_PALETTE_POINTER_SECONDARY = 0xED6B
-
-# Kirby debug menu sprite assembly
-KIRBY_INDEX_AND_ASM_POINTER = 0x4D0EB #$2FFB8
-KIRBY_INDEX_AND_ASM_POINTER_SIZE = 3
-KIRBY_INDEX_SIZE = 2
-KIRBY_INDEX_AND_ASM_SIZE = KIRBY_INDEX_SIZE + 45
+ALL_PALETTE_POINTER = AsmPointerReference(0xED0B) #ECC6
 
 # Background data parameters
 BG_ARRANGEMENT_WIDTH = 32
@@ -44,9 +36,8 @@ BG_NUM_TILES = 704
 BG_TILESET_BPP = 4
 
 # Characters data pointers
-CHARS_TILESET_POINTER = 0xEC89 #EC49
-#CHARS_ANIM_PALETTE_POINTER = 0xEC83
-#CHARS_PALETTE_POINTER = 0x3F348 #3F492
+CHARS_TILESET_POINTER = AsmPointerReference(0xEC89) #EC49
+CHARS_SPRITEMAP_TABLE_POINTER = XlPointerReference(0x4217B, 0x1C) #0x4220E in US
 
 # Characters data parameters
 CHARS_SUBPALETTE_LENGTH = 16
@@ -60,11 +51,6 @@ NUM_SUBPALETTES = 16
 TILE_WIDTH = 8
 TILE_HEIGHT = 8
 
-# Animation data bank offsets
-CHARS_LAYOUT_BANK = 0xA0DD #0xA0FE
-CHARS_LAYOUT_TABLE = 0x21CA4C #0x21CF9D
-CHARS_LAYOUT_POINTER_OFFSET_DEFAULT = 0x210000
-
 # Project file paths
 BG1_FRAMES_PATH = "TitleScreen/Background/BG1_{:02d}"
 BG2_FRAMES_PATH = "TitleScreen/Background/BG2_{:02d}"
@@ -73,6 +59,10 @@ CHARS_FRAMES_PATH = "TitleScreen/Chars/{:02d}"
 CHARS_INITIAL_PATH = "TitleScreen/Chars/Initial"
 CHARS_POSITIONS_PATH = "TitleScreen/Chars/positions"
 
+# Palette division
+BG1_SLICE = slice(0, BG_SUBPALETTE_LENGTH*7)
+BG2_SLICE = slice(BG_SUBPALETTE_LENGTH*7, BG_SUBPALETTE_LENGTH*8)
+OBJ_SLICE = slice(BG_SUBPALETTE_LENGTH*8, BG_SUBPALETTE_LENGTH*16)
 
 class TitleScreenModule(EbModule):
     """Extracts the title screen data from EarthBound.
@@ -88,10 +78,11 @@ class TitleScreenModule(EbModule):
     FREE_RANGES = [
         (0x21A0A0, 0x21B18B),  # Background Tileset - 0x21B211, 0x21C6E4
         (0x21B2C7, 0x21BB00),  # Background Arrangement - 0x21AF7D, 0x21B210
-        (0x21CDE1, 0x21CE07),  # Background Palette - 0x21CDE1, 0x21CE07
+        (0x21C291, 0x21C46F),  # Background Palette - 0x21CDE1, 0x21CE07
         #(),  # Background Animated Palette - 0x21AEFD, 0x21AF7C
 
-        (0xE1BB01, 0xE1C290),  # Characters Tileset - 0x21C6E5, 0x21CDE0
+        (0x21BB01, 0x21C290),  # Characters Tileset - 0x21C6E5, 0x21CDE0
+        (0x21C80D, 0x21CA59),  # Characters Spritemap - 0x21CE08, ...?
         #(),  # Characters Palette - 0x21AE7C, 0x21AE82
         #(),  # Characters Animated Palette - 0x21AE83, 0x21AEFC
 
@@ -143,12 +134,6 @@ class TitleScreenModule(EbModule):
         self.read_chars_data_from_rom(rom)
         self.read_chars_layouts_from_rom(rom)
 
-        # # Add the characters palette to the background data.
-        # self.bg_palette[0, CHARS_ANIM_SLICE] =\
-        #     self.chars_anim_palette.get_subpalette(
-        #         CHARS_NUM_ANIM_SUBPALETTES - 1
-        #     )[0, :]
-
     def read_palettes_from_rom(self, rom):
         # The animations actually play out in this order due to probably a bug
         # in the code: 0 2 4 6 8 1 3 5 0
@@ -158,15 +143,12 @@ class TitleScreenModule(EbModule):
             # Read the background palette data
             # This contains a full (256-colour) palettes for each of the 9x
             # animation frames.
-            self._decompress_block(rom, block, BG_PALETTE_POINTER)
+            self._decompress_block(rom, block, ALL_PALETTE_POINTER)
             all_palette = EbPalette(
                 num_subpalettes=NUM_ANIM_FRAMES,
                 subpalette_length=BG_SUBPALETTE_LENGTH * 16
             )
             all_palette.from_block(block=block, offset=0)
-            BG1_SLICE = slice(0, BG_SUBPALETTE_LENGTH*7)
-            BG2_SLICE = slice(BG_SUBPALETTE_LENGTH*7, BG_SUBPALETTE_LENGTH*8)
-            OBJ_SLICE = slice(BG_SUBPALETTE_LENGTH*8, BG_SUBPALETTE_LENGTH*16)
             for anim in range(NUM_ANIM_FRAMES):
                 self.bg1_anim_palette[anim, :] = all_palette[anim, BG1_SLICE]
                 self.bg2_anim_palette[anim, :] = all_palette[anim, BG2_SLICE]
@@ -206,69 +188,72 @@ class TitleScreenModule(EbModule):
             )
 
     def read_chars_layouts_from_rom(self, rom):
-        lda_instruction = rom[CHARS_LAYOUT_BANK]
-        chars_layout_pointer_offset = CHARS_LAYOUT_POINTER_OFFSET_DEFAULT
-
-        # Check if we are dealing with the modified Rom,
-        # If we are, we need to recalculate the offset to the
-        # character layouts
-        if lda_instruction == 0xA9:
-            bank = rom[CHARS_LAYOUT_BANK + 1]
-            chars_layout_pointer_offset = from_snes_address(bank << 16)
+        chars_spritemap_table_address_snes = CHARS_SPRITEMAP_TABLE_POINTER.read(rom)
+        chars_spritemap_bank = chars_spritemap_table_address_snes & 0xFF_0000
+        chars_spritemap_table_offset = from_snes_address(chars_spritemap_table_address_snes)
 
         self.chars_layouts = [[] for _ in range(NUM_CHARS)]
         for char in range(NUM_CHARS):
             # Get the location of a character's data
-            offset = chars_layout_pointer_offset + rom.read_multi(
-                CHARS_LAYOUT_TABLE + char*2, 2
+            address = chars_spritemap_bank | rom.read_multi(
+                chars_spritemap_table_offset + char*2, 2
             )
 
             # Read entries until a final entry is encountered
             while True:
                 entry = TitleScreenLayoutEntry()
-                entry.from_block(rom, offset)
+                entry.from_block(rom, from_snes_address(address))
                 self.chars_layouts[char].append(entry)
-                offset += 5
+                address += 5
                 if entry.is_final():
                     break
 
     def write_to_rom(self, rom):
+        self.write_palette_to_rom(rom)
         self.write_background_data_to_rom(rom)
         self.write_chars_data_to_rom(rom)
-        self.write_chars_layouts_and_kirby_data_to_rom(rom)
+        self.write_chars_layouts_to_rom(rom)
+
+    def write_palette_to_rom(self, rom):
+        all_palette = EbPalette(
+            num_subpalettes=NUM_ANIM_FRAMES,
+            subpalette_length=BG_SUBPALETTE_LENGTH * 16
+        )
+        for anim in range(NUM_ANIM_FRAMES):
+            all_palette[anim, BG1_SLICE] = self.bg1_anim_palette[anim, :]
+            all_palette[anim, BG2_SLICE] = self.bg2_anim_palette[anim, :]
+            all_palette[anim, OBJ_SLICE] = self.chars_anim_palette[anim, :]
+        block_size = all_palette.block_size()
+        with EbCompressibleBlock(block_size) as block:
+            all_palette.to_block(block=block, offset=0)
+            self._write_compressed_block(rom, block, ALL_PALETTE_POINTER)
 
     def write_background_data_to_rom(self, rom):
+        # BG1
         # Write the background tileset data
         block_size = self.bg1_tileset.block_size(bpp=BG_TILESET_BPP)
         with EbCompressibleBlock(block_size) as block:
             self.bg1_tileset.to_block(block=block, offset=0, bpp=BG_TILESET_BPP)
-            self._write_compressed_block(rom, block, BG_TILESET_POINTER)
+            self._write_compressed_block(rom, block, BG1_TILESET_POINTER)
 
         # Write the background tile arrangement data
-        block_size = self.bg_arrangement.block_size()
+        block_size = self.bg1_arrangement.block_size()
         with EbCompressibleBlock(block_size) as block:
-            self.bg_arrangement.to_block(block=block, offset=0)
-            self._write_compressed_block(rom, block, BG_ARRANGEMENT_POINTER)
+            self.bg1_arrangement.to_block(block=block, offset=0)
+            self._write_compressed_block(rom, block, BG1_ARRANGEMENT_POINTER)
 
-        # Write the background palette data
-        # There is an additional pointer to this location, so change that one
-        # too
-        block_size = self.bg_palette.block_size()
+        # BG2
+        # Write the background tileset data
+        block_size = self.bg2_tileset.block_size(bpp=BG_TILESET_BPP)
         with EbCompressibleBlock(block_size) as block:
-            self.bg_palette.to_block(block=block, offset=0)
-            new_offset = self._write_compressed_block(
-                rom, block, BG_PALETTE_POINTER
-            )
-            write_asm_pointer(
-                block=rom, offset=BG_PALETTE_POINTER_SECONDARY,
-                pointer=to_snes_address(new_offset)
-            )
+            self.bg2_tileset.to_block(block=block, offset=0, bpp=BG_TILESET_BPP)
+            self._write_compressed_block(rom, block, BG2_TILESET_POINTER)
 
-        # Write the background animated palette data
-        block_size = self.bg_anim_palette.block_size()
+        # Write the background tile arrangement data
+        block_size = self.bg2_arrangement.block_size()
         with EbCompressibleBlock(block_size) as block:
-            self.bg_anim_palette.to_block(block=block, offset=0)
-            self._write_compressed_block(rom, block, BG_ANIM_PALETTE_POINTER)
+            self.bg2_arrangement.to_block(block=block, offset=0)
+            self._write_compressed_block(rom, block, BG2_ARRANGEMENT_POINTER)
 
     def write_chars_data_to_rom(self, rom):
         # Write the characters tileset data
@@ -279,101 +264,49 @@ class TitleScreenModule(EbModule):
             )
             self._write_compressed_block(rom, block, CHARS_TILESET_POINTER)
 
-        # Write the characters palette data
-        block_size = self.chars_palette.block_size()
-        with EbCompressibleBlock(block_size) as block:
-            self.chars_palette.to_block(block=block, offset=0)
-            self._write_compressed_block(rom, block, CHARS_PALETTE_POINTER)
-
-        # Write the characters animation palette data
-        block_size = self.chars_anim_palette.block_size()
-        with EbCompressibleBlock(block_size) as block:
-            self.chars_anim_palette.to_block(block=block, offset=0)
-            self._write_compressed_block(
-                rom, block, CHARS_ANIM_PALETTE_POINTER
-            )
-
-    def write_chars_layouts_and_kirby_data_to_rom(self, rom):
+    def write_chars_layouts_to_rom(self, rom):
         block_size = sum(
             TitleScreenLayoutEntry.block_size()*len(c)
             for c in self.chars_layouts
-        ) + KIRBY_INDEX_AND_ASM_SIZE
+        ) + 2 * len(self.chars_layouts)
 
         # Ensure the new data is located in only one bank
         # Spreading it across two banks might make part of it inaccessible.
         def can_write_to(begin):
             return begin >> 16 == (begin + block_size) >> 16
+        rom_offset = rom.allocate(
+            size=block_size,
+            can_write_to=can_write_to
+        )
+        block_addr = to_snes_address(rom_offset)
 
         with Block(block_size) as block:
             # Write the character animation data to the ROM
             offset = 0
+            chars_addrs = []
             for layout in self.chars_layouts:
+                chars_addrs.append(block_addr + offset)
                 for entry in layout:
                     entry.to_block(block=block, offset=offset)
                     offset += entry.block_size()
+            spritemap_table_addr = block_addr + offset
 
-            # Move the Kirby debug menu sprite assembly to its new location
-            kirby_index_and_asm_offset = from_snes_address(
-                rom[KIRBY_INDEX_AND_ASM_POINTER] |
-                (rom[KIRBY_INDEX_AND_ASM_POINTER + 1] << 8) |
-                (rom[KIRBY_INDEX_AND_ASM_POINTER + 2] << 16)
-            )
+            # Write the spritemap table
+            for char_num, char_addr in enumerate(chars_addrs):
+                block.write_multi(offset + char_num * 2, char_addr & 0xFFFF, 2)
 
-            block[offset:offset + KIRBY_INDEX_AND_ASM_SIZE] = \
-                rom[kirby_index_and_asm_offset:kirby_index_and_asm_offset + KIRBY_INDEX_AND_ASM_SIZE]
+            # Write the new data block into the ROM
+            rom[rom_offset:rom_offset+block_size] = block
 
-            rom_offset = rom.allocate(
-                data=block,
-                size=block_size,
-                can_write_to=can_write_to
-            )
-            new_offset = to_snes_address(rom_offset)
-
-            # Write the offsets to the layouts to the ROM
-            new_bank = new_offset >> 16
-            new_data_start = new_offset & 0xFFFF
-            data_offset = new_data_start
-            for c, layout in enumerate(self.chars_layouts):
-                rom[CHARS_LAYOUT_TABLE + c*2:CHARS_LAYOUT_TABLE + c*2 + 2] = [
-                    data_offset & 0xFF, data_offset >> 8
-                ]
-                data_offset += len(layout)*TitleScreenLayoutEntry.block_size()
-
-            # Fix pointers for the Kirby sprite assembly
-            kirby_index_offset = (rom_offset & 0xFF0000) + data_offset
-            kirby_asm_offset = kirby_index_offset + KIRBY_INDEX_SIZE
-            rom[KIRBY_INDEX_AND_ASM_POINTER:KIRBY_INDEX_AND_ASM_POINTER + KIRBY_INDEX_AND_ASM_POINTER_SIZE] = \
-                [kirby_index_offset & 0xFF, (kirby_index_offset & 0xFF00) >> 8, new_bank]
-            rom[kirby_index_offset:kirby_asm_offset] = \
-                [kirby_asm_offset & 0xFF, (kirby_asm_offset & 0xFF00) >> 8]
-
-            # Change the offset for the character layouts
-            # The way this normally works is that EarthBound stores the address
-            # of the bank holding the data (0xE1 by default, hence the 0x210000
-            # offset); the offsets in the table are then prefixed with that
-            # address. However, reallocating the data may have changed its
-            # bank, so we need to manually set it to the new bank address.
-
-            # In order to change the offset, we are replacing a LDA instruction
-            # which addresses a direct page (0xA5) with a LDA instruction
-            # that treats its operand as the constant to load (0xA9)
-            # See https://wiki.superfamicom.org/snes/show/65816+Reference#instructions.
-            rom[CHARS_LAYOUT_BANK:CHARS_LAYOUT_BANK + 2] = [0xA9, new_bank]
+        # Update the spritemap table pointer
+        CHARS_SPRITEMAP_TABLE_POINTER.write(rom, spritemap_table_addr)
 
     def read_from_project(self, resource_open):
         self.read_background_data_from_project(resource_open)
         self.read_chars_data_from_project(resource_open)
 
     def read_background_data_from_project(self, resource_open):
-        # Load the background reference image
-        # The image's arrangement, tileset and palette will be used for the
-        # animation frames
-        with resource_open(BG_REFERENCE_PATH, "png") as f:
-            image = open_indexed_image(f)
-            self.bg1_arrangement.from_image(
-                image, self.bg1_tileset, self.bg_palette
-            )
-
+        # BG1
         # Read the background animated frames
         for frame in range(NUM_ANIM_FRAMES):
             # Create temporary structures used to check consistency between
@@ -385,28 +318,21 @@ class TitleScreenModule(EbModule):
             palette = EbPalette(NUM_SUBPALETTES, BG_SUBPALETTE_LENGTH)
 
             # Read one frame's image data
-            with resource_open(BG_FRAMES_PATH.format(frame), "png") as f:
+            with resource_open(BG1_FRAMES_PATH.format(frame), "png") as f:
                 image = open_indexed_image(f)
-                arrangement.from_image(image, tileset, palette)
-
-            # Make sure each frame's tileset and arrangement is identical
-            # The background palette is checked only if it isn't the fake
-            # palette used for the first few frames
-            if frame >= CHARS_NUM_ANIM_SUBPALETTES:
-                # Get the background animated subpalette from the background
-                # palette
-                colors = palette[0, BG_ANIM_SLICE]
-                self.bg_anim_palette.subpalettes[
-                    frame - CHARS_NUM_ANIM_SUBPALETTES
-                ] = colors
-                palette[0, BG_ANIM_SLICE] = self.bg_palette[
-                    0, BG_ANIM_SLICE
-                ]
-                if self.bg_palette != palette:
-                    log.warn(
-                        "Palette from background frame {} does not match "
-                        "reference.".format(frame)
+                if frame == 0:
+                    self.bg1_arrangement.from_image(
+                        image, self.bg1_tileset, palette
                     )
+                else:
+                    arrangement.from_image(image, tileset, palette)
+
+            self.bg1_anim_palette.subpalettes[frame] = palette.flatten_subpalettes()[0:7*16]
+            # For frame 0, grab all the data. For future frames, also compare
+            # the tileset and arrangement against frame 0
+            if frame == 0:
+                continue
+
             if self.bg1_tileset != tileset:
                 log.warn(
                     "Tileset from background frame {} does not match "
@@ -418,6 +344,57 @@ class TitleScreenModule(EbModule):
                     "reference.".format(frame)
                 )
 
+        # BG2
+        # Read the background animated frames
+        for frame in range(NUM_ANIM_FRAMES):
+            # Create temporary structures used to check consistency between
+            # frames
+            tileset = EbGraphicTileset(BG_NUM_TILES, TILE_WIDTH, TILE_HEIGHT)
+            arrangement = EbTileArrangement(
+                BG_ARRANGEMENT_WIDTH, BG_ARRANGEMENT_HEIGHT
+            )
+            palette = EbPalette(NUM_SUBPALETTES, BG_SUBPALETTE_LENGTH)
+
+            # Read one frame's image data
+            with resource_open(BG2_FRAMES_PATH.format(frame), "png") as f:
+                image = open_indexed_image(f)
+                if frame == 0:
+                    self.bg2_arrangement.from_image(
+                        image, self.bg2_tileset, palette
+                    )
+                else:
+                    arrangement.from_image(image, tileset, palette)
+
+            self.bg2_anim_palette.subpalettes[frame] = palette.flatten_subpalettes()[0:16]
+            # For frame 0, grab all the data. For future frames, also compare
+            # the tileset and arrangement against frame 0
+            if frame == 0:
+                continue
+
+            if self.bg2_tileset != tileset:
+                log.warn(
+                    "Tileset from background frame {} does not match "
+                    "reference.".format(frame)
+                )
+            if self.bg2_arrangement != arrangement:
+                log.warn(
+                    "Arrangement from background frame {} does not match "
+                    "reference.".format(frame)
+                )
+
+        # Fix up BG2 arrangement to use the correct palettes.
+        for row in self.bg2_arrangement.arrangement:
+            for tile in row:
+                tile.subpalette = 7
+
+    @staticmethod
+    def add_to_tile_index(idx, x, y):
+        xp = idx & 0x0F
+        yp = idx & 0xF0
+        xp = (xp + x) & 0x0F
+        yp = (yp + (y << 4)) & 0xF0
+        return xp | yp
+
     def read_chars_data_from_project(self, resource_open):
         # Read the characters positions
         with resource_open(CHARS_POSITIONS_PATH, "yml", True) as f:
@@ -425,11 +402,8 @@ class TitleScreenModule(EbModule):
 
         # Read the characters animated frames
         self.chars_tileset = None
-        self.chars_anim_palette = EbPalette(
-            CHARS_NUM_ANIM_SUBPALETTES, ANIM_SUBPALETTE_LENGTH
-        )
         original_tileset = None
-        for p in range(CHARS_NUM_ANIM_SUBPALETTES):
+        for p in range(NUM_ANIM_FRAMES):
             # Read one of the animation frames
             with resource_open(CHARS_FRAMES_PATH.format(p), "png") as f:
                 # Create temporary structures to hold the data
@@ -441,13 +415,13 @@ class TitleScreenModule(EbModule):
                     CHARS_NUM_TILES, TILE_WIDTH, TILE_HEIGHT
                 )
                 anim_subpalette = EbPalette(
-                    NUM_SUBPALETTES, ANIM_SUBPALETTE_LENGTH
+                    NUM_SUBPALETTES, CHARS_SUBPALETTE_LENGTH
                 )
+                # TODO: allow flip
                 arrangement.from_image(image, tileset, anim_subpalette, True)
 
             # Add the characters animation subpalette
-            for i in range(ANIM_SUBPALETTE_LENGTH):
-                self.chars_anim_palette[p, i] = anim_subpalette[0, i]
+            self.chars_anim_palette.subpalettes[p] = anim_subpalette.flatten_subpalettes()[0:8*16]
 
             # Add the characters tileset if not already set, otherwise
             # ensure that it the current tileset is identical
@@ -490,9 +464,21 @@ class TitleScreenModule(EbModule):
 
                     # Generate the new reduced tileset
                     for i, j in l:
+                        want_multi = i < width - 1 and j < height - 1
                         # Put the tile in the new tileset
                         o_tile = arrangement[x + i, y + j].tile
-                        n_tile = unused_tiles.pop()
+                        for n_tile in unused_tiles:
+                            if want_multi:
+                                n_tile_r = self.add_to_tile_index(n_tile, 1, 0)
+                                n_tile_d = self.add_to_tile_index(n_tile, 0, 1)
+                                n_tile_dr = self.add_to_tile_index(n_tile, 1, 1)
+                                n_tiles = {n_tile, n_tile_r, n_tile_d, n_tile_dr}
+                                if n_tiles.issubset(unused_tiles):
+                                    unused_tiles.difference_update(n_tiles)
+                                    break
+                            else:
+                                unused_tiles.remove(n_tile)
+                                break
                         self.chars_tileset.tiles[n_tile] = tileset[o_tile]
 
                         entry = TitleScreenLayoutEntry(
@@ -500,17 +486,11 @@ class TitleScreenModule(EbModule):
                         )
 
                         # Create a multi entry if possible to save space
-                        if i < width - 1 and j < height - 1:
+                        if want_multi:
                             entry.set_single(True)
                             o_tile_r = arrangement[x+i+1, y+j].tile
                             o_tile_d = arrangement[x+i, y+j+1].tile
                             o_tile_dr = arrangement[x+i+1, y+j+1].tile
-                            n_tile_r = n_tile + 1
-                            n_tile_d = n_tile + 16
-                            n_tile_dr = n_tile + 17
-                            unused_tiles.difference_update(
-                                (n_tile_r, n_tile_d, n_tile_dr)
-                            )
                             self.chars_tileset.tiles[n_tile_r] = \
                                 tileset[o_tile_r]
                             self.chars_tileset.tiles[n_tile_d] = \
@@ -526,20 +506,6 @@ class TitleScreenModule(EbModule):
                     "Tileset from characters frame {} does not match "
                     "tileset from characters frame 0.".format(p)
                 )
-
-        # Read the initial characters palette
-        with resource_open(CHARS_INITIAL_PATH, "png") as f:
-            image = open_indexed_image(f)
-            arrangement = EbTileArrangement(
-                image.width // TILE_WIDTH, image.height // TILE_HEIGHT
-            )
-            tileset = EbGraphicTileset(
-                CHARS_NUM_TILES, TILE_WIDTH, TILE_HEIGHT
-            )
-            self.chars_palette = EbPalette(
-                NUM_SUBPALETTES, ANIM_SUBPALETTE_LENGTH
-            )
-            arrangement.from_image(image, tileset, self.chars_palette)
 
     def write_to_project(self, resource_open):
         self.write_background_data_to_project(resource_open)
@@ -624,17 +590,16 @@ class TitleScreenModule(EbModule):
             self.write_to_project(resource_open_w)
 
     @staticmethod
-    def _decompress_block(rom, block, pointer):
+    def _decompress_block(rom, block, pointer: PointerReference):
+        pointer_address = pointer.read(rom)
         block.from_compressed_block(
             block=rom,
-            offset=from_snes_address(read_asm_pointer(rom, pointer))
+            offset=from_snes_address(pointer_address)
         )
 
     @staticmethod
-    def _write_compressed_block(rom, compressed_block, pointer):
+    def _write_compressed_block(rom, compressed_block, pointer: PointerReference):
         compressed_block.compress()
         new_offset = rom.allocate(data=compressed_block)
-        write_asm_pointer(
-            block=rom, offset=pointer, pointer=to_snes_address(new_offset)
-        )
+        pointer.write(rom, to_snes_address(new_offset))
         return new_offset

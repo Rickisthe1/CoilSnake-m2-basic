@@ -27,7 +27,7 @@ def read_asm_pointer(block, offset):
     return part1 | (part2 << 16)
 
 def read_xl_pointer(block, offset):
-    return int.from_bytes(block[offset + 1 : offset + 4], 'little')
+    return block[offset + 1] | (block[offset + 2] << 8) | (block[offset + 3] << 16)
 
 def write_asm_pointer(block, offset, pointer):
     block[offset + 1] = pointer & 0xff
@@ -63,8 +63,8 @@ class PointerReference:
 
 class AsmPointerReference(PointerReference):
     POINTER_STR = "ASM pointer"
-    READ_IMPL = read_asm_pointer
-    WRITE_IMPL = write_asm_pointer
+    READ_IMPL = staticmethod(read_asm_pointer)
+    WRITE_IMPL = staticmethod(write_asm_pointer)
 
     POINTER_FORMAT = re.compile(
         rb'''[\xa9\xa2\xa0]..  # Match LDA_i / LDX_i / LDY_i
@@ -90,8 +90,8 @@ class AsmPointerReference(PointerReference):
 
 class XlPointerReference(PointerReference):
     POINTER_STR = "XL pointer"
-    READ_IMPL = read_xl_pointer
-    WRITE_IMPL = write_xl_pointer
+    READ_IMPL = staticmethod(read_xl_pointer)
+    WRITE_IMPL = staticmethod(write_xl_pointer)
 
     def __init__(self, offset, expected_opcode=None):
         super().__init__(offset)

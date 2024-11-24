@@ -124,6 +124,9 @@ class EbPalette(EqualityMixin):
     def list(self):
         return reduce(lambda x, y: x.__add__(y.list()), reduce(lambda x, y: x.__add__(y), self.subpalettes, []), [])
 
+    def flatten_subpalettes(self):
+        return reduce(lambda accumulator, subpal: accumulator + subpal, self.subpalettes, [])
+
     def get_subpalette(self, subpalette_num):
         subpalette = EbPalette(num_subpalettes=1, subpalette_length=self.subpalette_length)
         for i in range(self.subpalette_length):
