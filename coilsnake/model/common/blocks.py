@@ -325,8 +325,11 @@ with open_asset("romtypes.yml") as f:
 
 ROM_TYPE_NAME_UNKNOWN = "Unknown"
 ROM_TYPE_NAME_EARTHBOUND = "Earthbound"
+ROM_TYPE_NAME_MOTHER2 = "Mother 2"
 ROM_TYPE_NAME_EARTHBOUND_ZERO = "Earthbound Zero"
 ROM_TYPE_NAME_SUPER_MARIO_BROS = "Super Mario Bros"
+
+ROM_TYPE_GROUP_EBM2 = (ROM_TYPE_NAME_EARTHBOUND, ROM_TYPE_NAME_MOTHER2)
 
 class Rom(AllocatableBlock):
     def reset(self, size=0):
@@ -402,7 +405,7 @@ class Rom(AllocatableBlock):
             return ROM_TYPE_NAME_UNKNOWN
 
     def add_header(self):
-        if self.type == ROM_TYPE_NAME_EARTHBOUND:
+        if self.type in ROM_TYPE_GROUP_EBM2:
             for i in range(0x200):
                 self.data.insert(0, 0)
             self.size += 0x200
@@ -410,7 +413,7 @@ class Rom(AllocatableBlock):
             raise NotImplementedError("Don't know how to add header to ROM of type[%s]" % self.type)
 
     def expand(self, desired_size):
-        if self.type == ROM_TYPE_NAME_EARTHBOUND:
+        if self.type in ROM_TYPE_GROUP_EBM2:
             if (desired_size != 0x400000) and (desired_size != 0x600000):
                 raise InvalidArgumentError("Cannot expand an %s ROM to size[%#x]" % (self.type, self.size))
             else:

@@ -12,6 +12,7 @@ from CCScriptWriter.CCScriptWriter import CCScriptWriter
 from coilsnake.model.common.ips import IpsPatch
 from coilsnake.model.eb.blocks import EbRom
 from coilsnake.model.eb.ebp import EbpPatch
+from coilsnake.model.eb.table import ensure_game_schema_is_loaded
 from coilsnake.util.common.project import FORMAT_VERSION, PROJECT_FILENAME, get_version_name
 from coilsnake.exceptions.common.exceptions import CoilSnakeError, CCScriptCompilationError
 from coilsnake.model.common.blocks import Rom, ROM_TYPE_NAME_UNKNOWN, ROM_TYPE_NAME_EARTHBOUND
@@ -67,6 +68,7 @@ def upgrade_project(project_path, base_rom_filename, progress_bar=None):
     rom = Rom()
     rom.from_file(base_rom_filename)
     check_if_types_match(project=project, rom=rom)
+    ensure_game_schema_is_loaded(project.romtype)
 
     compatible_modules = [(name, clazz) for name, clazz in modules if clazz.is_compatible_with_romtype(rom.type)]
     tick_amount = 1.0/len(compatible_modules)
@@ -137,6 +139,7 @@ def compile_project(project_path, base_rom_filename, output_rom_filename, ccscri
     rom = Rom()
     rom.from_file(output_rom_filename)
     check_if_types_match(project=project, rom=rom)
+    ensure_game_schema_is_loaded(project.romtype)
 
     compatible_modules = [(name, clazz) for name, clazz in modules if clazz.is_compatible_with_romtype(rom.type)]
     tick_amount = 1.0/(2*len(compatible_modules))
@@ -182,6 +185,7 @@ def decompile_rom(rom_filename, project_path, progress_bar=None):
 
     project = Project()
     project.load(os.path.join(project_path, PROJECT_FILENAME), rom.type)
+    ensure_game_schema_is_loaded(project.romtype)
 
     compatible_modules = [(name, clazz) for name, clazz in modules if clazz.is_compatible_with_romtype(rom.type)]
     tick_amount = 1.0/(2*len(compatible_modules))

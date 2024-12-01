@@ -1,7 +1,7 @@
 import sys
 
 from coilsnake.modules.common.GenericModule import GenericModule
-from coilsnake.model.common.blocks import ROM_TYPE_NAME_EARTHBOUND
+from coilsnake.model.common.blocks import ROM_TYPE_NAME_EARTHBOUND, ROM_TYPE_NAME_MOTHER2
 
 try:
     from coilsnake.util.eb import native_comp
@@ -20,7 +20,7 @@ address_labels = dict()
 class EbModule(GenericModule):
     @staticmethod
     def is_compatible_with_romtype(romtype):
-        return romtype == ROM_TYPE_NAME_EARTHBOUND
+        return romtype == ROM_TYPE_NAME_MOTHER2
 
 
 # Comp/Decomp

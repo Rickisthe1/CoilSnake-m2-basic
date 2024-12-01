@@ -47,6 +47,7 @@ KEYWORD_BYTE_HEIGHT = {
 class StaffModule(EbModule):
     NAME = 'Staff'
     FREE_RANGES = [(0x213596, 0x21423D)] #0x21413f, 0x214de7
+    YAML_ASSET_PATH = ('structures', 'm2_staff_chars.yml')
 
     def __init__(self):
         self.big    = {}
@@ -87,7 +88,7 @@ class StaffModule(EbModule):
                 )
 
     def read_staff_chars_from_assets(self):
-        with open_asset('structures', 'eb_staff_chars.yml') as f:
+        with open_asset(*self.YAML_ASSET_PATH) as f:
             yml_data = yml_load(f)
 
         self.read_staff_chars(yml_data)
@@ -251,7 +252,7 @@ class StaffModule(EbModule):
         invbig   = {v: k for (k, v) in self.big.items()}
         invsmall = {v: k for (k, v) in self.small.items()}
 
-        with open_asset('structures', 'eb_staff_chars.yml') as f:
+        with open_asset(*self.YAML_ASSET_PATH) as f:
             staff_chars = f.read()
 
         with resource_open(STAFF_CHARS_FILE_NAME, 'yml', True) as f:

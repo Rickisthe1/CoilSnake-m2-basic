@@ -1,4 +1,5 @@
 from functools import partial
+import logging
 
 import yaml
 
@@ -6,6 +7,7 @@ from coilsnake.exceptions.common.exceptions import InvalidArgumentError, TableEn
     InvalidYmlRepresentationError
 from coilsnake.model.common.table import LittleEndianIntegerTableEntry, Table, MatrixTable, \
     GenericLittleEndianRowTableEntry, TableEntry, LittleEndianHexIntegerTableEntry
+from coilsnake.model.common.blocks import ROM_TYPE_NAME_EARTHBOUND, ROM_TYPE_NAME_MOTHER2
 from coilsnake.model.eb.palettes import EbPalette
 from coilsnake.model.eb.pointers import EbPointer
 from coilsnake.util.common.assets import open_asset
@@ -13,6 +15,7 @@ from coilsnake.util.eb.helper import is_in_bank
 from coilsnake.util.eb.pointer import from_snes_address, to_snes_address
 from coilsnake.util.eb.text import standard_text_from_block, standard_text_to_block, standard_text_to_byte_list
 
+log = logging.getLogger(__name__)
 
 class EbPointerTableEntry(LittleEndianIntegerTableEntry):
     @staticmethod
@@ -258,25 +261,46 @@ class EbRowTableEntry(GenericLittleEndianRowTableEntry):
            "standardtext null-terminated": (EbStandardNullTerminatedTextTableEntry, ["name", "size"])})
 
 
-_EB_SCHEMA_MAP = None
+_SCHEMA_MAPS = {}
+_GAME_TO_YAML = {
+    ROM_TYPE_NAME_EARTHBOUND: 'eb.yml',
+    ROM_TYPE_NAME_MOTHER2: 'm2.yml',
+}
+_LAST_GAME = None
 
-with open_asset("structures", "eb.yml") as f:
-    i = 1
-    for doc in yaml.load_all(f, Loader=yaml.CSafeLoader):
-        if i == 1:
-            i += 1
-        elif i == 2:
-            _EB_SCHEMA_MAP = doc
-            break
+def _load_schema_map(game):
 
+    with open_asset("structures", _GAME_TO_YAML[game]) as f:
+        i = 1
+        for doc in yaml.load_all(f, Loader=yaml.CSafeLoader):
+            if i == 1:
+                i += 1
+            elif i == 2:
+                _SCHEMA_MAPS[game] = doc
+                break
+
+def ensure_game_schema_is_loaded(game):
+    global _LAST_GAME
+    if game not in _GAME_TO_YAML:
+        log.warning("Game %s not in the list of known YAML files, ignoring...", game)
+        _LAST_GAME = None
+        return
+    if game not in _SCHEMA_MAPS:
+        _load_schema_map(game)
+    _LAST_GAME = game
 
 def eb_table_from_offset(offset, single_column=None, matrix_dimensions=None, hidden_columns=None, num_rows=None,
-                         name=None):
+                         name=None, game=None):
     if hidden_columns is None:
         hidden_columns = []
 
+    if not game:
+        game = _LAST_GAME
+        log.debug("YAML table load function called with game unset - falling back to last loaded (%s)", _LAST_GAME)
+    if not game:
+        raise InvalidArgumentError("Attempted to create a table for a game without a YAML file.")
     try:
-        schema_specification = _EB_SCHEMA_MAP[offset]
+        schema_specification = _SCHEMA_MAPS[game][offset]
     except KeyError:
         raise InvalidArgumentError("Could not setup EbTable from unknown offset[{:#x}]".format(offset))
 
