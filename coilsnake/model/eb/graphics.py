@@ -7,9 +7,19 @@ from coilsnake.exceptions.common.exceptions import InvalidArgumentError, OutOfBo
 from coilsnake.model.eb.blocks import EbCompressibleBlock
 from coilsnake.model.eb.palettes import EbPalette, EbColor
 from coilsnake.util.common.type import EqualityMixin, StringRepresentationMixin
-from coilsnake.util.eb.graphics import read_2bpp_graphic_from_block, read_4bpp_graphic_from_block, \
-    read_8bpp_graphic_from_block, read_1bpp_graphic_from_block, write_2bpp_graphic_to_block, \
-    write_4bpp_graphic_to_block, write_8bpp_graphic_to_block, write_1bpp_graphic_to_block, hash_tile
+from coilsnake.util.eb.graphics import (
+    read_1bpp_graphic_from_block,
+    read_1bpp_12x12_graphic_from_block,
+    read_2bpp_graphic_from_block,
+    read_4bpp_graphic_from_block,
+    read_8bpp_graphic_from_block,
+    write_1bpp_graphic_to_block,
+    write_1bpp_12x12_graphic_to_block,
+    write_2bpp_graphic_to_block,
+    write_4bpp_graphic_to_block,
+    write_8bpp_graphic_to_block,
+    hash_tile,
+)
 
 
 _EB_GRAPHIC_TILESET_SUPPORTED_BPP_FORMATS = frozenset([1, 2, 4, 8])
@@ -33,7 +43,7 @@ class EbGraphicTileset(EqualityMixin):
         if tile_width <= 0:
             raise InvalidArgumentError("Couldn't create EbGraphicTileset with invalid tile_width[{}]".format(
                 tile_width))
-        elif (tile_width % 8) != 0:
+        elif tile_width != 12 and (tile_width % 8) != 0:
             raise InvalidArgumentError(("Couldn't create EbGraphicTileset with a tile_height[{}] that is not a "
                                         "multiple of 8").format(tile_height))
         self.tile_width = tile_width
@@ -52,7 +62,7 @@ class EbGraphicTileset(EqualityMixin):
         :param bpp: The number of bits used to represent each pixel by the block representation."""
         if bpp not in _EB_GRAPHIC_TILESET_SUPPORTED_BPP_FORMATS:
             raise NotImplementedError("Don't know how to read graphical tile data of bpp[{}]".format(bpp))
-        elif (bpp != 1) and (self.tile_height != 8):
+        elif ((bpp != 1) and (self.tile_height != 8)) or (bpp == 1 and self.tile_width == 12 and self.tile_height != 12):
             raise NotImplementedError(("Don't know how to read graphical tile data of width[{}], height[{}], "
                                       "and bpp[{}]").format(self.tile_width, self.tile_height, bpp))
 
@@ -68,6 +78,10 @@ class EbGraphicTileset(EqualityMixin):
                     offset += read_4bpp_graphic_from_block(source=block, target=tile, offset=offset)
                 elif bpp == 8:
                     offset += read_8bpp_graphic_from_block(source=block, target=tile, offset=offset)
+                elif bpp == 1 and self.tile_width == 12:
+                    # M2 flyover font format
+                    offset += read_1bpp_12x12_graphic_from_block(source=block, target=tile, offset=offset)
+                    pass
                 else:  # bpp == 1
                     for x in range(0, self.tile_width, 8):
                         offset += read_1bpp_graphic_from_block(source=block, target=tile, offset=offset,
@@ -81,7 +95,7 @@ class EbGraphicTileset(EqualityMixin):
         :param bpp: The number of bits used to represent each pixel by the block representation."""
         if bpp not in _EB_GRAPHIC_TILESET_SUPPORTED_BPP_FORMATS:
             raise NotImplementedError("Don't know how to read graphical tile data of bpp[{}]".format(bpp))
-        elif (bpp != 1) and (self.tile_height != 8):
+        elif ((bpp != 1) and (self.tile_height != 8)) or (bpp == 1 and self.tile_width == 12 and self.tile_height != 12):
             raise NotImplementedError("Don't know how to write image data of width[{}], height[{}], and bpp[{}]"
                                       .format(self.tile_width, self.tile_height, bpp))
 
@@ -92,6 +106,9 @@ class EbGraphicTileset(EqualityMixin):
                 offset += write_4bpp_graphic_to_block(source=tile, target=block, offset=offset)
             elif bpp == 8:
                 offset += write_8bpp_graphic_to_block(source=tile, target=block, offset=offset)
+            elif bpp == 1 and self.tile_width == 12:
+                # M2 flyover font format
+                offset += write_1bpp_12x12_graphic_to_block(source=tile, target=block, offset=offset)
             else:  # bpp == 1
                 for x in range(0, self.tile_width, 8):
                     offset += write_1bpp_graphic_to_block(source=tile, target=block, offset=offset,
@@ -113,7 +130,9 @@ class EbGraphicTileset(EqualityMixin):
         :param tile_width: width in pixels of each of the tileset's individual tiles
         :param tile_height: height in pixels of each of the tileset's individual tiles
         :param bpp: The number of bits used to represent each pixel by the block representation."""
-        return tile_height * bpp * (tile_width // 8) * num_tiles
+        tile_size_bits = tile_height * tile_width * bpp
+        assert (tile_size_bits % 8) == 0, "Can't calculate block size"
+        return (tile_size_bits // 8) * num_tiles
 
     def block_size(self, bpp=2, trimmed=False):
         """Returns the size required to represent this tileset in a block.
