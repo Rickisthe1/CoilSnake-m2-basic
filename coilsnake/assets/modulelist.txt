@@ -21,7 +21,7 @@ eb.MapModule
 eb.MapEnemyModule
 eb.MapMusicModule
 eb.MapEventModule
-# NEEDS WORK eb.FontModule
+eb.FontModule
 eb.WindowGraphicsModule
 eb.BattleBgModule
 eb.CompressedGraphicsModule

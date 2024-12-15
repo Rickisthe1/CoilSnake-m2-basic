@@ -36,6 +36,41 @@ def write_1bpp_graphic_to_block(source, target, offset, x=0, y=0, height=8):
     return height
 
 
+def read_1bpp_12x12_graphic_from_block(source, target, offset):
+    """Reads an graphic stored in the 1 bit-per-pixel 12x12 pixel font format from a block to a 2D array of pixels.
+    :param source: block to read from
+    :param target: 2D pixel array to write to
+    :param offset: offset in the block from where to read the graphical data"""
+    for j in range(12//2):
+        dataInt = (source[offset] << 16) | (source[offset+1] << 8) | (source[offset+2])
+        offset += 3
+        y = j * 2
+        for x in range(12):
+            target[y + 0][x] = 1 if dataInt & 0x800_000 else 0
+            target[y + 1][x] = 1 if dataInt & 0x000_800 else 0
+            dataInt <<= 1
+    return 18
+
+
+def write_1bpp_12x12_graphic_to_block(source, target, offset):
+    """Writes an 12x12 graphic stored in the 1 bits-per-pixel 12x12 pixel font format to a block from the specified area in the image.
+    :param source: 2D pixel array to read from
+    :param target: block to write to
+    :param offset: offset in the block where to write the graphical data"""
+    for j in range(12//2):
+        dataInt = 0
+        y = j * 2
+        for x in range(12):
+            dataInt <<= 1
+            dataInt |= 0x001_000 if source[y + 0][x] else 0
+            dataInt |= 0x000_001 if source[y + 1][x] else 0
+        target[offset + 0] = (dataInt >> 16) & 0xff
+        target[offset + 1] = (dataInt >> 8) & 0xff
+        target[offset + 2] = dataInt & 0xff
+        offset += 3
+    return 18
+
+
 def read_2bpp_graphic_from_block(target, source, offset, x=0, y=0, bit_offset=0):
     """Reads an 8x8 graphic stored in the 2 bits-per-pixel format from a block to a 2D array of pixels.
     :param target: 2D pixel array to write to
