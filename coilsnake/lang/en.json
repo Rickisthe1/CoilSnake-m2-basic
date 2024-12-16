@@ -20,7 +20,7 @@
     "invalid_format": "Could not create patch because patch does not end in .ips or .ebp",
     "name_exists": "A profile with that name already exists.",
     "cant_delete_prof": "Cannot delete the only profile.",
-    "not_a_valid_hex": "is not a valid hexidecimal number.", //{}
+    "not_a_valid_hex": "is not a valid hexidecimal number.",
     "config_java": "Configure Java",
     "java_following_loc": "CoilSnake has detected Java at the following location:",
     "select_yes": "To use this installation of Java, select <Yes>",

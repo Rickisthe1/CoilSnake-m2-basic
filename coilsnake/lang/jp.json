@@ -20,7 +20,7 @@
     "invalid_format": "パッチが.ipsまたは.ebpではありません。パッチを作成できませんでした",
     "name_exists": "その名前のプロフィールはすでに存在します。",
     "cant_delete_prof": "唯一のプロフィールを削除できません。",
-    "not_a_valid_hex": "は有効な16進数ではありません。", //{}
+    "not_a_valid_hex": "は有効な16進数ではありません。",
     "config_java": "Javaの設定",
     "java_following_loc": "まきへびドライは次の場所にJavaを検出しました：",
     "select_yes": "このJavaを使用するには、「はい」を選択します。",
