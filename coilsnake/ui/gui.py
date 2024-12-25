@@ -114,7 +114,7 @@ def update_texts(self, translations):
     self.guistrings["coilsnake_site"] = Label(self.root, text=translations.get("coilsnake_site", missing))
     self.guistrings["help_text"] = Label(self.root, text=translations.get("help_text", missing))
     self.guistrings["decomp_rom_new_proj"] = Label(self.root, text=translations.get("decomp_rom_new_proj", missing))
-    self.guistrings["comp_rom_new_pro"] = Label(self.root, text=translations.get("comp_rom_new_pro", missing))
+    self.guistrings["comp_rom_new_proj"] = Label(self.root, text=translations.get("comp_rom_new_proj", missing))
     self.guistrings["output_dir"] = Label(self.root, text=translations.get("output_dir", missing))
     self.guistrings["base_rom"] = Label(self.root, text=translations.get("base_rom", missing))
     self.guistrings["project"] = Label(self.root, text=translations.get("project", missing))
@@ -929,7 +929,7 @@ class CoilSnakeGui(object):
 
     def create_create_patch_frame(self, notebook):
         patcher_create_frame = tkinter.ttk.Frame(notebook)
-        self.add_title_label_to_frame(self.guistrings["create_ebp_patch"].cget("text"), patcher_create_frame)
+        self.add_title_label_to_frame(self.guistrings["create_patch"].cget("text"), patcher_create_frame)
 
         clean_rom_entry = self.add_rom_fields_to_frame(name=self.guistrings["clean_rom"].cget("text"), frame=patcher_create_frame, padding_buttons=0)
         hacked_rom_entry = self.add_rom_fields_to_frame(name=self.guistrings["modded_rom"].cget("text"), frame=patcher_create_frame,
