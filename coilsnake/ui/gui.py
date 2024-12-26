@@ -32,7 +32,7 @@ from coilsnake.ui.widgets import ThreadSafeConsole, CoilSnakeGuiProgressBar
 from coilsnake.util.common.project import PROJECT_FILENAME
 from coilsnake.util.common.assets import asset_path
 
-from coilsnake.lang import LanguageTexts
+from coilsnake.lang import TkLanguageTexts
 
 # Set up logging
 log = logging.getLogger(__name__)
@@ -64,7 +64,7 @@ class CoilSnakeGui(object):
         language_frame = tk.LabelFrame(language_window, text="Select Language")
         language_frame.pack(pady=10, padx=10, fill="both")
 
-        for language in LanguageTexts.available_languages():
+        for language in TkLanguageTexts.available_languages():
             tk.Radiobutton(
                 language_frame,
                 text=language,
@@ -81,7 +81,7 @@ class CoilSnakeGui(object):
             # And if we go with the latter option, we'll need to make language one of the preferences that gets
             # loaded when CoilSnake starts. Which we should do anyway tbh. --livvy
             """
-            self.guistrings = LanguageTexts(selected_language.get())
+            self.guistrings = TkLanguageTexts(self.root, selected_language.get())
             language_window.destroy()
 
 
@@ -488,7 +488,8 @@ class CoilSnakeGui(object):
 
     def create_gui(self):
         self.root = Tk()
-        load_language(self, "English") #replace this with [whatever is in Preferences when we put default language in the preferences stuff]
+        # replace this with [whatever is in Preferences when we put default language in the preferences stuff]
+        self.guistrings = TkLanguageTexts(self.root, "English")
         self.root.wm_title(self.guistrings["coilsnake_name"].cget("text") + information.VERSION)
 
         if platform.system() == "Windows":
