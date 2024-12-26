@@ -179,7 +179,7 @@ class CoilSnakeGui(object):
         # Create a new top-level window for language selection
         language_window = tk.Toplevel(self.root)
         language_window.title("Select Language")
-        language_window.geometry("300x100")
+        language_window.geometry("250x200")
 
         # StringVar to store the selected language
         selected_language = tk.StringVar(value="English")  # Default to English
@@ -193,9 +193,22 @@ class CoilSnakeGui(object):
                 language_frame,
                 text=language,
                 variable=selected_language,
-                value=language,
-                command=lambda: load_language(self, selected_language.get())  # Trigger language change
+                value=language
             ).pack(anchor="w")
+
+        # Function to apply the selected language
+        def apply_language():
+            load_language(self, selected_language.get())
+            language_window.destroy()
+
+
+        # OK Button to confirm selection
+        ok_button = tk.Button(language_window, text="OK", command=apply_language)
+        ok_button.pack(pady=10)
+
+        # Cancel Button to close without applying changes
+        cancel_button = tk.Button(language_window, text="Cancel", command=language_window.destroy)
+        cancel_button.pack(pady=5)
         
 
     def refresh_debug_logging(self):
