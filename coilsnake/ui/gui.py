@@ -49,6 +49,7 @@ LABEL_WIDTH = 20
 # Function to update GUI text based on the selected language
 def update_texts(self, translations):
     missing = "Missing localization string"
+    self.guistrings["coilsnake_name"] = Label(self.root, text=translations.get("coilsnake_name", missing))
     self.guistrings["enable_debug_mode"] = Label(self.root, text=translations.get("enable_debug_mode", missing))
     self.guistrings["disable_debug_mode"] = Label(self.root, text=translations.get("disable_debug_mode", missing))
     self.guistrings["ask_disable_debug"] = Label(self.root, text=translations.get("ask_disable_debug", missing))
@@ -155,6 +156,7 @@ def load_language(self, language):
         with open(file_path, "r", encoding="utf-8") as file:
             translations = json.load(file)
             update_texts(self, translations)
+            
     else:
         print(f"Language file for {language} not found.")
 
@@ -584,9 +586,8 @@ class CoilSnakeGui(object):
 
     def create_gui(self):
         self.root = Tk()
-        self.root.wm_title("CoilSnake " + information.VERSION)
-
-        load_language(self, "Japanese") #replace this with [whatever is in Preferences when we put default language in the preferences stuff]
+        load_language(self, "English") #replace this with [whatever is in Preferences when we put default language in the preferences stuff]
+        self.root.wm_title(self.guistrings["coilsnake_name"].cget("text") + information.VERSION)
 
         if platform.system() == "Windows":
             self.root.tk.call("wm", "iconbitmap", self.root._w, asset_path(["images", "CoilSnake.ico"]))

@@ -23,7 +23,7 @@ if platform.system() == "Darwin":
 setup(
     name="coilsnake",
     version="4.2",
-    description="CoilSnake",
+    description="Thirsty CoilSnake",
     url="https://pk-hack.github.io/CoilSnake",
     packages=find_packages(),
     include_package_data=True,

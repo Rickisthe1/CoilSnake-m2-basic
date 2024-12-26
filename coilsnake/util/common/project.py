@@ -28,7 +28,7 @@ VERSION_NAMES = {
     10: "4.0",
     11: "4.1",
     12: "4.2",
-    1013: "4.2 Mother 2 Prototype",
+    1013: "4.2",
 }
 
 # The default project filename
