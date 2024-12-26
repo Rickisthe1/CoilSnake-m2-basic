@@ -148,6 +148,12 @@ def update_texts(self, translations):
     self.guistrings["edit"] = Label(self.root, text=translations.get("edit", missing))
     self.guistrings["yes"] = Label(self.root, text=translations.get("yes", missing))
     self.guistrings["no"] = Label(self.root, text=translations.get("no", missing))
+    # This updates the list of strings it refers to when it builds the UI.
+    # BUT, it doesn't modify everything after the UI has already built.
+    # We need to either figure out a way to update everything, close the whole window and open it again,
+    # or display a dialog box that tells the user "This won't take effect until you close and re-open CoilSnake"
+    # And if we go with the latter option, we'll need to make language one of the preferences that gets
+    # loaded when CoilSnake starts. Which we should do anyway tbh. --livvy
 
 # Function to load the selected language
 def load_language(self, language):
