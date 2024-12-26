@@ -275,7 +275,7 @@ class CoilSnakeGui(object):
 
         if system_java_exe:
             confirm = tkinter.messagebox.askquestion(
-                self.guistrings["configure_java"].cget("text"),
+                self.guistrings["config_java"].cget("text"),
                 self.guistrings["java_following_loc"].cget("text")
                 + system_java_exe + "\n\n"
                 + self.guistrings["select_yes"].cget("text")
