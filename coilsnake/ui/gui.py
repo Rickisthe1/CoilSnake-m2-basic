@@ -148,6 +148,40 @@ def update_texts(self, translations):
     self.guistrings["edit"] = Label(self.root, text=translations.get("edit", missing))
     self.guistrings["yes"] = Label(self.root, text=translations.get("yes", missing))
     self.guistrings["no"] = Label(self.root, text=translations.get("no", missing))
+
+    self.guistrings["console_proj_already_updated"] = Label(self.root, text=translations.get("console_proj_already_updated", missing))
+    self.guistrings["console_upgrading_version"] = Label(self.root, text=translations.get("console_upgrading_version", missing))
+    self.guistrings["console_upgrading"] = Label(self.root, text=translations.get("console_upgrading", missing))
+    self.guistrings["console_finished_upgrading"] = Label(self.root, text=translations.get("console_finished_upgrading", missing))
+    self.guistrings["console_upgrading_in"] = Label(self.root, text=translations.get("console_upgrading_in", missing))
+    self.guistrings["console_compiling_ccs"] = Label(self.root, text=translations.get("console_compiling_ccs", missing))
+    self.guistrings["console_finished_ccs"] = Label(self.root, text=translations.get("console_finished_ccs", missing))
+    self.guistrings["console_error_outout"] = Label(self.root, text=translations.get("console_error_outout", missing))
+    self.guistrings["console_comp_proj"] = Label(self.root, text=translations.get("console_comp_proj", missing))
+    self.guistrings["console_compiling"] = Label(self.root, text=translations.get("console_compiling", missing))
+    self.guistrings["console_finished_comp"] = Label(self.root, text=translations.get("console_finished_comp", missing))
+    self.guistrings["console_saving_rom"] = Label(self.root, text=translations.get("console_saving_rom", missing))
+    self.guistrings["console_comp_to_finish"] = Label(self.root, text=translations.get("console_comp_to_finish", missing))
+    self.guistrings["console_decomp_rom"] = Label(self.root, text=translations.get("console_decomp_rom", missing))
+    self.guistrings["console_decompiling"] = Label(self.root, text=translations.get("console_decompiling", missing))
+    self.guistrings["console_finish_decomp"] = Label(self.root, text=translations.get("console_finish_decomp", missing))
+    self.guistrings["console_saving_proj"] = Label(self.root, text=translations.get("console_saving_proj", missing))
+    self.guistrings["console_decomp_to"] = Label(self.root, text=translations.get("console_decomp_to", missing))
+    self.guistrings["console_error_decomp_script"] = Label(self.root, text=translations.get("console_error_decomp_script", missing))
+    self.guistrings["console_decomp_script"] = Label(self.root, text=translations.get("console_decomp_script", missing))
+    self.guistrings["console_patching_rom"] = Label(self.root, text=translations.get("console_patching_rom", missing))
+    self.guistrings["console_error_unknown_patch"] = Label(self.root, text=translations.get("console_error_unknown_patch", missing))
+    self.guistrings["console_title_author"] = Label(self.root, text=translations.get("console_title_author", missing))
+    self.guistrings["console_patched_to"] = Label(self.root, text=translations.get("console_patched_to", missing))
+    self.guistrings["console_creating_ebp"] = Label(self.root, text=translations.get("console_creating_ebp", missing))
+    self.guistrings["console_with_desc"] = Label(self.root, text=translations.get("console_with_desc", missing))
+    self.guistrings["console_creating_ips"] = Label(self.root, text=translations.get("console_creating_ips", missing))
+    self.guistrings["console_error_creating_patch"] = Label(self.root, text=translations.get("console_error_creating_patch", missing))
+    self.guistrings["console_patch_success"] = Label(self.root, text=translations.get("console_patch_success", missing))
+    self.guistrings["console_error_compatibility"] = Label(self.root, text=translations.get("console_error_compatibility", missing))
+    self.guistrings["console_error_compatibility_2"] = Label(self.root, text=translations.get("console_error_compatibility_2", missing))
+    self.guistrings["console_error_upgrade_before_op"] = Label(self.root, text=translations.get("console_error_upgrade_before_op", missing))
+    self.guistrings["console_error_rom_type"] = Label(self.root, text=translations.get("console_error_rom_type", missing))
     # This updates the list of strings it refers to when it builds the UI.
     # BUT, it doesn't modify everything after the UI has already built.
     # We need to either figure out a way to update everything, close the whole window and open it again,
@@ -605,7 +639,7 @@ class CoilSnakeGui(object):
 
     def create_gui(self):
         self.root = Tk()
-        load_language(self, "English") #replace this with [whatever is in Preferences when we put default language in the preferences stuff]
+        load_language(self, "Japanese") #replace this with [whatever is in Preferences when we put default language in the preferences stuff]
         self.root.wm_title(self.guistrings["coilsnake_name"].cget("text") + information.VERSION)
 
         if platform.system() == "Windows":
