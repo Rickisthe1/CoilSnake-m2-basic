@@ -11,10 +11,13 @@ if platform.system() != "Windows":
     extra_compile_args = ["-std=c99"]
 
 install_requires = [
-    "Pillow>=3.0.0",
+    # Starting with Pillow 11, prebuilts are not available for Py3.8, which we
+    # use for building the Windows .exe
+    # Require an earlier version.
+    "Pillow>=3.0.0,<11.0.0",
     "PyYAML>=3.11",
     "CCScriptWriter>=1.2",
-    "ccscript>=1.500"
+    "ccscript>=1.501"
 ]
 
 if platform.system() == "Darwin":
@@ -31,7 +34,7 @@ setup(
     install_requires=install_requires,
     dependency_links=[
         "https://github.com/Lyrositor/CCScriptWriter/tarball/master#egg=CCScriptWriter-1.2",
-        "https://github.com/charasyn/ccscript_legacy/archive/refs/tags/v1.500.tar.gz#egg=ccscript-1.500"
+        "https://github.com/charasyn/ccscript_legacy/tarball/m2-beta#egg=ccscript-1.501"
     ],
     ext_modules=[
         Extension(
