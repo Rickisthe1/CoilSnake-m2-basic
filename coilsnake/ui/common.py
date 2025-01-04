@@ -15,7 +15,7 @@ from coilsnake.model.eb.ebp import EbpPatch
 from coilsnake.model.eb.table import ensure_game_schema_is_loaded
 from coilsnake.util.common.project import FORMAT_VERSION, PROJECT_FILENAME, get_version_name
 from coilsnake.exceptions.common.exceptions import CoilSnakeError, CCScriptCompilationError
-from coilsnake.model.common.blocks import Rom, ROM_TYPE_NAME_UNKNOWN, ROM_TYPE_NAME_EARTHBOUND
+from coilsnake.model.common.blocks import Rom, ROM_TYPE_NAME_UNKNOWN, ROM_TYPE_NAME_EARTHBOUND, ROM_TYPE_NAME_MOTHER2
 from coilsnake.ui.formatter import CoilSnakeFormatter
 from coilsnake.util.common.project import Project
 from coilsnake.util.common.assets import open_asset, ccscript_library_path
@@ -129,6 +129,8 @@ def compile_project(project_path, base_rom_filename, output_rom_filename, ccscri
                     "--summary", os.path.join(project_path, "ccscript", "summary.txt"),
                     "-s", ccscript_offset,
                     "-o", output_rom_filename] + script_filenames
+        if project.romtype == ROM_TYPE_NAME_MOTHER2:
+            ccc_args = ['--mother2'] + ccc_args
         ccc_returncode, ccc_log = ccc(ccc_args)
 
         if ccc_returncode == 0:
