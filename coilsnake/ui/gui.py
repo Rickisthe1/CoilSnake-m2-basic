@@ -41,7 +41,6 @@ log = logging.getLogger(__name__)
 BUTTON_WIDTH = 15
 LABEL_WIDTH = 20
 
-
 class CoilSnakeGui(object):
     def __init__(self):
         self.preferences = CoilSnakePreferences()
@@ -488,8 +487,6 @@ class CoilSnakeGui(object):
 
     def create_gui(self):
         self.root = Tk()
-        # replace this with [whatever is in Preferences when we put default language in the preferences stuff]
-        self.guistrings = TkLanguageTexts(self.root, "English")
         self.root.wm_title(self.guistrings["coilsnake_name"].cget("text") + information.VERSION)
 
         if platform.system() == "Windows":
