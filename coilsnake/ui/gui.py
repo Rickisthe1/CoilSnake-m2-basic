@@ -32,14 +32,173 @@ from coilsnake.ui.widgets import ThreadSafeConsole, CoilSnakeGuiProgressBar
 from coilsnake.util.common.project import PROJECT_FILENAME
 from coilsnake.util.common.assets import asset_path
 
-from coilsnake.lang import TkLanguageTexts
 
 # Set up logging
 log = logging.getLogger(__name__)
 
+# Path to language files
+LANGUAGE_FILES = {
+    "English": "coilsnake/lang/en.json",
+    "Japanese": "coilsnake/lang/jp.json",
+}
+
 # Constants for button and label widths
 BUTTON_WIDTH = 15
 LABEL_WIDTH = 20
+
+# Function to update GUI text based on the selected language
+def update_texts(self, translations):
+    missing = "Missing localization string"
+    self.guistrings["coilsnake_name"] = Label(self.root, text=translations.get("coilsnake_name", missing))
+    self.guistrings["enable_debug_mode"] = Label(self.root, text=translations.get("enable_debug_mode", missing))
+    self.guistrings["disable_debug_mode"] = Label(self.root, text=translations.get("disable_debug_mode", missing))
+    self.guistrings["ask_disable_debug"] = Label(self.root, text=translations.get("ask_disable_debug", missing))
+    self.guistrings["ask_enable_debug"] = Label(self.root, text=translations.get("ask_enable_debug", missing))
+    self.guistrings["ask_disable_debug_prompt"] = Label(self.root, text=translations.get("ask_disable_debug_prompt", missing))
+    self.guistrings["ask_enable_debug_prompt"] = Label(self.root, text=translations.get("ask_enable_debug_prompt", missing))
+    self.guistrings["coilsnake_is_running"] = Label(self.root, text=translations.get("coilsnake_is_running", missing))
+    self.guistrings["advanced_users"] = Label(self.root, text=translations.get("advanced_users", missing))
+    self.guistrings["select_emu_exe"] = Label(self.root, text=translations.get("select_emu_exe", missing))
+    self.guistrings["select_an_emu"] = Label(self.root, text=translations.get("select_an_emu", missing))
+    self.guistrings["coilsnake_use_emu"] = Label(self.root, text=translations.get("coilsnake_use_emu", missing))
+    self.guistrings["emu_hint"] = Label(self.root, text=translations.get("emu_hint", missing))
+    self.guistrings["ccscript_offset"] = Label(self.root, text=translations.get("ccscript_offset", missing))
+    self.guistrings["which_ccscript_compile"] = Label(self.root, text=translations.get("which_ccscript_compile", missing))
+    self.guistrings["default_F10000"] = Label(self.root, text=translations.get("default_F10000", missing))
+    self.guistrings["know_what_youre_doing"] = Label(self.root, text=translations.get("know_what_youre_doing", missing))
+    self.guistrings["error"] = Label(self.root, text=translations.get("error", missing))
+    self.guistrings["cant_find_emu"] = Label(self.root, text=translations.get("cant_find_emu", missing))
+    self.guistrings["cant_find_java"] = Label(self.root, text=translations.get("cant_find_java", missing))
+    self.guistrings["cant_patch_rom"] = Label(self.root, text=translations.get("cant_patch_rom", missing))
+    self.guistrings["invalid_format"] = Label(self.root, text=translations.get("invalid_format", missing))
+    self.guistrings["name_exists"] = Label(self.root, text=translations.get("name_exists", missing))
+    self.guistrings["cant_delete_prof"] = Label(self.root, text=translations.get("cant_delete_prof", missing))
+    self.guistrings["not_a_valid_hex"] = Label(self.root, text=translations.get("not_a_valid_hex", missing))
+    self.guistrings["config_java"] = Label(self.root, text=translations.get("config_java", missing))
+    self.guistrings["java_following_loc"] = Label(self.root, text=translations.get("java_following_loc", missing))
+    self.guistrings["select_yes"] = Label(self.root, text=translations.get("select_yes", missing))
+    self.guistrings["select_no"] = Label(self.root, text=translations.get("select_no", missing))
+    self.guistrings["select_the_java_exe"] = Label(self.root, text=translations.get("select_the_java_exe", missing))
+    self.guistrings["java_for_coilsnake"] = Label(self.root, text=translations.get("java_for_coilsnake", missing))
+    self.guistrings["on_windows_info"] = Label(self.root, text=translations.get("on_windows_info", missing))
+    self.guistrings["are_you_sure"] = Label(self.root, text=translations.get("are_you_sure", missing))
+    self.guistrings["ask_upgrade"] = Label(self.root, text=translations.get("ask_upgrade", missing))
+    self.guistrings["ask_upgrade_2"] = Label(self.root, text=translations.get("ask_upgrade_2", missing))
+    self.guistrings["backup_info"] = Label(self.root, text=translations.get("backup_info", missing))
+    self.guistrings["ask_perm_overwrite"] = Label(self.root, text=translations.get("ask_perm_overwrite", missing))
+    self.guistrings["ask_perm_overwrite_2"] = Label(self.root, text=translations.get("ask_perm_overwrite_2", missing))
+    self.guistrings["ask_expand_rom"] = Label(self.root, text=translations.get("ask_expand_rom", missing))
+    self.guistrings["attempt_compile"] = Label(self.root, text=translations.get("attempt_compile", missing))
+    self.guistrings["attempt_compile_2"] = Label(self.root, text=translations.get("attempt_compile_2", missing))
+    self.guistrings["attempt_compile_3"] = Label(self.root, text=translations.get("attempt_compile_3", missing))
+    self.guistrings["ask_expand_base"] = Label(self.root, text=translations.get("ask_expand_base", missing))
+    self.guistrings["ask_expand_base_2"] = Label(self.root, text=translations.get("ask_expand_base_2", missing))
+    self.guistrings["start_comp"] = Label(self.root, text=translations.get("start_comp", missing))
+    self.guistrings["decomp_script_prompt"] = Label(self.root, text=translations.get("decomp_script_prompt", missing))
+    self.guistrings["decomp_script_prompt_2"] = Label(self.root, text=translations.get("decomp_script_prompt_2", missing))
+    self.guistrings["decompile_text"] = Label(self.root, text=translations.get("decompile_text", missing))
+    self.guistrings["compile_text"] = Label(self.root, text=translations.get("compile_text", missing))
+    self.guistrings["upgrade"] = Label(self.root, text=translations.get("upgrade", missing))
+    self.guistrings["decomp_script"] = Label(self.root, text=translations.get("decomp_script", missing))
+    self.guistrings["apply_patch"] = Label(self.root, text=translations.get("apply_patch", missing))
+    self.guistrings["create_patch"] = Label(self.root, text=translations.get("create_patch", missing))
+    self.guistrings["about_coilsnake"] = Label(self.root, text=translations.get("about_coilsnake", missing))
+    self.guistrings["eb_proj_edit"] = Label(self.root, text=translations.get("eb_proj_edit", missing))
+    self.guistrings["expand_to_32"] = Label(self.root, text=translations.get("expand_to_32", missing))
+    self.guistrings["expand_to_48"] = Label(self.root, text=translations.get("expand_to_48", missing))
+    self.guistrings["add_header"] = Label(self.root, text=translations.get("add_header", missing))
+    self.guistrings["remove_header"] = Label(self.root, text=translations.get("remove_header", missing))
+    self.guistrings["tools"] = Label(self.root, text=translations.get("tools", missing))
+    self.guistrings["config_emu"] = Label(self.root, text=translations.get("config_emu", missing))
+    self.guistrings["config_ccscript"] = Label(self.root, text=translations.get("config_ccscript", missing))
+    self.guistrings["settings"] = Label(self.root, text=translations.get("settings", missing))
+    self.guistrings["coilsnake_site"] = Label(self.root, text=translations.get("coilsnake_site", missing))
+    self.guistrings["help_text"] = Label(self.root, text=translations.get("help_text", missing))
+    self.guistrings["decomp_rom_new_proj"] = Label(self.root, text=translations.get("decomp_rom_new_proj", missing))
+    self.guistrings["comp_rom_new_proj"] = Label(self.root, text=translations.get("comp_rom_new_proj", missing))
+    self.guistrings["output_dir"] = Label(self.root, text=translations.get("output_dir", missing))
+    self.guistrings["base_rom"] = Label(self.root, text=translations.get("base_rom", missing))
+    self.guistrings["project"] = Label(self.root, text=translations.get("project", missing))
+    self.guistrings["output_rom"] = Label(self.root, text=translations.get("output_rom", missing))
+    self.guistrings["upgrade_info"] = Label(self.root, text=translations.get("upgrade_info", missing))
+    self.guistrings["clean_rom"] = Label(self.root, text=translations.get("clean_rom", missing))
+    self.guistrings["decomp_rom_script"] = Label(self.root, text=translations.get("decomp_rom_script", missing))
+    self.guistrings["apply_patch_info"] = Label(self.root, text=translations.get("apply_patch_info", missing))
+    self.guistrings["patched_rom"] = Label(self.root, text=translations.get("patched_rom", missing))
+    self.guistrings["patch_rom"] = Label(self.root, text=translations.get("patch_rom", missing))
+    self.guistrings["patch"] = Label(self.root, text=translations.get("patch", missing))
+    self.guistrings["header_ips_only"] = Label(self.root, text=translations.get("header_ips_only", missing))
+    self.guistrings["create_ebp_info"] = Label(self.root, text=translations.get("create_ebp_info", missing))
+    self.guistrings["modded_rom"] = Label(self.root, text=translations.get("modded_rom", missing))
+    self.guistrings["author"] = Label(self.root, text=translations.get("author", missing))
+    self.guistrings["desc"] = Label(self.root, text=translations.get("desc", missing))
+    self.guistrings["title"] = Label(self.root, text=translations.get("title", missing))
+    self.guistrings["ebp_patch"] = Label(self.root, text=translations.get("ebp_patch", missing))
+    self.guistrings["input_ebp"] = Label(self.root, text=translations.get("input_ebp", missing))
+    self.guistrings["ok"] = Label(self.root, text=translations.get("ok", missing))
+    self.guistrings["profile"] = Label(self.root, text=translations.get("profile", missing))
+    self.guistrings["new_prof_name"] = Label(self.root, text=translations.get("new_prof_name", missing))
+    self.guistrings["specify_name"] = Label(self.root, text=translations.get("specify_name", missing))
+    self.guistrings["save"] = Label(self.root, text=translations.get("save", missing))
+    self.guistrings["delete"] = Label(self.root, text=translations.get("delete", missing))
+    self.guistrings["new"] = Label(self.root, text=translations.get("new", missing))
+    self.guistrings["browse"] = Label(self.root, text=translations.get("browse", missing))
+    self.guistrings["run"] = Label(self.root, text=translations.get("run", missing))
+    self.guistrings["open_text"] = Label(self.root, text=translations.get("open_text", missing))
+    self.guistrings["edit"] = Label(self.root, text=translations.get("edit", missing))
+    self.guistrings["yes"] = Label(self.root, text=translations.get("yes", missing))
+    self.guistrings["no"] = Label(self.root, text=translations.get("no", missing))
+
+    self.guistrings["console_proj_already_updated"] = Label(self.root, text=translations.get("console_proj_already_updated", missing))
+    self.guistrings["console_upgrading_version"] = Label(self.root, text=translations.get("console_upgrading_version", missing))
+    self.guistrings["console_upgrading"] = Label(self.root, text=translations.get("console_upgrading", missing))
+    self.guistrings["console_finished_upgrading"] = Label(self.root, text=translations.get("console_finished_upgrading", missing))
+    self.guistrings["console_upgrading_in"] = Label(self.root, text=translations.get("console_upgrading_in", missing))
+    self.guistrings["console_compiling_ccs"] = Label(self.root, text=translations.get("console_compiling_ccs", missing))
+    self.guistrings["console_finished_ccs"] = Label(self.root, text=translations.get("console_finished_ccs", missing))
+    self.guistrings["console_error_outout"] = Label(self.root, text=translations.get("console_error_outout", missing))
+    self.guistrings["console_comp_proj"] = Label(self.root, text=translations.get("console_comp_proj", missing))
+    self.guistrings["console_compiling"] = Label(self.root, text=translations.get("console_compiling", missing))
+    self.guistrings["console_finished_comp"] = Label(self.root, text=translations.get("console_finished_comp", missing))
+    self.guistrings["console_saving_rom"] = Label(self.root, text=translations.get("console_saving_rom", missing))
+    self.guistrings["console_comp_to_finish"] = Label(self.root, text=translations.get("console_comp_to_finish", missing))
+    self.guistrings["console_decomp_rom"] = Label(self.root, text=translations.get("console_decomp_rom", missing))
+    self.guistrings["console_decompiling"] = Label(self.root, text=translations.get("console_decompiling", missing))
+    self.guistrings["console_finish_decomp"] = Label(self.root, text=translations.get("console_finish_decomp", missing))
+    self.guistrings["console_saving_proj"] = Label(self.root, text=translations.get("console_saving_proj", missing))
+    self.guistrings["console_decomp_to"] = Label(self.root, text=translations.get("console_decomp_to", missing))
+    self.guistrings["console_error_decomp_script"] = Label(self.root, text=translations.get("console_error_decomp_script", missing))
+    self.guistrings["console_decomp_script"] = Label(self.root, text=translations.get("console_decomp_script", missing))
+    self.guistrings["console_patching_rom"] = Label(self.root, text=translations.get("console_patching_rom", missing))
+    self.guistrings["console_error_unknown_patch"] = Label(self.root, text=translations.get("console_error_unknown_patch", missing))
+    self.guistrings["console_title_author"] = Label(self.root, text=translations.get("console_title_author", missing))
+    self.guistrings["console_patched_to"] = Label(self.root, text=translations.get("console_patched_to", missing))
+    self.guistrings["console_creating_ebp"] = Label(self.root, text=translations.get("console_creating_ebp", missing))
+    self.guistrings["console_with_desc"] = Label(self.root, text=translations.get("console_with_desc", missing))
+    self.guistrings["console_creating_ips"] = Label(self.root, text=translations.get("console_creating_ips", missing))
+    self.guistrings["console_error_creating_patch"] = Label(self.root, text=translations.get("console_error_creating_patch", missing))
+    self.guistrings["console_patch_success"] = Label(self.root, text=translations.get("console_patch_success", missing))
+    self.guistrings["console_error_compatibility"] = Label(self.root, text=translations.get("console_error_compatibility", missing))
+    self.guistrings["console_error_compatibility_2"] = Label(self.root, text=translations.get("console_error_compatibility_2", missing))
+    self.guistrings["console_error_upgrade_before_op"] = Label(self.root, text=translations.get("console_error_upgrade_before_op", missing))
+    self.guistrings["console_error_rom_type"] = Label(self.root, text=translations.get("console_error_rom_type", missing))
+    # This updates the list of strings it refers to when it builds the UI.
+    # BUT, it doesn't modify everything after the UI has already built.
+    # We need to either figure out a way to update everything, close the whole window and open it again,
+    # or display a dialog box that tells the user "This won't take effect until you close and re-open CoilSnake"
+    # And if we go with the latter option, we'll need to make language one of the preferences that gets
+    # loaded when CoilSnake starts. Which we should do anyway tbh. --livvy
+
+# Function to load the selected language
+def load_language(self, language):
+    file_path = LANGUAGE_FILES.get(language, None)
+    if file_path and os.path.exists(file_path):
+        with open(file_path, "r", encoding="utf-8") as file:
+            translations = json.load(file)
+            update_texts(self, translations)
+            
+    else:
+        print(f"Language file for {language} not found.")
 
 class CoilSnakeGui(object):
     def __init__(self):
@@ -63,7 +222,7 @@ class CoilSnakeGui(object):
         language_frame = tk.LabelFrame(language_window, text="Select Language")
         language_frame.pack(pady=10, padx=10, fill="both")
 
-        for language in TkLanguageTexts.available_languages():
+        for language in LANGUAGE_FILES:
             tk.Radiobutton(
                 language_frame,
                 text=language,
@@ -73,14 +232,7 @@ class CoilSnakeGui(object):
 
         # Function to apply the selected language
         def apply_language():
-            """This updates the list of strings it refers to when it builds the UI.
-            # BUT, it doesn't modify everything after the UI has already built.
-            # We need to either figure out a way to update everything, close the whole window and open it again,
-            # or display a dialog box that tells the user "This won't take effect until you close and re-open CoilSnake"
-            # And if we go with the latter option, we'll need to make language one of the preferences that gets
-            # loaded when CoilSnake starts. Which we should do anyway tbh. --livvy
-            """
-            self.guistrings = TkLanguageTexts(self.root, selected_language.get())
+            load_language(self, selected_language.get())
             language_window.destroy()
 
 
@@ -487,6 +639,7 @@ class CoilSnakeGui(object):
 
     def create_gui(self):
         self.root = Tk()
+        load_language(self, "Japanese") #replace this with [whatever is in Preferences when we put default language in the preferences stuff]
         self.root.wm_title(self.guistrings["coilsnake_name"].cget("text") + information.VERSION)
 
         if platform.system() == "Windows":

@@ -159,7 +159,3 @@ def _stripheader(args):
 
 def _version(args):
     print(coilsnake_about())
-
-
-if __name__ == '__main__':
-    main()
