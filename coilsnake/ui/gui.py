@@ -639,7 +639,7 @@ class CoilSnakeGui(object):
 
     def create_gui(self):
         self.root = Tk()
-        load_language(self, "Japanese") #replace this with [whatever is in Preferences when we put default language in the preferences stuff]
+        load_language(self, "English") #replace this with [whatever is in Preferences when we put default language in the preferences stuff]
         self.root.wm_title(self.guistrings["coilsnake_name"].cget("text") + information.VERSION)
 
         if platform.system() == "Windows":
