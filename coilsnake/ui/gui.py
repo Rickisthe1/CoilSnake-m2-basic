@@ -17,8 +17,6 @@ import webbrowser
 from tkinter import *
 from tkinter.ttk import *
 import platform
-import json
-from collections import defaultdict
 
 import os
 from PIL import ImageTk
@@ -26,7 +24,7 @@ from PIL import ImageTk
 from coilsnake.model.common.blocks import Rom, ROM_TYPE_GROUP_EBM2
 from coilsnake.ui import information, gui_util
 from coilsnake.ui.common import decompile_rom, compile_project, upgrade_project, setup_logging, decompile_script, \
-    patch_rom, create_patch
+    patch_rom, create_patch, TranslationStringManager, LANGUAGE_FILES
 from coilsnake.ui.gui_preferences import CoilSnakePreferences
 from coilsnake.ui.gui_util import browse_for_patch, browse_for_rom, browse_for_project, open_folder, set_entry_text, \
     find_system_java_exe
@@ -35,53 +33,21 @@ from coilsnake.ui.widgets import ThreadSafeConsole, CoilSnakeGuiProgressBar
 from coilsnake.util.common.project import PROJECT_FILENAME
 from coilsnake.util.common.assets import asset_path
 
-
 # Set up logging
 log = logging.getLogger(__name__)
-
-# Path to language files
-LANGUAGE_FILES = {
-    "English": "coilsnake/lang/en.json",
-    "Japanese": "coilsnake/lang/jp.json",
-}
 
 # Constants for button and label widths
 BUTTON_WIDTH = 15
 LABEL_WIDTH = 20
 
-class GuiStringManager:
-    _TRANSLATIONS_LANGUAGE_NOT_LOADED = defaultdict( lambda: "Translation not loaded" )
-
-    @staticmethod
-    def _json_to_translations(json_data):
-        missing = "Missing localization string"
-        return defaultdict(lambda: missing, json_data)
-
-    @classmethod
-    def _load_language(cls, language):
-        file_path = LANGUAGE_FILES.get(language, None)
-        try:
-            with open(file_path, "r", encoding="utf-8") as file:
-                json_data = json.load(file)
-            return cls._json_to_translations(json_data)
-        except:
-            return None
-
+class GuiTranslationStringManager(TranslationStringManager):
     def __init__(self):
+        super().__init__()
         self.callbacks = set()
-        self.translations = self._TRANSLATIONS_LANGUAGE_NOT_LOADED
 
-    def change_language(self, language):
-        translations = self._load_language(language)
-        if not translations:
-            log.error("Unable to load translation file for language '%s'", language)
-            return
-        self.translations = translations
+    def _update_translated_strings(self):
         for cb in self.callbacks:
             cb()
-
-    def get(self, string_name: str) -> str:
-        return self.translations[string_name]
 
     def register_callback(self, cb, invoke=True):
         self.callbacks.add(cb)
@@ -102,7 +68,7 @@ class CoilSnakeGui(object):
         self.preferences.load()
         self.components = []
         self.progress_bar = None
-        self.guistrings = GuiStringManager()
+        self.guistrings = GuiTranslationStringManager()
 
     # Function to open the language selection window
     def open_language_window(self):
