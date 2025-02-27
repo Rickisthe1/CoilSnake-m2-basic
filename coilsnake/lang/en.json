@@ -99,6 +99,7 @@
     "edit": "Edit",
     "yes": "Yes",
     "no": "No",
+    "language_setting": "Language",
     "console_proj_already_updated": "Project is already up to date.",
     "console_upgrading_version": "Upgrading project from version {} to {}",
     "console_upgrading": "Upgrading {}...",
