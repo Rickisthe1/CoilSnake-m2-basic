@@ -736,7 +736,7 @@ class CoilSnakeGui(object):
         debug_mode_index = self.add_menu_item_and_get_index(self.pref_menu, command=self.set_debug_mode)
         self.guistrings.register_callback(lambda: self.pref_menu.entryconfigure(debug_mode_index, label=self.get_debug_mode_command_label()))
         self.pref_menu.add_separator()
-        self.pref_menu.add_command(label="Language", command=self.open_language_window)
+        self.pref_menu.add_command(label="language_setting", command=self.open_language_window)
 
         self.add_translated_menu_cascade(menubar, "settings", self.pref_menu)
 

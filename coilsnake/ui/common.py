@@ -57,10 +57,10 @@ def upgrade_project(project_path, base_rom_filename, progress_bar=None):
     check_if_project_too_new(project)
 
     if project.version == FORMAT_VERSION:
-        log.info("Project is already up to date.")
+        log.info("console_proj_already_updated")
         return
 
-    log.info("Upgrading project from version {} to {}".format(
+    log.info("console_upgrading_version".format(
         get_version_name(project.version),
         get_version_name(FORMAT_VERSION)))
     upgrade_start_time = time.time()
@@ -74,7 +74,7 @@ def upgrade_project(project_path, base_rom_filename, progress_bar=None):
     tick_amount = 1.0/len(compatible_modules)
 
     for module_name, module_class in compatible_modules:
-        log.info("Upgrading {}...".format(module_class.NAME))
+        log.info("console_upgrading".format(module_class.NAME))
         start_time = time.time()
         with module_class() as module:
             module.upgrade_project(project.version, FORMAT_VERSION, rom,
@@ -87,12 +87,12 @@ def upgrade_project(project_path, base_rom_filename, progress_bar=None):
                                    lambda x: project.delete_resource(module_name, x))
             if progress_bar:
                 progress_bar.tick(tick_amount)
-        log.info("Finished upgrading {} in {:.2f}s".format(module_class.NAME, time.time() - start_time))
+        log.info("console_finished_upgrading".format(module_class.NAME, time.time() - start_time))
 
     project.version = FORMAT_VERSION
     project.write(project_filename)
 
-    log.info("Upgraded {} in {:.2f}s".format(project_path, time.time() - upgrade_start_time))
+    log.info("console_upgrading_in".format(project_path, time.time() - upgrade_start_time))
 
 
 def compile_project(project_path, base_rom_filename, output_rom_filename, ccscript_offset, progress_bar=None):
@@ -118,7 +118,7 @@ def compile_project(project_path, base_rom_filename, output_rom_filename, ccscri
                         if x.lower().endswith('.ccs')]
 
     if script_filenames:
-        log.info("Compiling CCScript")
+        log.info("console_compiling_ccs")
         if not ccscript_offset:
             ccscript_offset = "F10000"
         elif type(ccscript_offset) == int:
@@ -134,9 +134,9 @@ def compile_project(project_path, base_rom_filename, output_rom_filename, ccscri
         ccc_returncode, ccc_log = ccc(ccc_args)
 
         if ccc_returncode == 0:
-            log.info("Finished compiling CCScript")
+            log.info("console_finished_ccs")
         else:
-            raise CCScriptCompilationError("CCScript compilation failed with output:\n" + ccc_log)
+            raise CCScriptCompilationError("console_error_outout" + ccc_log)
 
     rom = Rom()
     rom.from_file(output_rom_filename)
@@ -146,7 +146,7 @@ def compile_project(project_path, base_rom_filename, output_rom_filename, ccscri
     compatible_modules = [(name, clazz) for name, clazz in modules if clazz.is_compatible_with_romtype(rom.type)]
     tick_amount = 1.0/(2*len(compatible_modules))
 
-    log.info("Compiling Project {}".format(project_path))
+    log.info("console_comp_proj".format(project_path))
     compile_start_time = time.time()
 
     for module_name, module_class in modules:
@@ -158,7 +158,7 @@ def compile_project(project_path, base_rom_filename, output_rom_filename, ccscri
         if not module_class.is_compatible_with_romtype(rom.type):
             continue
 
-        log.info("Compiling {}...".format(module_class.NAME))
+        log.info("console_compiling".format(module_class.NAME))
         start_time = time.time()
         with module_class() as module:
             module.read_from_project(lambda x, y, astext=False : project.get_resource(module_name, x, y, 'rt' if astext else 'rb', 'utf-8' if astext else None))
@@ -167,12 +167,12 @@ def compile_project(project_path, base_rom_filename, output_rom_filename, ccscri
             module.write_to_rom(rom)
             if progress_bar:
                 progress_bar.tick(tick_amount)
-        log.info("Finished compiling {} in {:.2f}s".format(module_class.NAME, time.time() - start_time))
+        log.info("console_finished_comp".format(module_class.NAME, time.time() - start_time))
 
-    log.debug("Saving ROM")
+    log.debug("console_saving_rom")
     rom.to_file(output_rom_filename)
 
-    log.info("Compiled to {} in {:.2f}s, finished at {}".format(
+    log.info("console_comp_to_finish".format(
         output_rom_filename, time.time() - compile_start_time, datetime.now().strftime('%I:%M:%S %p')))
 
 
@@ -192,14 +192,14 @@ def decompile_rom(rom_filename, project_path, progress_bar=None):
     compatible_modules = [(name, clazz) for name, clazz in modules if clazz.is_compatible_with_romtype(rom.type)]
     tick_amount = 1.0/(2*len(compatible_modules))
 
-    log.info("Decompiling ROM {}".format(rom_filename))
+    log.info("console_decomp_rom".format(rom_filename))
     decompile_start_time = time.time()
 
     for module_name, module_class in compatible_modules:
         if not module_class.is_compatible_with_romtype(rom.type):
             continue
 
-        log.info("Decompiling {}...".format(module_class.NAME))
+        log.info("console_decompiling".format(module_class.NAME))
         start_time = time.time()
         with module_class() as module:
             module.read_from_rom(rom)
@@ -213,12 +213,12 @@ def decompile_rom(rom_filename, project_path, progress_bar=None):
                         '\n' if astext else None))
             if progress_bar:
                 progress_bar.tick(tick_amount)
-        log.info("Finished decompiling {} in {:.2f}s".format(module_class.NAME, time.time() - start_time))
+        log.info("console_finish_decomp".format(module_class.NAME, time.time() - start_time))
 
-    log.debug("Saving Project")
+    log.debug("console_saving_proj")
     project.write(os.path.join(project_path, PROJECT_FILENAME))
 
-    log.info("Decompiled to {} in {:.2f}s".format(project_path, time.time() - decompile_start_time))
+    log.info("console_decomp_to".format(project_path, time.time() - decompile_start_time))
 
 
 def decompile_script(rom_filename, project_path, progress_bar=None):
@@ -241,7 +241,7 @@ def decompile_script(rom_filename, project_path, progress_bar=None):
     rom = Rom()
     rom.from_file(rom_filename)
     if rom.type != ROM_TYPE_NAME_EARTHBOUND:
-        raise CoilSnakeError("Cannot decompile script of a non-Earthbound rom. A {} rom was supplied.".format(
+        raise CoilSnakeError("console_error_decomp_script".format(
             rom.type))
     del rom
 
@@ -256,7 +256,7 @@ def decompile_script(rom_filename, project_path, progress_bar=None):
     except Exception as inst:
         log.exception("Error")
     else:
-        log.info("Decompiled script to {} in {:.2f}s".format(used_path, time.time() - start_time))
+        log.info("console_decomp_script".format(used_path, time.time() - start_time))
     finally:
         rom_file.close()
 
@@ -270,7 +270,7 @@ def patch_rom(clean_rom_filename, patched_rom_filename, patch_filename, headered
     if clean_rom_filename != patched_rom_filename:
         copyfile(clean_rom_filename, patched_rom_filename)
 
-    log.info("Patching ROM {} with patch {}".format(patched_rom_filename, patch_filename))
+    log.info("console_patching_rom".format(patched_rom_filename, patch_filename))
     patching_start_time = time.time()
 
     if patch_filename.endswith(".ips"):
@@ -282,14 +282,14 @@ def patch_rom(clean_rom_filename, patched_rom_filename, patch_filename, headered
         output_rom.from_file(clean_rom_filename)
         patch = EbpPatch()
     else:
-        raise CoilSnakeError("Unknown patch format.")
+        raise CoilSnakeError("console_error_unknown_patch")
 
     # Load the patch and expand the ROM as needed
     add_header = headered and not isinstance(patch, EbpPatch)
     extra = int(add_header)*0x200  # 0x200 if a header will be added, 0 otherwise
     patch.load(patch_filename)
     if isinstance(patch, EbpPatch):
-        log.info("Patch: {title} by {author}".format(**patch.metadata))
+        log.info("console_title_author".format(**patch.metadata))
     if patch.last_offset_used > len(output_rom) + extra:
         if patch.last_offset_used < 0x400000 + extra:
             output_rom.expand(0x400000)
@@ -312,7 +312,7 @@ def patch_rom(clean_rom_filename, patched_rom_filename, patch_filename, headered
         output_rom.size -= 0x200
     output_rom.to_file(patched_rom_filename)
 
-    log.info("Patched to {} in {:.2f}s".format(patched_rom_filename, time.time() - patching_start_time))
+    log.info("console_patched_to".format(patched_rom_filename, time.time() - patching_start_time))
     
 def create_patch(clean_rom, hacked_rom, patch_path, author, description, title, progress_bar=None):
     """Starts creating the patch in its own thread."""
@@ -326,17 +326,17 @@ def create_patch(clean_rom, hacked_rom, patch_path, author, description, title, 
     # Try to create the patch; if it fails, display an error message.
     try:
         if patch_path.endswith(".ebp"):
-            log.info("Creating EBP patch by " + author + " with description \"" + description + "\" called " + title + "...")
+            log.info("console_creating_ebp" + author + "console_with_desc" + description + "console_called" + title + "...")
             patch = EbpPatch()
             patch.create(clean_rom, hacked_rom, patch_path, metadata)
         elif patch_path.endswith(".ips"):
-            log.info("Creating IPS patch...")
+            log.info("console_creating_ips")
             patch = IpsPatch()
             patch.create(clean_rom, hacked_rom, patch_path)
         else:
-            raise CoilSnakeError("Unknown patch format.")
+            raise CoilSnakeError("console_error_unknown_patch")
     except OSError as e:
-        log.info("There was an error creating the patch: " + e)
+        log.info("console_error_creating_patch" + e)
         return
 
     # Display a success message.
@@ -345,7 +345,7 @@ def create_patch(clean_rom, hacked_rom, patch_path, author, description, title, 
         patch_name = patch_path[patch_path.rfind("/") + 1:len(patch_path)]
     else:
         patch_name = patch_path[patch_path.rfind("\\") + 1:len(patch_path)]
-    log.info("The patch {} was successfully created in {:.2f}s.".format(patch_name, time.time() - creating_patch_start_time))
+    log.info("console_patch_success".format(patch_name, time.time() - creating_patch_start_time))
 
 def expand(romfile, ex=False):
     rom = Rom()
@@ -396,15 +396,15 @@ def load_modules():
 
 def check_if_project_too_new(project):
     if project.version > FORMAT_VERSION:
-        raise CoilSnakeError("This project is not compatible with this version of CoilSnake. Please use this project"
-                             + " with a newer version of CoilSnake.")
+        raise CoilSnakeError("console_error_compatibility"
+                             + "console_error_compatibility_2")
 
 
 def check_if_project_too_old(project):
     if project.version < FORMAT_VERSION:
-        raise CoilSnakeError("This project must be upgraded before performing this operation.")
+        raise CoilSnakeError("console_error_upgrade_before_op")
 
 
 def check_if_types_match(project, rom):
     if rom.type != project.romtype:
-        raise CoilSnakeError("Rom type {} does not match Project type {}".format(rom.type, project.romtype))
+        raise CoilSnakeError("console_error_rom_type".format(rom.type, project.romtype))

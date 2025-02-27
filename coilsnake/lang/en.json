@@ -125,6 +125,7 @@
     "console_patched_to": "Patched to {} in {:.2f}s",
     "console_creating_ebp": "Creating EBP patch by ",
     "console_with_desc": " with description \"",
+    "console_called": "\" called ",
     "console_creating_ips": "Creating IPS patch...",
     "console_error_creating_patch": "There was an error creating the patch: ",
     "console_patch_success": "The patch {} was successfully created in {:.2f}s.",
