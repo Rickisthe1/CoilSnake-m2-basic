@@ -24,7 +24,7 @@ from PIL import ImageTk
 from coilsnake.model.common.blocks import Rom, ROM_TYPE_GROUP_EBM2
 from coilsnake.ui import information, gui_util
 from coilsnake.ui.common import decompile_rom, compile_project, upgrade_project, setup_logging, decompile_script, \
-    patch_rom, create_patch, TranslationStringManager, LANGUAGE_FILES
+    patch_rom, create_patch
 from coilsnake.ui.gui_preferences import CoilSnakePreferences
 from coilsnake.ui.gui_util import browse_for_patch, browse_for_rom, browse_for_project, open_folder, set_entry_text, \
     find_system_java_exe
@@ -32,6 +32,8 @@ from coilsnake.ui.information import coilsnake_about
 from coilsnake.ui.widgets import ThreadSafeConsole, CoilSnakeGuiProgressBar
 from coilsnake.util.common.project import PROJECT_FILENAME
 from coilsnake.util.common.assets import asset_path
+
+from coilsnake.ui.language import TranslationStringManager, LANGUAGE_FILES
 
 # Set up logging
 log = logging.getLogger(__name__)
