@@ -66,6 +66,7 @@
     "help_text": "ヘルプ",
     "decomp_rom_new_proj": "ROMをデコンパイルして新しいプロジェクトを作成します。",
     "comp_rom_new_proj": "プロジェクトをコンパイルして新しいROMを作成します。",
+    "rom": "ROM",
     "output_dir": "出力ディレクトリ",
     "base_rom": "ベースROM",
     "project": "プロジェクト",

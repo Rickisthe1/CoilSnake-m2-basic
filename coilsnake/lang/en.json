@@ -66,6 +66,7 @@
     "help_text": "Help",
     "decomp_rom_new_proj": "Decompile a ROM to create a new project.",
     "comp_rom_new_proj": "Compile a project to create a new ROM.",
+    "rom": "ROM",
     "output_dir": "Output Directory",
     "base_rom": "Base ROM",
     "project": "Project",
