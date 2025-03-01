@@ -6,7 +6,6 @@ from shutil import copyfile
 import time
 import sys
 from ccscript import ccc
-from collections import defaultdict
 
 from CCScriptWriter.CCScriptWriter import CCScriptWriter
 
@@ -20,7 +19,7 @@ from coilsnake.model.common.blocks import Rom, ROM_TYPE_NAME_UNKNOWN, ROM_TYPE_N
 from coilsnake.ui.formatter import CoilSnakeFormatter
 from coilsnake.util.common.project import Project
 from coilsnake.util.common.assets import open_asset, ccscript_library_path
-from coilsnake.ui.language import TranslationStringManager, LANGUAGE_FILES, strings
+from coilsnake.ui.language import global_strings as strings
 
 log = logging.getLogger(__name__)
 

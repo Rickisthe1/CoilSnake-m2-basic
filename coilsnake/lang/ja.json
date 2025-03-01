@@ -99,7 +99,7 @@
     "edit": "編集",
     "yes": "はい ",
     "no": "いいえ",
-    "language_setting": "言語",
+    "language_setting": "言語...",
     "console_proj_already_updated": "プロジェクトは既に最新の状態です。",
     "console_upgrading_version": "プロジェクトをバージョン{}から{}にアップグレードしています",
     "console_upgrading": "{}をアップグレード中...",

@@ -5,6 +5,7 @@ import logging
 from coilsnake.ui.common import compile_project, decompile_rom, upgrade_project, decompile_script, create_patch, patch_rom, expand, add_header, strip_header, setup_logging
 from coilsnake.model.common.blocks import Rom
 from coilsnake.ui.information import coilsnake_about
+from coilsnake.ui.language import global_strings
 
 
 logger = logging.getLogger(__name__)
@@ -14,6 +15,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--verbose", help="increase output verbosity", action="store_true")
     parser.add_argument("--quiet", help="silence all output", action="store_true")
+    parser.add_argument("-l", "--language", "--lang", help="select UI language", default="en")
     subparsers = parser.add_subparsers(dest="action")
     subparsers.required = True
 
@@ -80,6 +82,7 @@ def main():
 
     args = parser.parse_args()
 
+    global_strings.change_language(language_name=args.language)
     setup_logging(quiet=args.quiet, verbose=args.verbose)
 
     args.func(args)

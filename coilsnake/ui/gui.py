@@ -33,7 +33,7 @@ from coilsnake.ui.widgets import ThreadSafeConsole, CoilSnakeGuiProgressBar
 from coilsnake.util.common.project import PROJECT_FILENAME
 from coilsnake.util.common.assets import asset_path
 
-from coilsnake.ui.language import TranslationStringManager, LANGUAGE_FILES
+from coilsnake.ui.language import TranslationStringManager, LANGUAGES, global_strings
 
 # Set up logging
 log = logging.getLogger(__name__)
@@ -42,27 +42,26 @@ log = logging.getLogger(__name__)
 BUTTON_WIDTH = 15
 LABEL_WIDTH = 20
 
-class GuiTranslationStringManager(TranslationStringManager):
-    def __init__(self):
-        super().__init__()
-        self.callbacks = set()
+class GuiTranslationHelper:
+    def __init__(self, strings: TranslationStringManager):
+        self.strings = strings
 
-    def _update_translated_strings(self):
-        for cb in self.callbacks:
-            cb()
+    def change_language(self, language=None, language_name=None):
+        return self.strings.change_language(language, language_name)
+
+    def get(self, string_name: str) -> str:
+        return self.strings.get(string_name)
 
     def register_callback(self, cb, invoke=True):
-        self.callbacks.add(cb)
-        if invoke:
-            cb()
+        self.strings.register_callback(cb, invoke)
 
     def register_widget(self, elem: Widget, string_name: str, invoke=True):
         cb = lambda: elem.configure(text=self.get(string_name))
-        self.register_callback(cb, invoke=invoke)
+        self.strings.register_callback(cb, invoke=invoke)
 
     def register_notebook_frame(self, notebook, frame, string_name, invoke=True):
         cb = lambda: notebook.tab(frame, text=self.get(string_name))
-        self.register_callback(cb, invoke=invoke)
+        self.strings.register_callback(cb, invoke=invoke)
 
 class CoilSnakeGui(object):
     def __init__(self):
@@ -70,7 +69,7 @@ class CoilSnakeGui(object):
         self.preferences.load()
         self.components = []
         self.progress_bar = None
-        self.guistrings = GuiTranslationStringManager()
+        self.guistrings = GuiTranslationHelper(global_strings)
 
     # Function to open the language selection window
     def open_language_window(self):
@@ -80,24 +79,24 @@ class CoilSnakeGui(object):
         language_window.geometry("250x200")
 
         # StringVar to store the selected language
-        selected_language = tk.StringVar(value="English")  # Default to English
+        selected_language = tk.StringVar(value="en")  # Default to English
 
         # Frame for language selection
         language_frame = tk.LabelFrame(language_window, text="Select Language")
         language_frame.pack(pady=10, padx=10, fill="both")
 
-        for language in LANGUAGE_FILES:
+        for language in LANGUAGES:
             tk.Radiobutton(
                 language_frame,
-                text=language,
+                text=language.full_name,
                 variable=selected_language,
-                value=language
+                value=language.iso639_1_name
             ).pack(anchor="w")
 
         # Function to apply the selected language
         def apply_language():
             language = selected_language.get()
-            self.guistrings.change_language(language)
+            self.guistrings.change_language(language_name=language)
             language_window.destroy()
 
 
@@ -503,7 +502,7 @@ class CoilSnakeGui(object):
 
     def create_gui(self):
         self.root = Tk()
-        self.guistrings.change_language("English") #replace this with [whatever is in Preferences when we put default language in the preferences stuff]
+        self.guistrings.change_language(language_name="en") #replace this with [whatever is in Preferences when we put default language in the preferences stuff]
         self.guistrings.register_callback(lambda: self.root.wm_title(self.guistrings.get("coilsnake_name") + information.VERSION))
 
         if platform.system() == "Windows":
@@ -704,7 +703,7 @@ class CoilSnakeGui(object):
         debug_mode_index = self.add_menu_item_and_get_index(self.pref_menu, command=self.set_debug_mode)
         self.guistrings.register_callback(lambda: self.pref_menu.entryconfigure(debug_mode_index, label=self.get_debug_mode_command_label()))
         self.pref_menu.add_separator()
-        self.pref_menu.add_command(label="language_setting", command=self.open_language_window)
+        self.add_translated_menu_command(self.pref_menu, "language_setting", self.open_language_window)
 
         self.add_translated_menu_cascade(menubar, "settings", self.pref_menu)
 

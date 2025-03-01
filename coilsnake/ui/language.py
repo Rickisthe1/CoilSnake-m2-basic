@@ -1,19 +1,35 @@
-from datetime import datetime
-import logging
-import os
-import json
-from shutil import copyfile
-import time
-import sys
-from ccscript import ccc
 from collections import defaultdict
+import json
+from dataclasses import dataclass
+from typing import Dict, List, Optional
 
-# Path to language files
-LANGUAGE_FILES = {
-    "English": "coilsnake/lang/en.json",
-    "Japanese": "coilsnake/lang/jp.json",
-}
+@dataclass
+class Language:
+    iso639_1_name: str
+    full_name: str
+    alternative_names: List[str]
 
+    def get_json_path(self) -> str:
+        return f"coilsnake/lang/{self.iso639_1_name}.json"
+
+LANGUAGES: List[Language] = [
+    Language("en", "English", []),
+    Language("ja", "日本語", ["Japanese", "jp"]),
+]
+
+def _build_language_lookup() -> Dict[str, Language]:
+    ret = {}
+    for language in LANGUAGES:
+        for option in (language.iso639_1_name, language.full_name, *language.alternative_names):
+            lookup = option.lower()
+            assert lookup not in ret, "duplicate language name"
+            ret[lookup] = language
+    return ret
+
+_LANGUAGE_LOOKUP = _build_language_lookup()
+
+def get_language_by_string(language_str: str) -> Optional[Language]:
+    return _LANGUAGE_LOOKUP.get(language_str.lower(), None)
 
 class TranslationStringManager:
     _TRANSLATIONS_LANGUAGE_NOT_LOADED = defaultdict( lambda: "Translation not loaded" )
@@ -24,10 +40,9 @@ class TranslationStringManager:
         return defaultdict(lambda: missing, json_data)
 
     @classmethod
-    def _load_language(cls, language):
-        file_path = LANGUAGE_FILES.get(language, None)
+    def _load_language(cls, language: Language):
         try:
-            with open(file_path, "r", encoding="utf-8") as file:
+            with open(language.get_json_path(), "r", encoding="utf-8") as file:
                 json_data = json.load(file)
             return cls._json_to_translations(json_data)
         except:
@@ -35,20 +50,27 @@ class TranslationStringManager:
 
     def __init__(self):
         self.translations = self._TRANSLATIONS_LANGUAGE_NOT_LOADED
+        self.callbacks = set()
 
     def get(self, string_name: str) -> str:
         return self.translations[string_name]
 
-    def change_language(self, language: str) -> None:
+    def change_language(self, language: Language = None, language_name: str = None) -> None:
+        if not language:
+            language = get_language_by_string(language_name)
+        if not language:
+            return False
         translations = self._load_language(language)
         if not translations:
-            log.error("Unable to load translation file for language '%s'", language)
-            return
+            return False
         self.translations = translations
-        self._update_translated_strings()
+        for cb in self.callbacks:
+            cb()
+        return True
 
-    def _update_translated_strings(self) -> None:
-        pass
+    def register_callback(self, cb, invoke=True):
+        self.callbacks.add(cb)
+        if invoke:
+            cb()
 
-strings = TranslationStringManager()
-strings.change_language("Japanese")
+global_strings = TranslationStringManager()
