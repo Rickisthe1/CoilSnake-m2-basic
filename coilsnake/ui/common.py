@@ -20,8 +20,9 @@ from coilsnake.ui.formatter import CoilSnakeFormatter
 from coilsnake.util.common.project import Project
 from coilsnake.util.common.assets import open_asset, ccscript_library_path
 from coilsnake.ui.language import global_strings as strings
+from coilsnake.ui.language import getLogger
 
-log = logging.getLogger(__name__)
+log = getLogger(__name__)
 
 
 
@@ -58,12 +59,12 @@ def upgrade_project(project_path, base_rom_filename, progress_bar=None):
     check_if_project_too_new(project)
 
     if project.version == FORMAT_VERSION:
-        log.info(strings.get("console_proj_already_updated"))
+        log.info_t("console_proj_already_updated")
         return
 
-    log.info(strings.get("console_upgrading_version").format( 
-        get_version_name(project.version),
-        get_version_name(FORMAT_VERSION)))
+    log.info_t("console_upgrading_version",
+        old=get_version_name(project.version),
+        new=get_version_name(FORMAT_VERSION))
     upgrade_start_time = time.time()
 
     rom = Rom()
@@ -193,7 +194,7 @@ def decompile_rom(rom_filename, project_path, progress_bar=None):
     compatible_modules = [(name, clazz) for name, clazz in modules if clazz.is_compatible_with_romtype(rom.type)]
     tick_amount = 1.0/(2*len(compatible_modules))
 
-    log.info(strings.get("console_decomp_rom").format(rom_filename))
+    log.info_t("console_decomp_rom", rom=rom_filename)
     decompile_start_time = time.time()
 
     for module_name, module_class in compatible_modules:
@@ -214,9 +215,9 @@ def decompile_rom(rom_filename, project_path, progress_bar=None):
                         '\n' if astext else None))
             if progress_bar:
                 progress_bar.tick(tick_amount)
-        log.info(strings.get("console_finish_decomp").format(module_class.NAME, time.time() - start_time))
+        log.info_t("console_finish_decomp", class_name=module_class.NAME, duration=time.time() - start_time)
 
-    log.debug(strings.get("console_saving_proj"))
+    log.debug_t("console_saving_proj")
     project.write(os.path.join(project_path, PROJECT_FILENAME))
 
     log.info(strings.get("console_decomp_to").format(project_path, time.time() - decompile_start_time))

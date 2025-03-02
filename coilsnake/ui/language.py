@@ -1,6 +1,7 @@
 from collections import defaultdict
-import json
 from dataclasses import dataclass
+import json
+import logging
 from typing import Dict, List, Optional
 
 @dataclass
@@ -74,3 +75,89 @@ class TranslationStringManager:
             cb()
 
 global_strings = TranslationStringManager()
+
+class TranslatedLogRecord(logging.LogRecord):
+    def getMessage(self):
+        msg = str(self.msg) # see logging cookbook
+        if self.args:
+            args = self.args
+            if isinstance(args, list) and len(args) == 1:
+                args = args[0]
+            assert isinstance(args, dict), "Incorrect use of log.info_t() or similar method"
+            msg = msg.format(**args)
+        return msg
+
+class TranslatedLogger(logging.Logger):
+    def makeRecord(self, name, level, fn, lno, msg, args, exc_info, func = None, extra = None, sinfo = None):
+        assert extra is None, "extra not supported"
+        return TranslatedLogRecord(name, level, fn, lno, msg, args, exc_info, func, sinfo)
+
+    def debug_t(self, msg_string_name: str, **replacements) -> None:
+        'Same as `logger.debug()` but takes the name of a translated string in place of a message.'
+        self.debug(global_strings.get(msg_string_name), replacements)
+    def info_t(self, msg_string_name: str, **replacements) -> None:
+        'Same as `logger.info()` but takes the name of a translated string in place of a message.'
+        self.info(global_strings.get(msg_string_name), replacements)
+    def warn_t(self, msg_string_name: str, **replacements) -> None:
+        'Deprecated - use `warning_t` instead'
+        self.warn(global_strings.get(msg_string_name), replacements)
+    def warning_t(self, msg_string_name: str, **replacements) -> None:
+        'Same as `logger.warning()` but takes the name of a translated string in place of a message.'
+        self.warning(global_strings.get(msg_string_name), replacements)
+    def error_t(self, msg_string_name: str, **replacements) -> None:
+        'Same as `logger.error()` but takes the name of a translated string in place of a message.'
+        self.error(global_strings.get(msg_string_name), replacements)
+
+def getLogger(name: str) -> TranslatedLogger:
+    oldLoggerClass = logging.getLoggerClass()
+    try:
+        logging.setLoggerClass(TranslatedLogger)
+        logger = logging.getLogger(name)
+    finally:
+        logging.setLoggerClass(oldLoggerClass)
+    return logger
+
+'''
+HOW TO USE THE LOGGER FOR EASY TRANSLATED STRINGS:
+
+1. Change the translated strings to use format strings with a field name.
+(https://docs.python.org/3/library/string.html#formatstrings)
+
+In practice, this looks like taking format strings which look like this:
+    "console_finish_decomp": "Finished decompiling {} in {:.2f}s",
+
+... and changing them to this format:
+    "console_finish_decomp": "Finished decompiling {class_name} in {duration:.2f}s",
+
+This assigns names to each element in the format string, so we can refer to them later.
+
+If the string has no fields to be formatted, you don't do anything here.
+
+2. Change the code to use `getLogger()` from language.py instead of logging.
+
+If before we had this:
+    import logging
+    # Set up logging
+    log = logging.getLogger(__name__)
+
+Change to:
+    from coilsnake.ui.language import getLogger
+    # Set up logging
+    log = getLogger(__name__)
+
+3. Change invocations of `log.info` or any other logging method to `log.info_t`
+and use the translated string name (such as "console_finish_decomp") instead of
+getting the string value.
+
+An example would be:
+    # JSON has: "console_finish_decomp": "Finished decompiling {} in {:.2f}s"
+    log.info(strings.get("console_finish_decomp").format(module_class.NAME, time.time() - start_time))
+
+This becomes:
+    # JSON has: "console_finish_decomp": "Finished decompiling {class_name} in {duration:.2f}s"
+    log.info_t("console_finish_decomp", class_name=module_class.NAME, duration=time.time() - start_time)
+
+If the string has no fields to be formatted, you call `log.info_t()` with only the
+string name, and no added arguments.
+    Ex: log.info_t("console_proj_already_updated")
+'''
