@@ -502,7 +502,7 @@ class CoilSnakeGui(object):
 
     def create_gui(self):
         self.root = Tk()
-        self.guistrings.change_language(language_name="en") #replace this with [whatever is in Preferences when we put default language in the preferences stuff]
+        self.guistrings.change_language(language_name="ja") #replace this with [whatever is in Preferences when we put default language in the preferences stuff]
         self.guistrings.register_callback(lambda: self.root.wm_title(self.guistrings.get("coilsnake_name") + information.VERSION))
 
         if platform.system() == "Windows":

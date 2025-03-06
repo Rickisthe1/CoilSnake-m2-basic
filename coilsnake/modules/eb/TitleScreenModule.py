@@ -13,6 +13,8 @@ from coilsnake.util.eb.pointer import (
     from_snes_address, to_snes_address,
     PointerReference, AsmPointerReference, XlPointerReference,
 )
+from coilsnake.ui.language import global_strings as strings
+from coilsnake.ui.language import getLogger
 
 log = logging.getLogger(__name__)
 
@@ -335,8 +337,7 @@ class TitleScreenModule(EbModule):
 
             if self.bg1_tileset != tileset:
                 log.warn(
-                    "Tileset from background frame {} does not match "
-                    "reference.".format(frame)
+                    strings.get("console_warning_tileset_reference").format(frame)
                 )
             if self.bg1_arrangement != arrangement:
                 log.warn(

@@ -10,7 +10,8 @@ from coilsnake.modules.eb.EbModule import EbModule
 from coilsnake.util.common.yml import convert_values_to_hex_repr, yml_load, yml_dump
 from coilsnake.util.eb.helper import is_in_bank, not_in_bank
 from coilsnake.util.eb.pointer import from_snes_address, to_snes_address
-
+from coilsnake.ui.language import global_strings as strings
+from coilsnake.ui.language import getLogger
 
 log = logging.getLogger(__name__)
 
@@ -41,7 +42,7 @@ class TilesetModule(EbModule):
         self.tilesets = [EbTileset() for i in range(20)]
 
     def read_from_rom(self, rom):
-        log.debug("Reading pointer tables")
+        log.debug(strings.get("console_read_pointer_tbls"))
         self.graphics_pointer_table.from_block(rom, from_snes_address(GRAPHICS_POINTER_TABLE_OFFSET))
         self.arrangements_pointer_table.from_block(rom, from_snes_address(ARRANGEMENTS_POINTER_TABLE_OFFSET))
         self.collisions_pointer_table.from_block(rom, from_snes_address(COLLISIONS_POINTER_TABLE_OFFSET))
@@ -49,13 +50,13 @@ class TilesetModule(EbModule):
         self.palette_pointer_table.from_block(rom, from_snes_address(PALETTE_POINTER_TABLE_OFFSET))
 
         for i, tileset in enumerate(self.tilesets):
-            log.debug("Reading tileset #{}".format(i))
+            log.debug(strings.get("console_read_tileset").format(i))
             tileset.minitiles_from_block(rom, from_snes_address(self.graphics_pointer_table[i][0]))
             tileset.arrangements_from_block(rom, from_snes_address(self.arrangements_pointer_table[i][0]))
             tileset.collisions_from_block(rom, from_snes_address(self.collisions_pointer_table[i][0]))
 
         # Read palettes
-        log.debug("Reading palettes")
+        log.debug(strings.get("console_read_pal"))
         for i in range(self.map_tileset_table.num_rows):
             draw_tileset = self.map_tileset_table[i][0]
             # Estimate the number of palettes for this map tileset, assuming that the palettes are stored contiguously
@@ -78,7 +79,7 @@ class TilesetModule(EbModule):
         rom.deallocate((0x180000, 0x18f05d))
         collision_offsets = dict()
         collision_array = array('B', [0] * 16)
-        log.debug("Writing collisions")
+        log.debug(strings.get("console_write_collision"))
         for tileset_id, tileset in enumerate(self.tilesets):
             with Block(len(tileset.collisions) * 2) as collision_table:
                 j = 0
@@ -108,7 +109,7 @@ class TilesetModule(EbModule):
         number_of_palettes = 0
 
         # Write maps/drawing tilesets associations and map tset pals
-        log.debug("Writing palettes")
+        log.debug(strings.get("console_write_pal"))
         for map_tileset_id in range(32):  # For each map tileset
             # Find the drawing tileset number for this map tileset
             for i, tileset in enumerate(self.tilesets):
@@ -147,7 +148,7 @@ class TilesetModule(EbModule):
         self.palette_pointer_table.to_block(block=rom, offset=from_snes_address(PALETTE_POINTER_TABLE_OFFSET))
 
         for tileset_id, tileset in enumerate(self.tilesets):
-            log.debug("Writing tileset #{}".format(tileset_id))
+            log.debug(strings.get("console_write_tileset").format(tileset_id))
             self.graphics_pointer_table[tileset_id] = [to_snes_address(tileset.minitiles_to_block(rom))]
             self.arrangements_pointer_table[tileset_id] = [to_snes_address(tileset.arrangements_to_block(rom))]
 
@@ -163,7 +164,7 @@ class TilesetModule(EbModule):
     def write_to_project(self, resource_open):
         # Dump an additional YML with color0 data
         palette_settings = dict()
-        log.debug("Writing palette settings")
+        log.debug(strings.get("console_write_pal_settings"))
         for i in range(0, 32):  # For each map tileset
             entry = dict()
             tileset = None
@@ -182,17 +183,17 @@ class TilesetModule(EbModule):
 
         # Dump the tilesets
         for i, tileset in enumerate(self.tilesets):
-            log.debug("Writing tileset #{}".format(i))
+            log.debug(strings.get("console_write_tileset_number").format(i))
             with resource_open("Tilesets/" + str(i).zfill(2), "fts", True) as f:
                 tileset.to_file(f)
 
     def read_from_project(self, resource_open):
         for i, tileset in enumerate(self.tilesets):
-            log.debug("Reading tileset #{}".format(i))
+            log.debug(strings.get("console_read_tileset_number").format(i))
             with resource_open("Tilesets/" + str(i).zfill(2), "fts", True) as f:
                 tileset.from_file(f)
 
-        log.debug("Reading palette settings")
+        log.debug(strings.get("console_read_pal_settings"))
         with resource_open("map_palette_settings", "yml", True) as f:
             yml_rep = yml_load(f)
             for map_tileset in yml_rep:

@@ -9,6 +9,8 @@ from coilsnake.exceptions.common.exceptions import \
     CoilSnakeInternalError, InvalidUserDataError, OutOfBoundsError
 from coilsnake.model.common.blocks import Block
 from coilsnake.util.common.yml import yml_load
+from coilsnake.ui.language import global_strings as strings
+from coilsnake.ui.language import getLogger
 
 CONFIG_TXT_FILENAME = "config.txt"
 
@@ -97,7 +99,7 @@ def extract_pack_parts(rom: Block, pack_ptr: int) -> List[Tuple[int, int, Block]
         pack_ptr += length
     # Ensure the bank of the last byte read doesn't exceed the current bank.
     if (pack_ptr - 1) & 0xff0000 > start_bank:
-        raise InvalidUserDataError("Music pack did not end before bank boundary.")
+        raise InvalidUserDataError(strings.get("console_error_music_end_bank"))
     return parts
 
 @lru_cache(20)
@@ -109,7 +111,7 @@ def extract_brr_chunk(brr_start_addr: int, brr_sample_addr: int, brr_block: Bloc
         end += 9
         if brr_header & 1:
             return brr_block[start:end]
-    raise InvalidUserDataError("BRR data at ARAM address ${:04X} is missing a terminator".format(brr_sample_addr))
+    raise InvalidUserDataError(strings.get("console_error_brr_missing_term").format(brr_sample_addr))
 
 def read_hex_or_default_or_overwrite(s: str, default=None, overwrite=None):
     match = re.match("^.*(default|overwrite).*$", s, flags=re.IGNORECASE)
@@ -152,10 +154,10 @@ def parse_config_txt(config_txt: Union[TextIO, str]) -> Tuple[int, int, int, Lis
                 instruments.append(instrument)
                 instrument_files.append(filename)
                 continue
-            raise InvalidUserDataError("Error at line {} in config.txt: expected instrument definition".format(line_num))
+            raise InvalidUserDataError(strings.get("console_error_config_inst_def").format(line_num))
         if instrument_keyword_hit:
             if line != '{':
-                raise InvalidUserDataError("Error at line {} in config.txt: expecting '{{'".format(line_num))
+                raise InvalidUserDataError(strings.get("console_error_config_line").format(line_num))
             in_instruments = True
             continue
         # Handle the header text
@@ -949,7 +951,7 @@ class EngineMusicPack(SongMusicPack):
         engine_bytes = bytearray(engine_block.to_list())
         # Check if the data transfer routine has already been changed
         if engine_bytes[0x26b:0x26e] == b'\x3f\xe1\x0e':
-            log.info("Patching music engine to avoid sample corruption due to echo.")
+            log.info(strings.get("console_warning_music_echo"))
             # Apply patch to disable echo before data transfer
             new_code_addr = len(engine_bytes) + cls.MAIN_PART_ADDR
             engine_bytes[0x26b:0x26e] = b'\x3f' + new_code_addr.to_bytes(2, 'little')
@@ -1026,7 +1028,7 @@ def songs_to_parts(start_addr: int, songs: List[SongWithData]):
     for song in sorted(songs, key=lambda s: s.data_address):
         if song.data_address != song_output_ptr:
             # Relocate song
-            log.debug("Relocating song $%02X to address $%04X", song.song_number, song_output_ptr)
+            log.debug(strings.get("console_relocate_song_to_address"), song.song_number, song_output_ptr)
             new_data = relocate_song_data(song.data_address, song_output_ptr, song.data)
             song.data = new_data
         size = len(song.data)

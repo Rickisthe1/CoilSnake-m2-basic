@@ -133,6 +133,26 @@
     "console_error_compatibility": "This project is not compatible with this version of CoilSnake. Please use this project",
     "console_error_compatibility_2": " with a newer version of CoilSnake.",
     "console_error_upgrade_before_op": "This project must be upgraded before performing this operation.",
-    "console_error_rom_type": "Rom type {} does not match Project type {}"
+    "console_error_rom_type": "Rom type {} does not match Project type {}",
+    "console_warning_music_echo": "Patching music engine to avoid sample corruption due to echo.",
+    "console_error_music_end_bank": "Music pack did not end before bank boundary.",
+    "console_error_brr_missing_term": "BRR data at ARAM address ${:04X} is missing a terminator",
+    "console_error_config_inst_def": "Error at line {} in config.txt: expected instrument definition",
+    "console_error_config_line": "Error at line {} in config.txt: expecting '{{'",
+    "console_warning_tileset_reference": "Tileset from background frame {} does not match reference.",
+    "console_read_pointer_tbls": "Reading pointer tables",
+    "console_read_tileset": "Reading tileset #{}",
+    "console_read_pal": "Reading palettes",
+    "console_write_collision": "Writing collisions",
+    "console_write_pal": "Writing palettes",
+    "console_write_tileset": "Writing tileset #{}",
+    "console_write_pal_settings": "Writing palette settings",
+    "console_write_tileset_number": "Writing tileset #{}",
+    "console_read_tileset_number": "Reading tileset #{}",
+    "console_read_pal_settings": "Reading palette settings",
+    "console_yml_game_unset": "YAML table load function called with game unset - falling back to last loaded (%s)",
+    "console_attempt_game_table": "Attempted to create a table for a game without a YAML file.",
+    "console_relocate_song_to_address": "Relocating song $%02X to address $%04X"
+
   }
 

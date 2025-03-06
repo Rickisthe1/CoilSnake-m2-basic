@@ -15,6 +15,9 @@ from coilsnake.util.eb.helper import is_in_bank
 from coilsnake.util.eb.pointer import from_snes_address, to_snes_address
 from coilsnake.util.eb.text import standard_text_from_block, standard_text_to_block, standard_text_to_byte_list
 
+from coilsnake.ui.language import global_strings as strings
+from coilsnake.ui.language import getLogger
+
 log = logging.getLogger(__name__)
 
 class EbPointerTableEntry(LittleEndianIntegerTableEntry):
@@ -296,9 +299,9 @@ def eb_table_from_offset(offset, single_column=None, matrix_dimensions=None, hid
 
     if not game:
         game = _LAST_GAME
-        log.debug("YAML table load function called with game unset - falling back to last loaded (%s)", _LAST_GAME)
+        log.debug(strings.get("console_yml_game_unset"), _LAST_GAME)
     if not game:
-        raise InvalidArgumentError("Attempted to create a table for a game without a YAML file.")
+        raise InvalidArgumentError(strings.get("console_attempt_game_table"))
     try:
         schema_specification = _SCHEMA_MAPS[game][offset]
     except KeyError:
